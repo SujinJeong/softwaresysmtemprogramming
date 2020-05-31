@@ -12,11 +12,12 @@
     </head>
     <body>
 	    <div align="center">
-	    	<form>
+	    	<h1>Fancy Shop POS System</h1>
+	    	<form method="post" action="main">
 			ID : <input type="text" name="id" />
 			<br /><br />
 	
-			암호 : <input type="password" />
+			PW : <input type="password" name="pw" />
 			<br /><br />
 			
 			<input type="submit" value="로그인" />
