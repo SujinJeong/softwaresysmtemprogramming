@@ -1,6 +1,8 @@
 package com.dongduk.myfancy.domain;
 
-public class Stock_삭제예정 {
+import java.io.Serializable;
+
+public class Stock_삭제예정 implements Serializable {
 
 	private int product_id;
 	private int store_id;

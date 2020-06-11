@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.EmployeeMapper">
+
+  <cache />
+  
+  <select id="getEmployee" resultType="com.dongduk.myfancy.domain.Employee">
+  	SELECT EMPLOYEE.EMP_ID,
+  		STORE.STORE_ID,
+  		EMPLOYEE.EMP_NAME,
+  		EMPLOYEE.ADDRESS,
+  		EMPLOYEE.PHONENUM,
+  		EMPLOYEE.EMAIL,
+  		EMPLOYEE.WORKTIME,
+  		EMPLOYEE.BANKACCOUNT,
+  		EMPLOYEE.SALARY
+  	FROM EMPLOYEE, STORE
+  	WHERE STORE.STORE_ID = #{store_id} AND EMPLOYEE.EMP_ID = #{emp_id}
+  </select>
+  
+  <select id="getEmployeeList" >
+  
+  </select>
+  
+  <insert id="insertEmployee">
+  	INSERT INTO EMPLOYEE
+  		(EMP_ID, STORE_ID, EMP_NAME, ADDRESS, PHONENUM, EMAIL, WORKTIME, BANKACCOUNT, SALARY)
+  	VALUES
+  		(#{emp_id}, #{store_id}, #{emp_name}, #{address}, #{phone_num}, #{email}, #{work_time}, #{bank_account}, #{salary})
+  </insert>
+  
+  <update id="addWorkTime">
+  	UPDATE EMPLOYEE SET
+  		WORKTIME += #{time}
+  	WHERE EMP_ID = #{emp_id}
+  </update>
+  
+  <update id="updateEmployee">
+  	UPDATE EMPLOYEE SET
+  	 EMP_NAME = #{emp_name}
+  	 ADDRESS = #{address}
+  	 PHONENUM = #{phone_num}
+  	 EMAIL = #{email}
+  	 WORKTIME = #{work_time}
+  	 BANKACCOUNT = #{bank_account}
+  	 SALARY = #{salary}
+  	WHERE EMP_ID = #{emp_id}
+  </update>
+  
+  <delete id="removeEmployee">
+  	
+  </delete>
+
+
+</mapper> 

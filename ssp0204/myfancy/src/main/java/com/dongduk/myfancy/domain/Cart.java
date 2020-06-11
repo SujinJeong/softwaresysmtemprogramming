@@ -1,10 +1,11 @@
 package com.dongduk.myfancy.domain;
 
+import java.io.Serializable;
 import java.util.Map;
 
 
-public class Cart {
-	
+public class Cart implements Serializable {
+
 	private Map<Product, Integer> cartList;
 
 	public Cart() {

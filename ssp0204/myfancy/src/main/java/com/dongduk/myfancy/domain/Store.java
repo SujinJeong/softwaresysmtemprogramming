@@ -1,13 +1,27 @@
 package com.dongduk.myfancy.domain;
 
-public class Store {
+import java.io.Serializable;
+
+import org.springframework.beans.factory.annotation.Value;
+
+public class Store implements Serializable {
 
 	private int store_id;
+	private String password;
 	private String store_name;
 	private String address;
 	private String store_num;
 	
 	
+	public Store() {
+		super();
+		// TODO Auto-generated constructor stub
+		store_id = 1000;
+		password = "ssd1000";
+		store_name = "홍대점";
+		address = "홍대역 1번출구";
+		store_num = "02-909-1234";
+	}
 	public int getStore_id() {
 		return store_id;
 	}
@@ -32,4 +46,11 @@ public class Store {
 	public void setStore_num(String store_num) {
 		this.store_num = store_num;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }

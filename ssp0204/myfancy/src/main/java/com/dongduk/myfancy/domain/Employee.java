@@ -1,6 +1,8 @@
 package com.dongduk.myfancy.domain;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
 	
 	private int emp_id;
 	private int store_id;

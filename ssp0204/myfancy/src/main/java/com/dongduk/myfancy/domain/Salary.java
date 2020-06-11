@@ -1,8 +1,10 @@
 package com.dongduk.myfancy.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Salary {
+
+public class Salary implements Serializable {
 	
 	private int salary_id;
 	private int emp_id;
