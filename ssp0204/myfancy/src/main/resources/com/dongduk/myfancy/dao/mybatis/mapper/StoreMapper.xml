@@ -4,28 +4,38 @@
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.StoreMapper">
   <cache />
   
+  <resultMap id="baseResultMap" type="com.dongduk.myfancy.domain.Store">
+  	<id column="store_id" jdbcType="NUMERIC" property="store_id" />
+  	<id column="store_name" jdbcType="VARCHAR" property="store_name" />
+  	<id column="address" jdbcType="VARCHAR" property="address" />
+  	<id column="store_num" jdbcType="VARCHAR" property="store_num" />
+  	<id column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  
   <select id="getStoreName">
   	SELECT STORE_NAME
   	FROM STORE
-  	WHERE STORE_ID = #{store_id}
+  	WHERE STORE_ID = #{param1}
   </select>
   
   <select id="getStoreAddress">
   	SELECT ADDRESS
   	FROM STORE
-  	WHERE STORE_ID = #{store_id}
+  	WHERE STORE_ID = #{param1}
   </select>
   
-  <select id="getStoreByStoreId" resultType="com.dongduk.myfancy.domain.Store">
+  <select id="getStoreByStoreId" resultMap="baseResultMap">
   	SELECT STORE_ID, STORE_NAME, ADDRESS, STORE_NUM, PASSWORD
   	FROM STORE
-  	WHERE STORE_ID = #{store_id}
+  	WHERE STORE_ID = #{param1}
   </select>
   
   <select id="getStoreByStoreIdAndPassword" resultType="com.dongduk.myfancy.domain.Store">
+  	<![CDATA[
   	SELECT STORE_ID, STORE_NAME, ADDRESS, STORE_NUM, PASSWORD
   	FROM STORE
-  	WHERE STORE_ID = #{store_id} AND PASSWORD = #{password}
+  	WHERE STORE_ID = #{param1} AND PASSWORD = #{param2}
+  	]]>
   </select>
 
 </mapper>
