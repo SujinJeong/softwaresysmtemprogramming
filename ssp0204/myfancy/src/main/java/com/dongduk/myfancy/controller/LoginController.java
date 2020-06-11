@@ -40,7 +40,7 @@ public class LoginController {
 			Model model) throws Exception { 
 		Store store = storeService.getStoreByStoreIdAndPassword(id, pw);
 		if (store == null) {
-			return new ModelAndView("Error", "message", 
+			return new ModelAndView("store/error", "message", 
 					"Invalid id or password.  Login failed.");
 		}
 		else {
@@ -48,7 +48,7 @@ public class LoginController {
 			if (forwardAction != null) 
 				return new ModelAndView("redirect:" + forwardAction);
 			else
-				return new ModelAndView("main");
+				return new ModelAndView("store/main");
 		}
 	}
 	

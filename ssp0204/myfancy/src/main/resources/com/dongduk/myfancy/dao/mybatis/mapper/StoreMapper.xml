@@ -4,13 +4,13 @@
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.StoreMapper">
   <cache />
   
-  <resultMap id="baseResultMap" type="com.dongduk.myfancy.domain.Store">
+  <!-- <resultMap id="baseResultMap" type="com.dongduk.myfancy.domain.Store">
   	<id column="store_id" jdbcType="NUMERIC" property="store_id" />
   	<id column="store_name" jdbcType="VARCHAR" property="store_name" />
   	<id column="address" jdbcType="VARCHAR" property="address" />
   	<id column="store_num" jdbcType="VARCHAR" property="store_num" />
   	<id column="password" jdbcType="VARCHAR" property="password" />
-  </resultMap>
+  </resultMap> -->
   
   <select id="getStoreName">
   	SELECT STORE_NAME
@@ -24,7 +24,7 @@
   	WHERE STORE_ID = #{param1}
   </select>
   
-  <select id="getStoreByStoreId" resultMap="baseResultMap">
+  <select id="getStoreByStoreId" resultType="com.dongduk.myfancy.domain.Store">
   	SELECT STORE_ID, STORE_NAME, ADDRESS, STORE_NUM, PASSWORD
   	FROM STORE
   	WHERE STORE_ID = #{param1}
