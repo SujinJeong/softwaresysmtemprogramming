@@ -1,6 +1,8 @@
 package com.dongduk.myfancy.domain;
 
-public class Supplier {
+import java.io.Serializable;
+
+public class Supplier implements Serializable {
 	
 	private int supplier_id;
 	private String supplier_name;

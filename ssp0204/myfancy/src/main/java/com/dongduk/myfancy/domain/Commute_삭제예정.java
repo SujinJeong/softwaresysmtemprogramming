@@ -1,8 +1,9 @@
 package com.dongduk.myfancy.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Commute_삭제예정 {
+public class Commute_삭제예정 implements Serializable {
 	
 	private int commute_id;
 	private int emp_id;
