@@ -7,13 +7,16 @@
   <display-name>MyFancy</display-name>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:spring/application-config.xml</param-value>
+    <param-value>
+    	classpath:spring/application-config.xml
+      	classpath:dataAccessContext-mybatis.xml 
+    </param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <servlet>
-    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-name>myfancy</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
@@ -22,9 +25,18 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-name>myfancy</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <!-- <servlet>
+    <servlet-name>remoting</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>remoting</servlet-name>
+    <url-pattern>*.service</url-pattern>
+  </servlet-mapping> -->
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

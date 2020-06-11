@@ -2,13 +2,14 @@ package com.dongduk.myfancy.domain;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import com.dongduk.myfancy.service.StoreService;
 
-public class Cart {
+public class Cart implements Serializable {
 	private Map<Product, Integer> cartList;
 	private int quantity;	//사용자가 타이핑하는 수량 사용하기 위한 필드
 	

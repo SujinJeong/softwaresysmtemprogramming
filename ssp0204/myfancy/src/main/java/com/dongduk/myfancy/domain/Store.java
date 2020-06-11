@@ -1,8 +1,10 @@
 package com.dongduk.myfancy.domain;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Value;
 
-public class Store {
+public class Store implements Serializable {
 
 	private int store_id;
 	private String password;

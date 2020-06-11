@@ -1,8 +1,9 @@
 package com.dongduk.myfancy.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Sale {
+public class Sale implements Serializable {
 	
 	private int sale_id;
 	private int store_id;

@@ -1,6 +1,8 @@
 package com.dongduk.myfancy.domain;
 
-public class Receive_product {
+import java.io.Serializable;
+
+public class Receive_product implements Serializable {
 	
 	private int send_id;
 	private int product_id;
