@@ -9,6 +9,6 @@ public interface StoreService {
 	String getStoreAddress(int store_id);
 	// 지점 주소
 	Store getStore(int store_id);
-	Store getStore(int store_id, String pw);
+	Store getStoreByStoreIdAndPassword(int store_id, String pw);
 	
 }

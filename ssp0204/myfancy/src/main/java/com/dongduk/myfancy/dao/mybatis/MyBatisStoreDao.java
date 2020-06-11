@@ -33,7 +33,7 @@ public class MyBatisStoreDao implements StoreDao {
 	}
 
 	@Override
-	public Store getStore(int store_id, String pw) throws DataAccessException {
+	public Store getStoreByStoreIdAndPassword(int store_id, String pw) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return storeMapper.getStoreByStoreIdAndPassword(store_id, pw);
 	}
