@@ -1,6 +1,8 @@
 package com.dongduk.myfancy.domain;
 
-public class Payment {
+import java.io.Serializable;
+
+public class Payment implements Serializable {
 
 	private int sale_id;
 	private int payment_code;
