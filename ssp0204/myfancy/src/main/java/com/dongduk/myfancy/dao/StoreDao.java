@@ -11,6 +11,6 @@ public interface StoreDao {
 	String getStoreAddress(int store_id) throws DataAccessException;
 	// 지점 주소
 	Store getStore(int store_id) throws DataAccessException;
-	Store getStore(int store_id, String pw) throws DataAccessException;
+	Store getStoreByStoreIdAndPassword(int store_id, String pw) throws DataAccessException;
 	
 }
