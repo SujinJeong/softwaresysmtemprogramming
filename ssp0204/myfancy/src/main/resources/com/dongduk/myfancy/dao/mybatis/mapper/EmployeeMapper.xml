@@ -16,11 +16,21 @@
   		EMPLOYEE.BANKACCOUNT,
   		EMPLOYEE.SALARY
   	FROM EMPLOYEE, STORE
-  	WHERE STORE.STORE_ID = #{store_id} AND EMPLOYEE.EMP_ID = #{emp_id}
+  	WHERE STORE.STORE_ID = #{param2} AND EMPLOYEE.EMP_ID = #{param1}
   </select>
   
-  <select id="getEmployeeList" >
-  
+  <select id="getEmployeeList" resultType="com.dongduk.myfancy.domain.Employee">
+  	SELECT EMPLOYEE.EMP_ID,
+  		STORE.STORE_ID,
+  		EMPLOYEE.EMP_NAME,
+  		EMPLOYEE.ADDRESS,
+  		EMPLOYEE.PHONENUM,
+  		EMPLOYEE.EMAIL,
+  		EMPLOYEE.WORKTIME,
+  		EMPLOYEE.BANKACCOUNT,
+  		EMPLOYEE.SALARY
+  	FROM EMPLOYEE, STORE
+  	WHERE STORE.STORE_ID = #{param1}
   </select>
   
   <insert id="insertEmployee">
