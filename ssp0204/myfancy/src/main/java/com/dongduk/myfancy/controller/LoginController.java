@@ -56,7 +56,7 @@ public class LoginController {
 			@RequestParam(value="forwardAction", required=false) String forwardAction,
 			Model model) throws Exception { 
 		Store store = storeService.getStoreByStoreIdAndPassword(id, pw);
-		if (store == null || id.toString().equals("") || pw.equals("")) {
+		if (store == null || id.toString() == null || pw == null) {
 			return new ModelAndView("store/error", "message", 
 					"Invalid id or password.  Login failed.");
 		}

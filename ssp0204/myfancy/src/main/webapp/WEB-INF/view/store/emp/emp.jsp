@@ -5,12 +5,17 @@
 <aside id = "header">
 <%@ include file="../header.jsp" %>
 </aside>
-<aside id = "left">
-<%@ include file="../left.jsp" %>
-</aside>
-
-<div align="center">
-	<button type="button" id="employer" name="employer" onclick="location.href('${pageContext.request.contextPath}/store/emp/employer')">관리자</button>
-	<br><br>
-	<button type="button" id="employee" name="employee" onclick="alert('employee')">직원</button>
-</div>
+<table border="0" width="100%">
+	<tr align="center">
+		<td align="center" width="10%">
+			<aside id = "left">
+			<%@ include file="../left.jsp" %>
+			</aside>
+		</td>
+		<td align="center" width="90%">
+			<button type="button" id="employer" name="employer" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer'">관리자</button>
+			<br><br>
+			<button type="button" id="employee" name="employee" onclick="alert('employee')">직원</button>
+		</td>
+	</tr>
+</table>
