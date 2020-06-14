@@ -33,9 +33,9 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public Store getStore(int store_id, String pw) {
+	public Store getStoreByStoreIdAndPassword(int store_id, String pw) {
 		// TODO Auto-generated method stub
-		return storeDao.getStore(store_id, pw);
+		return storeDao.getStoreByStoreIdAndPassword(store_id, pw);
 	}
 
 }

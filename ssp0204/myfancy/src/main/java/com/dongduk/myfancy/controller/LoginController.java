@@ -13,14 +13,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dongduk.myfancy.domain.Store;
 import com.dongduk.myfancy.service.StoreService;
+import com.dongduk.myfancy.service.StoreServiceImpl;
 
 @Controller
 @SessionAttributes("storeSession")
 public class LoginController {
 	
-	private StoreService storeService;
 	@Autowired
-	public void setStore(StoreService storeService) {
+	private StoreServiceImpl storeService;
+	
+	@Autowired
+	public void setStore(StoreServiceImpl storeService) {
 		this.storeService = storeService;
 	}
 	
@@ -35,9 +38,9 @@ public class LoginController {
 			@RequestParam("pw") String pw, 
 			@RequestParam(value="forwardAction", required=false) String forwardAction,
 			Model model) throws Exception { 
-		Store store = storeService.getStore(id, pw);
+		Store store = storeService.getStoreByStoreIdAndPassword(id, pw);
 		if (store == null) {
-			return new ModelAndView("Error", "message", 
+			return new ModelAndView("store/error", "message", 
 					"Invalid id or password.  Login failed.");
 		}
 		else {
@@ -45,7 +48,7 @@ public class LoginController {
 			if (forwardAction != null) 
 				return new ModelAndView("redirect:" + forwardAction);
 			else
-				return new ModelAndView("main");
+				return new ModelAndView("store/main");
 		}
 	}
 	
