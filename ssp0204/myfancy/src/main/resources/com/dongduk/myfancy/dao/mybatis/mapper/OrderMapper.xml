@@ -16,7 +16,7 @@
 	</select>
   
   
-	<select id="getOrderListByStore" resultType="List<Order>">
+	<select id="getOrderListByStore" resultType="Order">
 		<include refid="get_order"/>
 	</select>
 	

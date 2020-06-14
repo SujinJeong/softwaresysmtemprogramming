@@ -4,7 +4,7 @@
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.OrderProductMapper">
   <cache />
  
-	<select id="getOrderProductList" parameterType="int" resultType="List<Order_product>">
+	<select id="getOrderProductList" parameterType="int" resultType="Order_product">
 		SELECT STORE_ID AS "store_id", ORDER_ID AS "order_id"
 		FROM ORDERS, STORE
 		WHERE ORDERS.ORDER_ID=#{order_id} AND STORE.STORE_ID=#{store_id}
