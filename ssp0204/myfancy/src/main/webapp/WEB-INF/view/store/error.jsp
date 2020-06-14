@@ -4,5 +4,5 @@
 <h3><font color="red">Error!</font></h3>
 
 <b><c:out value="${message}" default="No further information was provided."/></b>
-
-<a href="index.jsp">[로그인 페이지로 돌아가기]</a>
+<br><br>
+<a href="index">[로그인 페이지로 돌아가기]</a>
