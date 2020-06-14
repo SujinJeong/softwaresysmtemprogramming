@@ -4,6 +4,27 @@
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.OrderMapper">
 
   <cache />
+  
+  <sql id="get_order">
+  		SELECT ORDER_ID AS "order_id", STORE_ID AS "store_id", ORDER_DATE AS "order_date", AMOUNT AS "amount"
+		FROM ORDERS, STORE
+		WHERE ORDERS.ORDER_ID = #{order_id} AND STORE.STORE_ID = #{store_id}
+  </sql>
+  
+  	<select id="getOrder" parameterType="int" resultType="Order">
+		<include refid="get_order"/>
+	</select>
+  
+  
+	<select id="getOrderListByStore" resultType="List<Order>">
+		<include refid="get_order"/>
+	</select>
+	
+	<insert id="insertOrder" parameterType="com.dongduk.myfancy.domain.Order">
+		INSERT INTO Order (order_id, store_id, order_date, amount)
+		VALUES (#{order_id}, #{store_id}, #{order_date}, #{amount})
+	</insert>
 
-
+	
+	
 </mapper>
