@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.SupplierMapper">
+  <cache />
+  
+  <sql id="get_supplier">
+  		SELECT SUPPLIER_ID, SUPPLIER_NAME, SUPPLIER_NUM, ADDRESS
+		FROM SUPPLIER
+  </sql>
+  
+  	<select id="getSupplier" parameterType="int" resultType="com.dongduk.myfancy.domain.Supplier">
+		<include refid="get_supplier"/>
+		WHERE SUPPLIER.SUPPLIER_ID = #{supplier_id}
+	</select>
+  
+	<select id="getSupplierList" resultType="com.dongduk.myfancy.domain.Supplier">
+		<include refid="get_supplier"/>
+	</select>
+	
+	<select id="getProductListBySupplier" parameterType="int"  resultType="com.dongduk.myfancy.domain.Product">
+		SELECT PRODUCT_ID, CATEGORY_ID, SUPPLIER_ID, PRODUCT_NAME, LIST_PRICE, ORDER_PRICE
+		FROM PRODUCT, SUPPLIER
+		WHERE SUPPLIER.SUPPLIER_ID = #{supplier_id} 
+	</select>
+	
+
+</mapper>

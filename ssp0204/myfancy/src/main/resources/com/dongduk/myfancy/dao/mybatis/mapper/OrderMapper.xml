@@ -2,29 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.OrderMapper">
-
   <cache />
   
   <sql id="get_order">
-  		SELECT ORDER_ID AS "order_id", STORE_ID AS "store_id", ORDER_DATE AS "order_date", AMOUNT AS "amount"
+  <![CDATA[
+  		SELECT ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT
 		FROM ORDERS, STORE
-		WHERE ORDERS.ORDER_ID = #{order_id} AND STORE.STORE_ID = #{store_id}
+		WHERE ORDERS.ORDER_ID = #{param1} AND STORE.STORE_ID = #{param2}
+	]]>
   </sql>
   
-  	<select id="getOrder" parameterType="int" resultType="Order">
+  	<select id="getOrder" parameterType="int" resultType="com.dongduk.myfancy.domain.Order">
 		<include refid="get_order"/>
 	</select>
   
-  
-	<select id="getOrderListByStore" resultType="Order">
+	<select id="getOrderListByStore" resultType="com.dongduk.myfancy.domain.Order">
 		<include refid="get_order"/>
 	</select>
 	
 	<insert id="insertOrder" parameterType="com.dongduk.myfancy.domain.Order">
-		INSERT INTO Order (order_id, store_id, order_date, amount)
+		INSERT INTO ORDERS (ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT)
 		VALUES (#{order_id}, #{store_id}, #{order_date}, #{amount})
 	</insert>
 
-	
-	
 </mapper>
