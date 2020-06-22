@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,7 +50,15 @@ public class EmployeeController {
 		mav.addObject("employeeSalaryList", employeeService.getSalary(store_id));
 		return mav;
 	}
-	
+
+	@RequestMapping("store/emp/employer/remove/{emp_id}")
+	public ModelAndView removeEmp(HttpServletRequest request, @PathVariable int emp_id ) {
+		ModelAndView mav = new ModelAndView("redirect:/store/emp/employer");
+		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
+		int store_id = store.getStore_id();
+		employeeService.removeEmployee(emp_id, store_id);
+		return mav;
+	}
 //	@RequestMapping("/store/emp/commute")
 //	public void 
 

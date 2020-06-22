@@ -1,34 +1,38 @@
 package com.dongduk.myfancy.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.util.WebUtils;
 
 import com.dongduk.myfancy.service.EmployeeFormValidator;
-import com.dongduk.myfancy.service.EmployeeService;
+import com.dongduk.myfancy.service.EmployeeServiceImpl;
 import com.dongduk.myfancy.controller.EmployeeForm;
+import com.dongduk.myfancy.domain.Store;
 
 @Controller
 @RequestMapping({"/store/emp/employer/register","/store/emp/employer/update/{emp_id}"})
 public class EmployeeFormController {
 	
-	@Value("EditAccountForm")
-	private String formViewName;
-	@Value("index")
+	@Value("store/emp/register")
+	private String registerViewName;
+	@Value("store/emp/update")
+	private String updateViewName;
+	@Value("/store/emp/employer")
 	private String successViewName;
 	
+	
 	@Autowired
-	private EmployeeService employeeService;
-	public void setEmployeeService(EmployeeService employeeService) {
+	private EmployeeServiceImpl employeeService;
+	public void setEmployeeService(EmployeeServiceImpl employeeService) {
 		this.employeeService = employeeService;
 	}
 	
@@ -46,7 +50,7 @@ public class EmployeeFormController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String showForm() {
-		return formViewName;
+		return registerViewName;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -55,37 +59,27 @@ public class EmployeeFormController {
 			@ModelAttribute("employeeForm") EmployeeForm employeeForm,
 			BindingResult result) throws Exception {
 
-//		if (request.getParameter("account.listOption") == null) {
-//			accountForm.getAccount().setListOption(false);
-//		}
-//		if (request.getParameter("account.bannerOption") == null) {
-//			accountForm.getAccount().setBannerOption(false);
-//		}
-//		
-//		validator.validate(accountForm, result);
-//		
-//		if (result.hasErrors()) return formViewName;
-//		try {
-//			if (accountForm.isNewAccount()) {
-//				petStore.insertAccount(accountForm.getAccount());
-//			}
-//			else {
-//				petStore.updateAccount(accountForm.getAccount());
-//			}
-//		}
-//		catch (DataIntegrityViolationException ex) {
-//			result.rejectValue("account.username", "USER_ID_ALREADY_EXISTS",
-//					"User ID already exists: choose a different ID.");
-//			return formViewName; 
-//		}
-//		
-//		UserSession userSession = new UserSession(
-//			petStore.getAccount(accountForm.getAccount().getUsername()));
-//		PagedListHolder<Product> myList = new PagedListHolder<Product>(
-//			petStore.getProductListByCategory(accountForm.getAccount().getFavouriteCategoryId()));
-//		myList.setPageSize(4);
-//		userSession.setMyList(myList);
-//		session.setAttribute("userSession", userSession);
-		return successViewName;  
+		final int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
+		
+//		validator.validate(employeeForm, result);
+		
+		if (result.hasErrors()) return registerViewName;
+		try {
+			if (employeeForm.isNewEmployee()) {
+				employeeForm.getEmployee().setStore_id(store_id);
+				employeeService.insertEmployee(employeeForm.getEmployee());
+				return "redirect:" + registerViewName;  
+			}
+			else {
+				employeeService.updateEmployee(store_id, employeeForm.getEmployee());
+				return "redirect:" + updateViewName;  
+			}
+		}
+		catch (DataIntegrityViolationException ex) {
+			result.rejectValue("employee.emp_name", "USER_ID_ALREADY_EXISTS",
+					"User ID already exists: choose a different ID.");
+			return registerViewName; 
+		}
+		
 	}
 }

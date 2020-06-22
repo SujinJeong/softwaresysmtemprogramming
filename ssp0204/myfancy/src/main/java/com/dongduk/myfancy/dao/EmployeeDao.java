@@ -12,7 +12,7 @@ public interface EmployeeDao {
 	// 해당 지점의 모든 직원 리스트
 	Employee getEmployee(int emp_id, int store_id) throws DataAccessException;
 	// 한 명의 직원 정보
-	void insertEmployee(int store_id, Employee employee) throws DataAccessException; 
+	void insertEmployee(Employee employee) throws DataAccessException; 
 	// 직원 등록
 	void updateEmployee(int store_id, Employee employee) throws DataAccessException; 
 	// 직원 정보수정

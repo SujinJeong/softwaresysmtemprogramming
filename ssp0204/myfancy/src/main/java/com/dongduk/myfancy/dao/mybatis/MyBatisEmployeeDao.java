@@ -29,9 +29,9 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 	}
 
 	@Override
-	public void insertEmployee(int store_id, Employee employee) throws DataAccessException {
+	public void insertEmployee(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
-		employeeMapper.insertEmployee(store_id, employee);
+		employeeMapper.insertEmployee(employee);
 	}
 
 	@Override

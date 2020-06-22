@@ -33,11 +33,14 @@
   	WHERE STORE.STORE_ID = #{param1}
   </select>
   
-  <insert id="insertEmployee">
+  <insert id="insertEmployee" parameterType="com.dongduk.myfancy.domain.Employee">
+  	<!-- <selectKey keyProperty="emp_id" resultType="int" order="BEFORE">
+  		SELECT emp_id.nextval FROM DUAL
+  	</selectKey> -->
   	INSERT INTO EMPLOYEE
   		(EMP_ID, STORE_ID, EMP_NAME, ADDRESS, PHONENUM, EMAIL, WORKTIME, BANKACCOUNT, SALARY)
   	VALUES
-  		(#{emp_id}, #{store_id}, #{emp_name}, #{address}, #{phone_num}, #{email}, #{work_time}, #{bank_account}, #{salary})
+  		(emp_seq.nextval, #{store_id}, #{emp_name}, #{address}, #{phonenum}, #{email}, #{worktime}, #{bankaccount}, #{salary})
   </insert>
   
   <update id="addWorkTime">
@@ -59,7 +62,7 @@
   </update>
   
   <delete id="removeEmployee">
-  	
+  	DELETE FROM EMPLOYEE WHERE STORE_ID = #{param2} AND EMP_ID = #{param1}
   </delete>
 
 

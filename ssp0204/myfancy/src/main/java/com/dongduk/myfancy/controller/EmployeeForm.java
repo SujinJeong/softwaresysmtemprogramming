@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.dongduk.myfancy.domain.Employee;
 
-@SuppressWarnings("serial")
 public class EmployeeForm implements Serializable {
 
 	private Employee employee;
