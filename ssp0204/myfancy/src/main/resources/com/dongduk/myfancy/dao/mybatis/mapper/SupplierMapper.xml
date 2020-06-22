@@ -11,7 +11,7 @@
   
   	<select id="getSupplier" parameterType="int" resultType="com.dongduk.myfancy.domain.Supplier">
 		<include refid="get_supplier"/>
-		WHERE SUPPLIER.SUPPLIER_ID = #{supplier_id}
+		WHERE SUPPLIER.SUPPLIER_ID = #{param1}
 	</select>
   
 	<select id="getSupplierList" resultType="com.dongduk.myfancy.domain.Supplier">
@@ -19,9 +19,9 @@
 	</select>
 	
 	<select id="getProductListBySupplier" parameterType="int"  resultType="com.dongduk.myfancy.domain.Product">
-		SELECT PRODUCT_ID, CATEGORY_ID, SUPPLIER_ID, PRODUCT_NAME, LIST_PRICE, ORDER_PRICE
+		SELECT PRODUCT_ID, CATEGORY_ID, PRODUCT.SUPPLIER_ID, PRODUCT_NAME, LIST_PRICE, ORDER_PRICE
 		FROM PRODUCT, SUPPLIER
-		WHERE SUPPLIER.SUPPLIER_ID = #{supplier_id} 
+		WHERE SUPPLIER.SUPPLIER_ID = #{param1} 
 	</select>
 	
 

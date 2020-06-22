@@ -29,18 +29,27 @@ public class ReceiptController {
 	@Autowired
 	SaleService saleService;
 
-	@ModelAttribute("receipt")
+	//@ModelAttribute("receipt")
 	@RequestMapping("/store/receipt")
 	public String receiptForm(HttpServletRequest request, RedirectAttributes redirect, Model model) {
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		redirect.addAttribute("store_id", store.getStore_id());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String date = sdf.format(new java.util.Date());
-		java.sql.Date d = java.sql.Date.valueOf(date); // default : 오늘 날짜,,영수증 조회는 버튼 눌렀을때 
+		Date dd = new java.util.Date();
+		
+		String date = sdf.format(dd);
+		java.sql.Date d = java.sql.Date.valueOf(date); // default : 오늘 날짜(2020-06-18),,영수증 조회는 버튼 눌렀을때 
 		Sale receiptForm = new Sale(); //saleRegist 역할
+		String id = Integer.toString(receiptForm.getSale_id());
+		String dated = dd.toString();
+		//int s = Integer.parseInt(dd);
+		//int ddd = (dated+id)
+		//판매번호 : 날짜 + 아이디
+		//receiptForm.setSale_id(dated+id);
 		receiptForm.setSale_time(d);
-		model.addAttribute("receiptForm", receiptForm);
-		redirect.addAttribute("receiptForm", receiptForm);
+		//System.out.println(d); 2020-06-17
+		model.addAttribute("receipt", receiptForm);
+		//redirect.addAttribute("receiptForm", receiptForm);
 		return "/store/receipt/Receipt"; // 영수증 form 보내줌
 	}
 	

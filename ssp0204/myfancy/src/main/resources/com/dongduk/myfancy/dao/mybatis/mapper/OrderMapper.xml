@@ -6,23 +6,24 @@
   
   <sql id="get_order">
   <![CDATA[
-  		SELECT ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT
+  		SELECT ORDER_ID, ORDERS.STORE_ID, ORDER_DATE, AMOUNT
 		FROM ORDERS, STORE
-		WHERE ORDERS.ORDER_ID = #{param1} AND STORE.STORE_ID = #{param2}
 	]]>
   </sql>
   
   	<select id="getOrder" parameterType="int" resultType="com.dongduk.myfancy.domain.Order">
 		<include refid="get_order"/>
+		WHERE ORDERS.ORDER_ID = #{param1} AND STORE.STORE_ID = #{param2}
 	</select>
   
-	<select id="getOrderListByStore" resultType="com.dongduk.myfancy.domain.Order">
+	<select id="getOrderListByStore" parameterType = "int" resultType="com.dongduk.myfancy.domain.Order">
 		<include refid="get_order"/>
+		WHERE STORE.STORE_ID = #{param1}
 	</select>
 	
-	<insert id="insertOrder" parameterType="com.dongduk.myfancy.domain.Order">
-		INSERT INTO ORDERS (ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT)
-		VALUES (#{order_id}, #{store_id}, #{order_date}, #{amount})
-	</insert>
+<!-- 	<insert id="insertOrder" parameterType="com.dongduk.myfancy.domain.Order"> -->
+<!-- 		INSERT INTO ORDERS (ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT) -->
+<!-- 		VALUES (#{order_id}, #{store_id}, #{order_date}, #{amount}) -->
+<!-- 	</insert> -->
 
 </mapper>

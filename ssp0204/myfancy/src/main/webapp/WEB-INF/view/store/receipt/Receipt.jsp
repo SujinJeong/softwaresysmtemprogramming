@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -53,30 +55,44 @@
 
 </head>
 <body>
+
+<aside id = "header">
+<%@ include file="../header.jsp" %>
+</aside>
+<table border="0" width="100%">
+<tr align = "center">
+<td align = "center" width = "10%">
 <aside id = "left">
 <%@ include file="../left.jsp" %>
 </aside>
+</td>
+<td align = "center" width = "45%">
 <section>
-<form:form modelAttribute="receiptForm" action = "/store/receipt/check">
+<form action = "/store/receipt/check">
 	<input type = "text" name = "date" id = "date1" /> 
 	<input type = "text" name = "date" id = "date2" /> 
-	판매번호 : <form:input path = "${receiptForm.sale_id}"/>
+	판매번호 : <input type="text" value = "${receipt.sale_time}"/>
 	<input type="submit" value="조회"/>
-</form:form>
+</form>
 </section>
+</td>
+<td align = "center" width = "45%">
 <aside id = "right">
 <p align = "center">영수증</p><br>
 <tr><th>상품명</th><th>수량</th><th>금액</th></tr>
-<c:forEach var="cartList" items="${cartList} ">
+<c:forEach var="receipts" items="${receipts} ">
 	<tr>
-		<td>${cartList.product_name}</td>
-		<td>${cartList.quantity}</td>
-		<td>${cartList.order_price} * ${cartList.quantity}</td>
+		<td>${receipts.product_name}</td>
+		<td>${receipts.quantity}</td>
+		<td>${receipts.order_price} * ${receipts.quantity}</td>
 	</tr>
 </c:forEach>
 
 총 금액 : ${order.getAmount()}원<br>
 결제수단 : ${order.getOrder_date()}<br>
 </aside>
+</td>
+</tr>
+</table>
 </body>
 </html>

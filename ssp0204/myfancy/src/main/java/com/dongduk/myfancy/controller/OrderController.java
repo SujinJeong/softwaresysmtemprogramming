@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +31,7 @@ import com.dongduk.myfancy.service.OrderService;
 import com.dongduk.myfancy.service.ProductService;
 import com.dongduk.myfancy.service.SupplierService;
 
-@SessionAttributes("{storeSession, orderProducts}") // order 내부의 session 별도로 또 사용(입력한 값 받아오도록)
+@SessionAttributes("{storeSession, orderProducts, sessionOrderCart}") // order 내부의 session 별도로 또 사용(입력한 값 받아오도록)
 @Controller
 public class OrderController {
 	
@@ -42,24 +44,33 @@ public class OrderController {
 	@Autowired
 	ProductService productService;
 	
+	  //카트 객체 생성 및 세션으로 관리 -> 모든 request에 대해 handler method보다 먼저 호출됨
+	   @ModelAttribute("sessionOrderCart")
+	   public Cart createCart(HttpSession session) {
+	      Cart cart = (Cart)session.getAttribute("sessionOrderCart");
+	      if (cart == null) 
+	    	  cart = new Cart();
+	      return cart;
+	   }
+	   
 	@RequestMapping("/store/order") //main.jsp에서 Order.jsp로 이동
 	public String orderProduct(HttpServletRequest request, Model model, RedirectAttributes redirect) {
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		int store_id = store.getStore_id();
-		Cart cart = new Cart();
+		//Cart cart = new Cart();
 		Order order = new Order();
 		List<Order> orderlist = orderService.getOrderListByStore(store_id);
 		order.setOrder_id(orderlist.size() + 1);
 		order.setStore_id(store_id);
-		List<Supplier> supplierList = supplierService.getSupplierList(); // 거래처 리스트
+		List<Supplier> supplierList = supplierService.getSupplierList();// 거래처 리스트
 		model.addAttribute("supplierList", supplierList);
 		model.addAttribute("order", order);
 		redirect.addAttribute("store_id", store_id);
-		redirect.addAttribute("cart", cart);
+		//redirect.addAttribute("cart", cart); // error
 		return "/store/order/Order"; // 발주 관리 화면
 	}
 	
-	
+
 //	@RequestMapping(method = RequestMethod.POST) // 거래처 선택했을때 controller에 들어와서 해당하는 물품들 다시 뷰에 출력해줌
 //	public String orderProductList(HttpServletRequest request, Model model, RedirectAttributes redirect) {
 //		String selectedSupplier = request.getParameter("supplierList");
@@ -78,31 +89,38 @@ public class OrderController {
 //		return "/store/order/Order";
 //	}
 	
-	@ModelAttribute("orderProducts") // 거래처 선택했을때 url?action확실하게해주기..
-	@RequestMapping("/store/order/selected")
-	//@RequestMapping(method = RequestMethod.POST) // 거래처 선택했을때 controller에 들어와서 해당하는 물품들 다시 뷰에 출력해줌
-	public List<Product> productList(HttpServletRequest request, Model model, RedirectAttributes redirect){
-		String selectedSupplier = request.getParameter("supplierList");
+	//@ModelAttribute("orderProducts") // 거래처 선택했을때 url?action확실하게해주기..
+	@RequestMapping("/store/order/selected/{supplier_name}")
+	// 거래처 선택했을때 controller에 들어와서 해당하는 물품들 다시 뷰에 출력해줌
+	public String productList(HttpServletRequest request, Model model, RedirectAttributes redirect, @PathVariable("supplier_name") String selectedSupplier){ //,  @RequestParam("supplier") String selectedSupplier
+		//String selectedSupplier = request.getParameter("supplierList");
+		//선택된 거래처값 고정되어야함
 		List<Supplier> supplierList = supplierService.getSupplierList();
 		int supplier_id = 0;
 		for(int i = 0; i < supplierList.size(); i++) {
-			if(supplierList.get(i).getSupplier_name().equals(selectedSupplier)) {
+			if(supplierList.get(i).getSupplier_name().equals(selectedSupplier)) { // 선택한 거래처
 				supplier_id = supplierList.get(i).getSupplier_id();
 				break;
 			}
 		}
-		List<Product> productList = supplierService.getProductListBySupplier(supplier_id);	
-		for(int i = 0; i < productList.size(); i++) { 
-			productList.get(i).setQuantity(0);// 수량 0으로 초기화해서 보내
+		//System.out.println(supplier_id); // 1
+		List<Product> orderProducts = supplierService.getProductListBySupplier(supplier_id);	
+		// 거래처의 해당 발주 물품들을 가져오는데 폼으로 활용하기 위해서 일단 수량을 0으로 초기화해서 보냄
+		for(int i = 0; i < orderProducts.size(); i++) { 
+			orderProducts.get(i).setQuantity(0);// 수량 0으로 초기화해서 보내
 		}
 		//redirect.addAttribute("supplier_id",supplier_id);
-		return productList;
+		model.addAttribute("orderProducts", orderProducts);
+		return "store/order/Order";
 		//product 리스트를 객체 리스트로 보내서 그 값을 다시 가져와
 	}
 	
 	@RequestMapping("/store/order/addOrderProducts") // 발주 물품 담기 (cart에 담기)누르는 순간 발주 생성됨
-	public String addOrderProducts(HttpServletRequest request, @ModelAttribute("orderProducts") List<Product> productList, @RequestParam("cart") Cart cart, Model model, RedirectAttributes redirect) {
+	public String addOrderProducts(HttpServletRequest request, @ModelAttribute("orderProducts") List<Product> productList, @ModelAttribute("sessionOrderCart") Cart cart, Model model, RedirectAttributes redirect) {
 		//현재 화면에 해당하는 거래처, 물품 리스트
+//		for(int i = 0; i < productList.size(); i++) { 
+//			System.out.println(productList.get(i).getProduct_name());// 출력안됨
+//		}
 		String selectedSupplier = request.getParameter("supplierList");
 		List<Product> cartList = new ArrayList<Product>();
 		for(int i = 0; i < productList.size(); i++) { // 거래처의 발주 물품들
@@ -111,17 +129,18 @@ public class OrderController {
 				int product_id = productList.get(i).getProduct_id();
 				Product product = productService.getProduct(product_id);
 				cart.addProductForOrder(product, order_product_quantity);
-				cartList.add(product);
+				cartList.add(product);//왜하는거...? -> 카트에 담은 상품의 거래처, 상품명, 수량, 가격을 위하여,,
 			}
 		}
-		model.addAttribute("cartList", cartList);
+		model.addAttribute("cartList", cartList); // 왜험..?
 		model.addAttribute("supplierName", selectedSupplier);
+		//model.addAttribute("cart", cart);
 		redirect.addAttribute("cart", cart); 
-		return "/store/order/Order";
+		return "store/order/Order";
 	}							
 	
 	@RequestMapping("/store/order/requestOrder") // 발주 등록
-	public String requestOrder(@RequestParam("cart") Cart cart, @RequestParam("store_id") int store_id, @RequestParam("order") Order order, Model model){
+	public String requestOrder(@ModelAttribute("sessionOrderCart") Cart cart, @RequestParam("store_id") int store_id, @RequestParam("order") Order order, Model model){
 		int total = 0;Product product = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(new java.util.Date());
