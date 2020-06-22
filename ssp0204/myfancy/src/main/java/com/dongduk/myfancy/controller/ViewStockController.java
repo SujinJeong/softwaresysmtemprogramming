@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.WebUtils;
 
 import com.dongduk.myfancy.domain.Stock;
+import com.dongduk.myfancy.domain.Store;
 import com.dongduk.myfancy.service.StockService;
 
 @Controller
@@ -23,12 +25,11 @@ public class ViewStockController {
 		private StockService stockService;
 
 		@RequestMapping(value = "/stock", method = RequestMethod.GET)
-		public String list(@RequestParam("storeId") int storeid,
-				@ModelAttribute("stock") Stock stock, 
+		public String list(@ModelAttribute("stock") Stock stock, 
 				Model model, HttpSession session, HttpServletRequest request) throws Exception
 		{
-
-			model.addAttribute("stock", stockService.getProductStock(storeid));
+			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
+			model.addAttribute("stock", stockService.getProductStock(store.getStore_id()));
 
 			return "store/stock";
 		}

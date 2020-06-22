@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.ReceiveMapper">
+<cache/>
+
+<select id="getReceive" resultType="com.dongduk.myfancy.domain.Receive">
+  	SELECT SALES_DATE, STORE_ID, SALES_CODE, AMOUNT
+  	FROM SALES, STORE
+  	WHERE STORE_ID = #{param1}
+  </select>
+</mapper>

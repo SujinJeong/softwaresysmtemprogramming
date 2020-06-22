@@ -33,12 +33,12 @@ public class ReceivceController {
 		
 		//입고 list 출력
 		@RequestMapping(value = "/receive", method = RequestMethod.GET)
-		public String getReceive(@RequestParam("storeId") int storeid,
+		public String getReceive(
 				@ModelAttribute("receive") Send send, Model model, 
 				HttpSession session, HttpServletRequest request) throws Exception
 		{	
 			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-			List<Order_product> oProductList = receiveService.getOrderList(storeid);
+			List<Order_product> oProductList = receiveService.getOrderList(store.getStore_id());
 			model.addAttribute("receive", oProductList);
 
 			return "redirect:/store/receive";
@@ -52,10 +52,10 @@ public class ReceivceController {
 		{	
 			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 			List<Receive_product> rProductList = new ArrayList<Receive_product>();
-			List<Order_product> oProductList = receiveService.getOrderList(storeid);
+			List<Order_product> oProductList = receiveService.getOrderList(store.getStore_id());
 			// 입고수량이 0이상인지 확인(0인 경우 아직 배송중) 0 보다 크면 입고목록에 추가
 			if (receive.getReceive_quantity() > 0) {
-				receiveService.insertReceiveQuantity(storeid, rProductList);
+				receiveService.insertReceiveQuantity(store.getStore_id(), rProductList);
 			}
 			if (receive.getLoss_quantity() > 0)
 				receiveService.calLossQuantity(rProductList, oProductList);
@@ -74,9 +74,9 @@ public class ReceivceController {
 			List<Receive_product> rProductList = new ArrayList<Receive_product>();
 			// 차이수량이 나는 제품인 경우만 출력
 			if (receive.getReceive_quantity() > 0 && receive.getLoss_quantity() > 0) {
-				receiveService.insertReceiveQuantity(storeid, rProductList);
+				receiveService.insertReceiveQuantity(store.getStore_id(), rProductList);
 			}
-			model.addAttribute("loss", receiveService.getReceiveList(storeid));
+			model.addAttribute("loss", receiveService.getReceiveList(store.getStore_id()));
 
 			// 재발주 된 뒤 입고관리 페이지로 다시 복귀
 			return "store/receive";
