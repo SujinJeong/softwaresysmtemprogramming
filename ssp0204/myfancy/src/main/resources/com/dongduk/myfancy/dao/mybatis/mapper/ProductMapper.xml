@@ -4,6 +4,23 @@
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.ProductMapper">
 
   <cache />
-
+  
+  <select id="getProductList" resultType="com.dongduk.myfancy.domain.Product">
+	  SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+	  FROM PRODUCT,STORE
+	  WHERE STORE_ID = #{param1}
+  </select>
+  
+   <select id="getProductListByCategory" resultType="com.dongduk.myfancy.domain.Product">
+	   SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+	   FROM PRODUCT,CATEGORY
+	   WHERE CATEGORY_ID = #{param1}
+  </select>
+  
+   <select id="getProduct" resultType="com.dongduk.myfancy.domain.Product">
+ 	   SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+	   FROM PRODUCT
+	   WHERE PRODUCT_ID = #{param1}
+  </select>
 
 </mapper>

@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>메인 메뉴</title>
 </head>
-<body>
-ȯ���մϴ�.
+<body> 
+${storeSession.store_name} 환영합니다.
+<aside id = "header">
+<%@ include file="header.jsp" %>
+</aside>
+<aside id = "left">
+<%@ include file="left.jsp" %>
+</aside>
+
 </body>
 </html>

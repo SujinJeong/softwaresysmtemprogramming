@@ -7,12 +7,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.dongduk.myfancy.service.StoreService;
-
+@SuppressWarnings("serial")
 public class Cart implements Serializable {
 	private Map<Product, Integer> cartList;
 	private int quantity;	//사용자가 타이핑하는 수량 사용하기 위한 필드
 	
+	public Cart() {
+		super();
+		cartList = new HashMap<Product, Integer>();
+	}
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -29,12 +33,9 @@ public class Cart implements Serializable {
 		return cartList;
 	}
 	
-	public Cart() {
-		super();
-	}
-
 	//카트(오른쪽 분활화면)에 소비자가 선택한 상품들 추가
 	public void addProductForSale(Product product) {
+		System.out.println(product.getProduct_id());
 		cartList.put(product, 1);	//처음 수량은 1로 고정
 	}
 	
@@ -44,12 +45,16 @@ public class Cart implements Serializable {
 		cartList.put(product, quantity);
 	}
 	
-	public void checkInStock(Map list) {
-		for (int i = 0; i < list.size(); i++) {
-			 Product p = (Product) list.get(i);
-			  if ( p.getQuantity() < quantity) {
-				  //역할????
-			  }
+	public void checkInStock(Map<Product, Integer> cartList) {
+		Set<Entry<Product,Integer>> set = cartList.entrySet();
+		Iterator<Entry<Product,Integer>> itr = set.iterator();
+		while(itr.hasNext()) {
+			Map.Entry<Product, Integer> e = (Map.Entry<Product, Integer>)itr.next();
+			Product product = e.getKey();
+			quantity = e.getValue();
+			if (product.getQuantity() < quantity) {
+				
+			}
 		}
 	}
 

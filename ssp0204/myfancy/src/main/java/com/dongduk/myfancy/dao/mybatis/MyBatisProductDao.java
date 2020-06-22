@@ -16,7 +16,6 @@ public class MyBatisProductDao implements ProductDao {
 	@Autowired
 	private ProductMapper productMapper;
 	
-	
 	@Override
 	public List<Product> getProductListByCategory(int category_id) throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -34,7 +33,5 @@ public class MyBatisProductDao implements ProductDao {
 		// TODO Auto-generated method stub
 		return productMapper.getProductList(store_id);
 	}
-
-	
 
 }

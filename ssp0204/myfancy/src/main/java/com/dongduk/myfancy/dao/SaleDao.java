@@ -16,5 +16,4 @@ public interface SaleDao {
    	// 판매 정보
    	List<Sale> getSaleList(int store_id, Date date) throws DataAccessException;
    	// 판매 리스트
-
 }
