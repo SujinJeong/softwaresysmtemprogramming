@@ -6,6 +6,13 @@
 <meta charset="UTF-8">
 <title>메인 메뉴</title>
 </head>
+
+<!-- <script>
+function logout() {
+	return logout;
+}
+</script> -->
+
 <body> 
 ${storeSession.store_name} 환영합니다.
 <aside id = "header">

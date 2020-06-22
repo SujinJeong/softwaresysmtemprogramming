@@ -6,21 +6,21 @@
   <cache />
   
   <select id="insertSale">
-	 <!--  SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
-	  FROM PRODUCT,STORE
-	  WHERE STORE_ID = #{param1} -->
+    <!--  SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+     FROM PRODUCT,STORE
+     WHERE STORE_ID = #{param1} -->
   </select>
   
    <select id="getSale" resultType="com.dongduk.myfancy.domain.Sale">
-	<!--    SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
-	   FROM PRODUCT,CATEGORY
-	   WHERE CATEGORY_ID = #{param1} -->
+   <!--    SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+      FROM PRODUCT,CATEGORY
+      WHERE CATEGORY_ID = #{param1} -->
   </select>
   
    <select id="getSaleList" resultType="com.dongduk.myfancy.domain.Sale">
- 	   SELECT SALE_ID,SALE_TIME,TOTALAMOUNT
-	   FROM SALE
-	   WHERE STORE_ID = #{param1} AND SALE_TIME = #{param2}
+      SELECT SALE_ID,SALE_TIME,TOTALAMOUNT
+      FROM SALE
+      WHERE STORE_ID = #{param1} AND SALE_TIME = #{param2}
   </select>
 
 </mapper>

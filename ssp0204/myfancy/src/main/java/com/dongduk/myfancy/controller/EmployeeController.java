@@ -27,23 +27,23 @@ public class EmployeeController {
 		return new EmployeeForm();
 	}
 	
-	@RequestMapping("/store/emp")
+	@RequestMapping("store/emp")
 	public String goEmp() {
-		return "emp";
+		return "store/emp/emp";
 	}
 	
-	@RequestMapping("/store/emp/employer")
+	@RequestMapping("store/emp/employer")
 	public ModelAndView viewEmployeeList(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("employer");
+		ModelAndView mav = new ModelAndView("store/emp/employer");
 //		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 //		int store_id = store.getStore_id();
 		mav.addObject("employeeList", employeeService.getEmployeeList(((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id()));
 		return mav;
 	}
 	
-	@RequestMapping("/store/emp/employer/salary")
+	@RequestMapping("store/emp/employer/salary")
 	public ModelAndView viewSalary(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("salary");
+		ModelAndView mav = new ModelAndView("store/emp/salary");
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 		int store_id = store.getStore_id();
 		mav.addObject("employeeSalaryList", employeeService.getSalary(store_id));
