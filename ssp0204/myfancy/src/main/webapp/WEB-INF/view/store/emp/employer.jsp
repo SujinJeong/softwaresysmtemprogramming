@@ -18,9 +18,12 @@
 		<%@ include file="emp_top.jsp" %>
 		</aside>
 		<br/>
-		<button type="button" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer/register'">등록</button>
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer/register'">직원 등록</button><br/><br/>
+		<form action="${pageContext.request.contextPath}/store/emp/employer/update">
 		직원id : <input id="empId" type="text" name="empId"></input>
-		<button type="button" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer/update'">수정/삭제</button>
+		<%-- <button type="button" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer/update'">수정/삭제</button> --%>
+		<input type="submit" value="수정/삭제" />
+		</form>
 		<br>
 		<table border="0">
 		<c:forEach var="emp" items="${employeeList }">

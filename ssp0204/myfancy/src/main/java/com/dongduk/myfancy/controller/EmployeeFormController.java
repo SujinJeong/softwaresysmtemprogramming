@@ -40,55 +40,63 @@ public class EmployeeFormController {
 	public void setValidator(EmployeeFormValidator validator) {
 		this.validator = validator;
 	}
-		
-	@ModelAttribute("employeeForm")
-	public EmployeeForm employeeForm() 
-			throws Exception {
-		return new EmployeeForm();
-	}
-
+	
 	@RequestMapping(value = "/store/emp/employer/register", method = RequestMethod.GET)
-	public String showFormRegister(@ModelAttribute("employeeForm") EmployeeForm employeeForm) {
+	public ModelAndView showFormRegister() {
 		formViewName = "store/emp/register";
-		employeeForm.setEmployee(new Employee());
-		employeeForm.setNewEmployee(true);
-		return formViewName;
-	}
-
-	@RequestMapping(value = "/store/emp/employer/update/{emp_id}", method = RequestMethod.GET)
-	public ModelAndView showFormUpdate(HttpServletRequest request, @PathVariable int emp_id, @ModelAttribute("employeeForm") EmployeeForm employeeForm) {
-		formViewName = "store/emp/update";
 		ModelAndView mav = new ModelAndView(formViewName);
-		Employee emp = employeeService.getEmployee(emp_id, ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id());
-		employeeForm.setEmployee(emp);
-		employeeForm.setNewEmployee(false);
-		mav.addObject("emp", emp);
+		EmployeeForm employeeForm = new EmployeeForm();
+		mav.addObject("employeeForm", employeeForm);
 		return mav;
 	}
 	
-	@RequestMapping(value = {"/store/emp/employer/register", "/store/emp/employer/update/{emp_id}"}, method = RequestMethod.POST)
-	public String onSubmit(
+	@RequestMapping(value = "/store/emp/employer/update/{emp_id}", method = RequestMethod.GET)
+	public ModelAndView showFormUpdate(HttpServletRequest request, @PathVariable int emp_id) {
+		formViewName = "store/emp/update";
+		ModelAndView mav = new ModelAndView(formViewName);
+		Employee emp = employeeService.getEmployee(emp_id, ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id());
+		EmployeeForm employeeForm = new EmployeeForm(emp);
+		mav.addObject("employeeForm", employeeForm);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/store/emp/employer/register", method = RequestMethod.POST)
+	public String onSubmitRegister(
 			HttpServletRequest request, HttpSession session,
 			@ModelAttribute("employeeForm") EmployeeForm employeeForm,
 			BindingResult result) throws Exception {
 
-		final int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
+		int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
 		
-//		validator.validate(employeeForm, result);
+		validator.validate(employeeForm, result);
 		
 		if (result.hasErrors()) return formViewName;
 		try {
-			if (employeeForm.isNewEmployee()) {
-				employeeForm.getEmployee().setStore_id(store_id);
-				employeeService.insertEmployee(employeeForm.getEmployee());
-			}
-			else {
-				employeeService.updateEmployee(employeeForm.getEmployee());
-			}
+			employeeForm.getEmployee().setStore_id(store_id);
+			employeeService.insertEmployee(employeeForm.getEmployee());
 		}
 		catch (DataIntegrityViolationException ex) {
 			result.rejectValue("employee.emp_name", "USER_ID_ALREADY_EXISTS",
 					"User ID already exists: choose a different ID.");
+			return formViewName; 
+		}
+		return "redirect:" + successViewName;
+		
+	}
+	
+	@RequestMapping(value = "/store/emp/employer/update/{emp_id}", method = RequestMethod.POST)
+	public String onSubmitUpdate(
+			HttpServletRequest request, HttpSession session,
+			@ModelAttribute("employeeForm") EmployeeForm employeeForm,
+			BindingResult result) throws Exception {
+		
+		validator.validate(employeeForm, result);
+		
+		if (result.hasErrors()) return formViewName;
+		try {
+			employeeService.updateEmployee(employeeForm.getEmployee());
+		}
+		catch (DataIntegrityViolationException ex) {
 			return formViewName; 
 		}
 		return "redirect:" + successViewName;

@@ -17,8 +17,8 @@
 		</td>
 		<td align="center" width="90%">
 			<h3>직원 등록</h3>
-			<form:form modelAttribute="employeeForm" method="post">
-				<table border="1" width="300">
+			<form:form modelAttribute="employeeForm" method="post" action="${pageContext.request.contextPath}/store/emp/employer/register">
+				<table border="1" width="500">
 					<tr align="center">
 						<td align="center">
 							<br/>
@@ -42,7 +42,7 @@
 							<form:input path="employee.bankaccount" />
 							<form:errors path="employee.bankaccount" />
 							<br/><br/>
-							<input type="submit" value="등록" onclick="alert('직원등록이 완료되었습니다.')" />
+							<input type="submit" value="등록"  />
 							<br/>
 						</td>
 					</tr>
