@@ -5,6 +5,7 @@ A:link{text-decoration:none;color:black;}
 A:visited{text-decoration:none;color:black;}
 A:hover{text-decoration:none;color:black;}
 </style>
+
 <div align="center">
 <a href="${pageContext.request.contextPath}/main">홈</a><br>
 <a href="${pageContext.request.contextPath}/store/sale/view">상품판매</a><br>
