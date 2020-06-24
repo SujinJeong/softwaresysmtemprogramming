@@ -14,7 +14,7 @@ public interface EmployeeDao {
 	// 한 명의 직원 정보
 	void insertEmployee(Employee employee) throws DataAccessException; 
 	// 직원 등록
-	void updateEmployee(int store_id, Employee employee) throws DataAccessException; 
+	void updateEmployee(Employee employee) throws DataAccessException; 
 	// 직원 정보수정
 	void removeEmployee(int emp_id, int store_id) throws DataAccessException; 
 	// 직원 삭제

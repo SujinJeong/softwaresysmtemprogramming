@@ -49,14 +49,14 @@
   	WHERE EMP_ID = #{emp_id}
   </update>
   
-  <update id="updateEmployee">
+  <update id="updateEmployee" parameterType="com.dongduk.myfancy.domain.Employee">
   	UPDATE EMPLOYEE SET
-  	 EMP_NAME = #{emp_name}
-  	 ADDRESS = #{address}
-  	 PHONENUM = #{phone_num}
-  	 EMAIL = #{email}
-  	 WORKTIME = #{work_time}
-  	 BANKACCOUNT = #{bank_account}
+  	 EMP_NAME = #{emp_name}, 
+  	 ADDRESS = #{address}, 
+  	 PHONENUM = #{phonenum}, 
+  	 EMAIL = #{email}, 
+  	 WORKTIME = #{worktime}, 
+  	 BANKACCOUNT = #{bankaccount}, 
   	 SALARY = #{salary}
   	WHERE EMP_ID = #{emp_id}
   </update>

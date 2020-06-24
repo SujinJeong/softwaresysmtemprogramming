@@ -14,7 +14,7 @@ public interface EmployeeService {
 	// 한 명의 직원 정보
 	void insertEmployee(Employee employee); 
 	// 직원 등록
-	void updateEmployee(int store_id, Employee employee); 
+	void updateEmployee(Employee employee); 
 	// 직원 정보수정
 	void removeEmployee(int emp_id, int store_id); 
 	// 직원 삭제

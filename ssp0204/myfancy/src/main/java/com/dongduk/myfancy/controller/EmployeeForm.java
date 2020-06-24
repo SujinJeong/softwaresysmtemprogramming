@@ -10,14 +10,16 @@ public class EmployeeForm implements Serializable {
 
 	private boolean newEmployee;
 	
-	public EmployeeForm(Employee employee) {
+	public void setEmployee(Employee employee) {
 		this.employee = employee;
-		this.newEmployee = false;
 	}
-	
+
+	public void setNewEmployee(boolean newEmployee) {
+		this.newEmployee = newEmployee;
+	}
+
 	public EmployeeForm() {
-		this.employee = new Employee();
-		this.newEmployee = true;
+		super();
 	}
 	
 	public Employee getEmployee() {

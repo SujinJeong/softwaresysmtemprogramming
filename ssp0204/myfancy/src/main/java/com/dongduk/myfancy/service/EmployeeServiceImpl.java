@@ -40,9 +40,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void updateEmployee(int store_id, Employee employee) {
+	public void updateEmployee(Employee employee) {
 		// TODO Auto-generated method stub
-		employeeDao.updateEmployee(store_id, employee);
+		employeeDao.updateEmployee(employee);
 	}
 
 	@Override
