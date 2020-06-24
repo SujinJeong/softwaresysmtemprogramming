@@ -31,6 +31,7 @@
   		EMPLOYEE.SALARY
   	FROM EMPLOYEE, STORE
   	WHERE STORE.STORE_ID = #{param1}
+  	ORDER BY EMPLOYEE.EMP_ID
   </select>
   
   <insert id="insertEmployee" parameterType="com.dongduk.myfancy.domain.Employee">
