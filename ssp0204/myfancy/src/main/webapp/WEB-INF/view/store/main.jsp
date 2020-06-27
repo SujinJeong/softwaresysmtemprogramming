@@ -14,7 +14,6 @@ function logout() {
 </script> -->
 
 <body> 
-
 <aside id = "header">
 <%@ include file="header.jsp" %>
 </aside>
