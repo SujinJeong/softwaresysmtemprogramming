@@ -47,6 +47,10 @@
 							<form:input path="employee.bankaccount" />
 							<form:errors path="employee.bankaccount" />
 							<br/><br/>
+							<label for="salary">시급</label>: 
+							<form:input path="employee.salary" value="9000"/>
+							<form:errors path="employee.salary" />
+							<br/><br/>
 							<input type="submit" value="등록"  />
 							<br/>
 						</td>

@@ -47,9 +47,17 @@
 							<form:input path="employee.email" value="${employeeForm.employee.email }"/>
 							<form:errors path="employee.email" />
 							<br/><br/>
+							<label for="worktime">근무시간</label>: 
+							<form:input path="employee.worktime" value="${employeeForm.employee.worktime }"/>
+							<form:errors path="employee.worktime" />
+							<br/><br/>
 							<label for="bankaccount">계좌번호</label>: 
 							<form:input path="employee.bankaccount" value="${employeeForm.employee.bankaccount }"/>
 							<form:errors path="employee.bankaccount" />
+							<br/><br/>
+							<label for="salary">시급</label>: 
+							<form:input path="employee.salary" value="${employeeForm.employee.salary }"/>
+							<form:errors path="employee.salary" />
 							<br/><br/>
 							<input type="submit" value="수정하기"  />
 							<input type="button" value="직원삭제" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer/remove/${employeeForm.employee.emp_id }'" />
