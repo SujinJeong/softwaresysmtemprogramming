@@ -18,13 +18,13 @@ public class ProductService {
 	public List<Product> getProductListByCategory(int category_id) throws DataAccessException{
 		return productDao.getProductListByCategory(category_id);
 	}
-	// 카테고리에 해당하는 상품 리스트
+	
 	public Product getProduct(int product_id) throws DataAccessException{
 		return productDao.getProduct(product_id);
 	}
-	// 상품 정보
+
 	public List<Product> getProductList (int store_id) throws DataAccessException{
 		return productDao.getProductList(store_id);
 	}
-	// 지점 내 모든 상품 리스트 
+
 }

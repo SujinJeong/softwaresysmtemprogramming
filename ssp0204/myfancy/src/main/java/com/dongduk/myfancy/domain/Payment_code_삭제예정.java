@@ -7,7 +7,6 @@ public class Payment_code_삭제예정 implements Serializable {
 	private int payment_code;
 	private String payment_name;
 	
-	
 	public int getPayment_code() {
 		return payment_code;
 	}

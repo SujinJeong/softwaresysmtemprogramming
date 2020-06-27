@@ -92,7 +92,8 @@ public class OrderController {
 	//@ModelAttribute("orderProducts") // 거래처 선택했을때 url?action확실하게해주기..
 	@RequestMapping("/store/order/selected/{supplier_name}")
 	// 거래처 선택했을때 controller에 들어와서 해당하는 물품들 다시 뷰에 출력해줌
-	public String productList(HttpServletRequest request, Model model, RedirectAttributes redirect, @PathVariable("supplier_name") String selectedSupplier){ //,  @RequestParam("supplier") String selectedSupplier
+	public String productList(HttpServletRequest request, Model model,
+			@PathVariable("supplier_name") String selectedSupplier, RedirectAttributes redirect){ //,  @RequestParam("supplier") String selectedSupplier
 		//String selectedSupplier = request.getParameter("supplierList");
 		//선택된 거래처값 고정되어야함
 		List<Supplier> supplierList = supplierService.getSupplierList();
@@ -115,8 +116,11 @@ public class OrderController {
 		//product 리스트를 객체 리스트로 보내서 그 값을 다시 가져와
 	}
 	
+	//error발생
 	@RequestMapping("/store/order/addOrderProducts") // 발주 물품 담기 (cart에 담기)누르는 순간 발주 생성됨
-	public String addOrderProducts(HttpServletRequest request, @ModelAttribute("orderProducts") List<Product> productList, @ModelAttribute("sessionOrderCart") Cart cart, Model model, RedirectAttributes redirect) {
+	public String addOrderProducts(HttpServletRequest request, 
+			@ModelAttribute("orderProducts") List<Product> productList, 
+			@ModelAttribute("sessionOrderCart") Cart cart, Model model, RedirectAttributes redirect) {
 		//현재 화면에 해당하는 거래처, 물품 리스트
 //		for(int i = 0; i < productList.size(); i++) { 
 //			System.out.println(productList.get(i).getProduct_name());// 출력안됨
