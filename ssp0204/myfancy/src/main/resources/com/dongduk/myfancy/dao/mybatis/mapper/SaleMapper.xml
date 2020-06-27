@@ -18,9 +18,9 @@
   </select>
   
    <select id="getSaleList" resultType="com.dongduk.myfancy.domain.Sale">
-      SELECT SALE_ID,SALE_TIME,TOTALAMOUNT
+      SELECT SALE_ID, SALE_TIME, TOTALAMOUNT
       FROM SALE
-      WHERE STORE_ID = #{param1} AND SALE_TIME = #{param2}
+      WHERE STORE_ID = #{param1} AND TO_CHAR(SALE_TIME,'YYYY-MM-DD')= TO_CHAR(#{param2}, 'YYYY-MM-DD')
   </select>
 
 </mapper>

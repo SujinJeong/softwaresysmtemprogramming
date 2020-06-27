@@ -41,7 +41,7 @@ public class ReceivceController {
 			List<Order_product> oProductList = receiveService.getOrderList(store.getStore_id());
 			model.addAttribute("receive", oProductList);
 
-			return "redirect:/store/receive";
+			return "/store/receive";
 		}
 		
 		// 입고확인 클릭시

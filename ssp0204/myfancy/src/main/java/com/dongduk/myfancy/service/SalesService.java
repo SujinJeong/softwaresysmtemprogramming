@@ -15,28 +15,39 @@ import com.dongduk.myfancy.domain.Sale;
 public class SalesService {
 	
 	@Autowired
-	private SalesDao salesdao;
-	
-	@Autowired
 	private SaleDao saledao;
 	
 	@SuppressWarnings("deprecation")
 	public List<Integer> getSalesByDay(Date sales_date, int store_id)
 	{
 		List<Integer> dayTotal = new ArrayList<Integer>();
-		for (int day = 1; day < sales_date.getDate(); day++)
-			{
+		Date index_date = new Date();
+		index_date.setDate(sales_date.getDate());
+		index_date.setMonth(sales_date.getMonth());
+		index_date.setYear(sales_date.getYear());
+		index_date.setTime(sales_date.getTime());
+		System.out.println(index_date);
+		
+		for (int day = 1; day <= sales_date.getDate(); day++)
+		{
 				// 그날의 매출 집계
 				int salestotal = 0;
-				sales_date.setDate(day);
-				List<Sale> list = saledao.getSaleList(store_id, sales_date);
+				System.out.println(sales_date.getDate());
+				index_date.setDate(day);
+				System.out.println(index_date.getDate());
+				System.out.println(sales_date.getDate());
 				
+				List<Sale> list = saledao.getSaleList(store_id, index_date);
 				for (int i= 0; i < list.size(); i++)
 				{
+					System.out.println("get in for");
 					salestotal += list.get(i).getTotalamount();
-					dayTotal.add(salestotal);
+					System.out.println("total amount");
+					System.out.println(list.get(i).getTotalamount());
 				}
-			}
+				System.out.println(salestotal);
+				dayTotal.add(salestotal);
+		}
 			
 		return dayTotal;
 	}
@@ -63,10 +74,13 @@ public class SalesService {
 	public int getSalesByMonth(Date sales_date, int store_id)
 	{
 		int salesTotal = 0;
-		for (int day = 1; day < this.getSalesByDay(sales_date, store_id).size(); day++)
+		List<Integer> list = this.getSalesByDay(sales_date, store_id);
+		for (int index = 0; index < list.size(); index++)
 		{
-			salesTotal += this.getSalesByDay(sales_date, store_id).get(day-1);
+			salesTotal += list.get(index);
 		}
+		System.out.println(salesTotal);
+		
 		return salesTotal;
 	}
 }

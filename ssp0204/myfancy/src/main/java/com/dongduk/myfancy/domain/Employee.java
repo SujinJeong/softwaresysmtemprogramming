@@ -14,7 +14,17 @@ public class Employee implements Serializable {
 	private String bankaccount;
 	private int salary; //시급
 	
+	public Employee(int emp_id, int store_id) {
+		super();
+		this.emp_id = emp_id;
+		this.store_id = store_id;
+	}
 	
+	public Employee() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
 	public int getEmp_id() {
 		return emp_id;
 	}

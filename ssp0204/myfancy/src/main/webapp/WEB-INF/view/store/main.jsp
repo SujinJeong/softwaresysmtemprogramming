@@ -14,7 +14,6 @@ function logout() {
 </script> -->
 
 <body> 
-${storeSession.store_name} 환영합니다.
 <aside id = "header">
 <%@ include file="header.jsp" %>
 </aside>

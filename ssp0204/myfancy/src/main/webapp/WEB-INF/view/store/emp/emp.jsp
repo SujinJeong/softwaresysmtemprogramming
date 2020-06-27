@@ -13,6 +13,8 @@
 			</aside>
 		</td>
 		<td align="center" width="90%">
+			관리자 비밀번호 or 직원 아이디 : <input type="text" name="search" />
+			<br><br>
 			<button type="button" id="employer" name="employer" onclick="location.href='${pageContext.request.contextPath}/store/emp/employer'">관리자</button>
 			<br><br>
 			<button type="button" id="employee" name="employee" onclick="alert('employee')">직원</button>
