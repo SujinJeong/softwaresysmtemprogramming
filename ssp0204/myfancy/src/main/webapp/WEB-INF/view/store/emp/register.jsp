@@ -16,6 +16,11 @@
 			</aside>
 		</td>
 		<td align="center" width="90%">
+			<br/>
+	         <aside id = "emp_top">
+			<%@ include file="emp_top.jsp" %>
+			</aside>
+			<br/>
 			<h3>직원 등록</h3>
 			<form:form modelAttribute="employeeForm" method="post" action="${pageContext.request.contextPath}/store/emp/employer/register">
 				<table border="1" width="500">
