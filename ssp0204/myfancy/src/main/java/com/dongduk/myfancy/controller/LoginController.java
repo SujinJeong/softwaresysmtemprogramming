@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.dongduk.myfancy.domain.Cart;
 import com.dongduk.myfancy.domain.Store;
 import com.dongduk.myfancy.service.StoreService;
 import com.dongduk.myfancy.service.StoreServiceImpl;
@@ -71,8 +72,11 @@ public class LoginController {
 	}
 
 	@RequestMapping("logout")
-	public String logout(@ModelAttribute("storeSession") Store store, SessionStatus status, Model model) {
+	public String logout(@ModelAttribute("storeSession") Store store, SessionStatus status, 
+			HttpServletRequest request, Model model) {
 		status.setComplete();
+		Cart cart = (Cart)WebUtils.getSessionAttribute(request, "sessionSaleCart");
+		cart.removeSale();	//cart내 물품 삭제
 		return "index";
 	}
 

@@ -70,4 +70,12 @@ public class Cart implements Serializable {
 		return subTotal;
 	}
 
+	//cart내 물품들 삭제
+	public void removeSale() {
+		cartList = getCartList();
+		cartList.clear();
+		boolean isEmpty = cartList.isEmpty();
+		System.out.println("cart내 물품삭제 : " + isEmpty);	
+	}
+
 }
