@@ -31,9 +31,11 @@
   </select>
   
   <select id="getStoreByStoreIdAndPassword" resultType="com.dongduk.myfancy.domain.Store">
+  	<![CDATA[
   	SELECT STORE_ID, STORE_NAME, ADDRESS, STORE_NUM, PASSWORD
   	FROM STORE
   	WHERE STORE_ID = #{param1} AND PASSWORD = #{param2}
+  	]]>
   </select>
 
 </mapper>

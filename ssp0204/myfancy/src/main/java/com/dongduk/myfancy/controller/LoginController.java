@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.dongduk.myfancy.domain.Store;
-import com.dongduk.myfancy.service.StoreService;
 import com.dongduk.myfancy.service.StoreServiceImpl;
 
 @Controller
@@ -33,11 +32,11 @@ public class LoginController {
 	
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, Model model) { 
-		if ((Store)WebUtils.getSessionAttribute(request, "storeSession") != null)
-			return "store/main";
+			if ((Store)WebUtils.getSessionAttribute(request, "storeSession") != null)
+				return "store/main";
 		return "index";
 	}
-
+	
 	@GetMapping("/main")
 	public ModelAndView main(HttpServletRequest request, Model model) { 
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
@@ -75,5 +74,6 @@ public class LoginController {
 		status.setComplete();
 		return "index";
 	}
+	
 
 }

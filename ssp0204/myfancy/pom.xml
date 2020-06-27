@@ -161,13 +161,14 @@
 		
 	
 	<!-- for oracle jdbc driver -->
-	<!-- <repositories>
-		<repository>
-		    <id>oracle</id>
-     		<name>ORACLE JDBC Repository</name>
-     		<url>http://maven.jahia.org/maven2</url>
-		</repository>
-	</repositories> -->
+<!-- 	 <repositories> -->
+<!-- 		<repository> -->
+<!-- 		    <id>oracle</id> -->
+<!--      		<name>ORACLE JDBC Repository</name> -->
+<!--      		<url>http://maven.jahia.org/maven2</url> -->
+<!-- 		</repository> -->
+<!-- 	</repositories>  -->
+	
   </dependencies>
 
   <build>

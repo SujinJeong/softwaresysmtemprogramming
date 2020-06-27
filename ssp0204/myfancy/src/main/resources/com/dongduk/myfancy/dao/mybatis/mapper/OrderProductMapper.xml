@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.OrderProductMapper">
+  <cache />
+ 
+	<select id="getOrderProductList" parameterType="int" resultType="Order_product">
+		SELECT STORE_ID, ORDER_ID
+		FROM ORDERS, STORE
+		WHERE ORDERS.ORDER_ID=#{order_id} AND STORE.STORE_ID=#{store_id}
+	</select>
+	
+	<insert id="insertOrderProduct" parameterType="com.dongduk.myfancy.domain.Order_product">
+		INSERT INTO ORDER_PRODUCT ()
+		VALUES (#{product_id}, #{order_id}, #{sale_id}, #{quantity})
+	</insert>
+
+</mapper>
