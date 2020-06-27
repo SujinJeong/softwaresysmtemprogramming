@@ -19,17 +19,17 @@ public class SaleService {
 	@Autowired
 	private SaleDao saleDao;
 
-	void insertSale(int store_id, List<Sale_product>saleProductList, int amount) {
+	public void insertSale(int store_id, List<Sale_product>saleProductList, int amount) {
 		saleDao.insertSale(store_id, saleProductList, amount);
 	}
    	// 결제가 이루어진 시간 등 정보 저장
 	
-   	Sale getSale(int sale_id, int store_id) {
+   	public Sale getSale(int sale_id, int store_id) {
    		return saleDao.getSale(sale_id, store_id);
    	}
    	// 판매 정보
    	
-   	List<Sale> getSaleList(int store_id, Date date){
+   	public List<Sale> getSaleList(int store_id, Date date){
    		return saleDao.getSaleList(store_id, date);
    	}
    	// 판매 리스트

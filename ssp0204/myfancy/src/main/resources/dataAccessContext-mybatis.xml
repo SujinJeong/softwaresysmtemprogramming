@@ -45,7 +45,7 @@
 	<!-- Local Apache Commons DBCP2 DataSource that refers to a combined database -->
 	<!-- The placeholders are resolved from jdbc.hsqldb.properties through -->
 	<!-- the PropertyPlaceholderConfigurer in applicationContext.xml -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<property name="url" value="jdbc:oracle:thin:@202.20.119.117:1521:orcl"/>
 		<property name="username" value="ssd0204"/>
@@ -64,8 +64,6 @@
     <!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-
-<!--         <property name="typeAliasesPackage" value="com.example.jpetstore.domain" /> -->
  		<property name="typeAliasesPackage" value="com.dongduk.myfancy.domain" />
     </bean>
 

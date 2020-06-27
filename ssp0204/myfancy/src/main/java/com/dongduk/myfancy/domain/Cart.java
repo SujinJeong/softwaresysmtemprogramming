@@ -25,6 +25,8 @@ public class Cart implements Serializable {
 		this.quantity = quantity;
 	}
 
+	
+	
 	public void setCartList(Map<Product, Integer> cartList) {
 		this.cartList = cartList;
 	}
@@ -37,6 +39,10 @@ public class Cart implements Serializable {
 	public void addProductForSale(Product product) {
 		System.out.println(product.getProduct_id());
 		cartList.put(product, 1);	//처음 수량은 1로 고정
+	}
+	
+	public void addProductForOrder(Product product, int quantity) { // cart에 담기
+		cartList.put(product, quantity);
 	}
 	
 	//카트에서 소비자가 타이핑한 값으로 수량 설정
@@ -58,6 +64,18 @@ public class Cart implements Serializable {
 		}
 	}
 
+	 public int getSubOrderTotal(Product product) { // 카트에 담긴 총 금액
+	      int total = 0;
+	      Map<Product, Integer> cartList = getCartList(); // cart에 담긴 물품들
+	      for(Map.Entry<Product, Integer> elem : cartList.entrySet()) { // cart에 담긴 물품들 발주
+	         int order_product_quantity = elem.getValue();
+	         int order_price = product.getOrder_price();
+	         total += order_price * order_product_quantity;
+	      }
+	      return total;
+	   }
+
+	
 	public int getSubSaleTotal() {
 		int subTotal = 0;
 		cartList = getCartList();
