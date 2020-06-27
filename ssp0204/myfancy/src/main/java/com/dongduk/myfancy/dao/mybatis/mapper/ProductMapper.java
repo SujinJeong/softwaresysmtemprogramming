@@ -7,7 +7,7 @@ import com.dongduk.myfancy.domain.Product;
 
 public interface ProductMapper {
 
-	List<Product> getProductList (int store_id);
+	List<Product> getProductList(int store_id);
 	// 지점 내 모든 상품 리스트 
 	List<Product> getProductListByCategory(int category_id);
 	// 카테고리에 해당하는 상품 리스트
