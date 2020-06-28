@@ -7,6 +7,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+function enterkey() {
+    if (window.event.keyCode == 13) {
+
+         // 엔터키가 눌렸을 때 실행할 내용
+         cart.value = document.getElementById("num").value;
+    }
+}
+</script>
 <meta charset="UTF-8">
 <title>상품판매</title>
 </head>
@@ -33,20 +43,21 @@
 			   </c:forEach>
 			</table>
 		<td align="center" width="45%">
-			<form:form modelAttribute="sessionSaleCart" action="payment">
+			<form:form modelAttribute="sessionSaleCart" action="payment?payment_code=0&amount=${sessionSaleCart.getSubSaleTotal()}">
 				<table style="width:70%">
 				   <tr><th>상품명</th><th>수량</th><th>가격</th></tr>
 					<c:forEach var="cart" items="${sessionSaleCart.cartList}">
 						<tr>
 							<td align="center" width="45%">${cart.key.product_name}</td>
-							<td align="center" width="45%">${cart.value}</td>
-							<td align="center" width="45%">${cart.key.list_price*cart.value}</td>
+							<%-- <td align="center" width="45%">${cart.value}</td> --%>
+							<td align="center" width="45%"><input type="text" id="num" value="${cart.value }" style="width:30px" onkeyup="enterkey();"></td>
+							<td id="price" align="center" width="45%">${cart.key.list_price*cart.value}</td>
 						</tr>
 					</c:forEach>
 				</table>
-			<%-- <label for="quantity">수량</label>
+<%-- 			<label for="quantity">수량</label>
 			<form:input path="quantity" /> --%>
-			<%-- 총 가격 : ${sessionSaleCart.getSubSaleTotal()} --%>
+			총 가격 : ${sessionSaleCart.getSubSaleTotal()}
 			<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/store/sale/remove'"/>
 			<input type="submit" value="결제"/>
 			</form:form>

@@ -1,6 +1,12 @@
 package com.dongduk.myfancy.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,7 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.dongduk.myfancy.domain.Cart;
+import com.dongduk.myfancy.domain.Payment;
 import com.dongduk.myfancy.domain.Product;
+import com.dongduk.myfancy.domain.Sale;
+import com.dongduk.myfancy.domain.Sale_product;
 import com.dongduk.myfancy.domain.Store;
 import com.dongduk.myfancy.service.ProductService;
 import com.dongduk.myfancy.service.SaleService;
@@ -41,6 +50,7 @@ public class SaleController {
 	public ModelAndView viewProduct(HttpServletRequest request) {
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		List<Product> productList = productService.getProductList(store.getStore_id());
+		System.out.println(store.getStore_name());
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("store/sale/Sale");
 		mv.addObject("productList", productList);
@@ -100,67 +110,78 @@ public class SaleController {
 		return "redirect:/store/sale/view";
 	}
 
-//	@GetMapping("/payment") 
-//	public ModelAndView payment(HttpServletRequest request) {
-//		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession"); 
-//		Cart cart = (Cart)WebUtils.getSessionAttribute(request, "sessionSaleCart"); 
-//		ModelAndView mv = new ModelAndView();
-//		mv.addObject("cart", cart); 
-//		mv.setViewName("store/sale/Payment"); 
-//		return mv;
-//	}
-//	@GetMapping("/payment") 
-//	public String payment(HttpServletRequest request,Model model) {
-//		Cart cart = (Cart)WebUtils.getSessionAttribute(request, "sessionSaleCart"); 
-//		model.addAttribute("cart");
-//		return "store/sale/Payment";
-//	}
-	@RequestMapping(value="/payment",method=RequestMethod.GET) 
-	public String payment() {
-		return "store/sale/Payment";
-	}
-
-//	@RequestMapping(value="/payment",method=RequestMethod.POST)
-//	public ModelAndView makeSale(HttpServletRequest request, 
-//			@RequestParam("payment_code") int payment_code,
-//			@RequestParam("amount") int amount)
-	
-	@RequestMapping(value="/payment",method=RequestMethod.POST)
-	public ModelAndView makeSale(HttpServletRequest request, 
-			@RequestParam(value="payment_code", required=false) int payment_code,
-			@RequestParam(value="amount", required=false) int amount) {
-		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+	@RequestMapping(value="/payment") 
+	public ModelAndView payment(@RequestParam("payment_code") int payment_code,
+			@RequestParam("amount") int amount,
+			HttpServletRequest request) {
 		Cart cart = (Cart) WebUtils.getSessionAttribute(request, "sessionSaleCart");
-		if (payment_code == 1) { // 카드 결제
-			int price = cart.getSubSaleTotal();
-			int cardPrice = price - amount;
-
-		} else { // 현금결제
-
-		}
+		String codename = "카드결제";
+		Payment payment = new Payment(cart.getSubSaleTotal());
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("store/sale/Payment");
+		String type = "submit";
+		if (payment_code == 1) {
+			System.out.println("카드 결제 들어옴");
+			payment.setCardAmount(amount);
+			if (payment.getAmount() == amount) {
+				type = "button";
+				codename = "완료";
+			}
+			else
+				codename = "현금결제";
+			payment.setAmount(payment.getAmount()-payment.getCardAmount());
+			payment.setPayment_code(payment_code);
+			mv.addObject("codename", codename);
+			mv.addObject("type", type);
+		} else if (payment_code == 2){
+			System.out.println("현금 결제 들어옴");
+			payment.setCashAmount(amount);
+			payment.setCardAmount(payment.getAmount()-payment.getCashAmount());
+			payment.setAmount(0);
+			payment.setPayment_code(payment_code);
+			type = "button";
+			codename = "완료";
+			mv.addObject("codename", codename);
+			mv.addObject("type", type);
+		} else {
+			System.out.println("payment들어옴");
+			payment.setAmount(amount);
+			mv.addObject("codename", codename);
+			mv.addObject("type", type);
+		}
 
+		mv.addObject("payment", payment);
+		mv.setViewName("store/sale/Payment");
 		return mv;
 	}
 
 	@RequestMapping("/remove") // 물품담는 창에서 취소 눌렀을 때 (동작함)
-	public String removeCart(HttpServletRequest request, SessionStatus sessionStatus) {
-		Cart cart = (Cart) WebUtils.getSessionAttribute(request, "sessionSaleCart");
-		cart.removeSale(); // cart내 물품 삭제
-		sessionStatus.setComplete();// session에서 객체 참조 삭제
+	public String removeCart() {
 		return "redirect:/store/sale/view";
 	}
 
 	@RequestMapping("/receipt") // 결제완료 눌렀을 때 영수증 간략하게 보여주는 메소드
-	public ModelAndView viewReceipt(HttpServletRequest request) {
+	public ModelAndView viewReceipt(HttpServletRequest request, SessionStatus sessionStatus) {
 		Cart cart = (Cart) WebUtils.getSessionAttribute(request, "sessionSaleCart");
-
+		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+		Sale s = new Sale();
+		s.setStore_id(store.getStore_id());
+		s.setTotalamount(cart.getSubSaleTotal());
+		saleService.insertSale(s);
+		
+		//cart 내 물품들 saleProduct에 insert하기
+		Set<Entry<Product, Integer>> set = cart.getCartList().entrySet();
+		Iterator<Entry<Product,Integer>> itr = set.iterator();
+		while (itr.hasNext()) {
+			Map.Entry<Product, Integer> e = (Map.Entry<Product, Integer>)itr.next();
+			Sale_product sp = new Sale_product(e.getKey().getProduct_id(),s.getSale_id(),e.getValue());
+			saleService.insertSaleProduct(sp);
+		}
+		List<Product> list = saleService.getSaleProductList(store.getStore_id(), s.getSale_id());	
 		ModelAndView mv = new ModelAndView();
-//		mv.addObject("cart", cart);
-		// sale, saleProduct 만들어서 넘겨주기
+		mv.addObject("sale", s);
+		mv.addObject("sp", list);
 		mv.setViewName("store/sale/Receipt");
+		sessionStatus.setComplete();// session에서 객체 참조 삭제
 		return mv;
 	}
-
 }

@@ -14,7 +14,7 @@
 <aside id = "header">
 <%@ include file="../header.jsp" %>
 </aside>
-<h2 align="center" width="10%">통합 결제</h2>
+<h3 align="center" width="10%">통합 결제</h3>
 <table border="0" width="100%">
 	<tr align="center">
 		<td align="center" width="10%">
@@ -23,49 +23,67 @@
 			</aside>
 		</td>
 		<!-- 여기까지는 왼쪽 메뉴 출력 -->
+		<form:form modelAttribute="payment" action="${pageContext.request.contextPath}/store/sale/payment?payment_code=${payment.payment_code + 1 }">
 		<td align="center" width="10%">
-		<form:form modelAttribute="sessionSaleCart" action="payment">
 			<table style="width:70%">
 				<tr><th>결제할 금액</th>
-				   <td align="center" width="45%"><input type="text"></td>
+				   <td align="center" width="80%">
+				   <form:input path="amount" name="amount" value="${payment.amount}"/>
+				   </td>
 				</tr>
+				<c:if test="${codename eq '카드결제' }">
 				<tr><th>카드번호</th>
-					<td align="center" width="45%"><input type="text"></td>
-				</tr>
+					<td align="center" width="80%"><form:input path="card_num" name="card_num" value="${payment.card_num }"/></td>
+				</tr> 
+				</c:if>
 				<tr>
 				<td align="center" width="45%">
-				<input type="button" value="카드" onclick="location.href='${pageContext.request.contextPath}/store/sale/payment?'"/>
+				<input type="${type }" value="${codename }" />
+				
+		</form:form>
 				</td>
-				<td align="center" width="45%">
-				<input type="button" value="현금" onclick="location.href='${pageContext.request.contextPath}/store/sale/payment?'"/>
-				</td>			
+				<%-- <td align="center" width="45%">
+				<input type="button" value="현금" 
+					onclick="location.href='${pageContext.request.contextPath}/store/sale/payment?payment_code=1&amount=${payment.amount}&card_num=${payment.card_num}'"/>
+				</td>	 --%>		
 				</tr>
 			</table>
-				<table style="width:70%">
-				<tr><th>결제할 금액</th>
-				   <td align="center" width="45%"><input type="text"></td>
-				</tr>
-				<tr><th>카드번호</th>
-					<td align="center" width="45%"><input type="text"></td>
-				</tr>
-				<tr>
-				<td align="center" width="45%">
-				<input type="button" value="카드" onclick="location.href='${pageContext.request.contextPath}/store/sale/payment?'"/>
-				</td>
-				<td align="center" width="45%">
-				<input type="button" value="현금" onclick="location.href='${pageContext.request.contextPath}/store/sale/payment?'"/>
-				</td>			
-				</tr>
-			</table>
-			</form:form>
 		</td>
-		<tr>
-			<td>
-			<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/store/sale/remove'"/>
-			<input type="submit" value="결제완료"/>
-			</td>
-		</tr>
-	</tr>
+		<td>
+			<form:form modelAttribute="payment" action="receipt">
+			<table style="width:70%">
+				<tr><th>총${sessionSaleCart.cartTotalQuantity}개</th>
+				<td>${sessionSaleCart.getSubSaleTotal()}</td></tr>
+				<tr><th>결제한 금액</th>
+				<%-- <c:choose>
+				<c:when test="${payment.payment_code == 1 }">
+					<td>${sessionSaleCart.getSubSaleTotal()-payment.cardAmount}</td></tr>
+				</c:when>
+				<c:when test="${payment.payment_code == 2 }">
+					<td>${sessionSaleCart.getSubSaleTotal()-payment.cardAmount-payment.cashAmount}</td></tr>
+				</c:when>
+				<c:otherwise>
+					<td>0</td></tr>
+				</c:otherwise>
+				</c:choose> --%>
+				<td>${sessionSaleCart.getSubSaleTotal()-payment.amount}</td></tr>
+				<tr><th>남은 금액</th>
+				<td>${payment.amount}</td></tr>
+				<tr><th>현금 결제</th>
+				<td>${payment.cashAmount}</td></tr>
+				<tr><th>카드 결제</th>
+				<td>${payment.cardAmount}</td></tr>
+				<tr>
+					<td align="center" width="45%">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/store/sale/remove'"/>
+					</td>
+					<td align="center" width="45%">
+						<input type="submit" value="결제완료"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+		</form:form>
 </table>
 세션카트 존재 여부 : <%=session.getAttribute("sessionSaleCart") != null?"존재":"없음" %>
 </body>
