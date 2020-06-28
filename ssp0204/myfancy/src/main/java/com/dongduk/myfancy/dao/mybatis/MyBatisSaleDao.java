@@ -39,9 +39,16 @@ public class MyBatisSaleDao implements SaleDao {
    
    //DB에서 시퀀스,date타입 빼고 정의한 것
    @Override
+<<<<<<< HEAD
    public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
 	   saleMapper.insertSale(store_id, subSaleTotal);
    }
+=======
+   public void insertSale(int store_id, List<Sale_product> saleProductList, int amount) throws DataAccessException {
+      // TODO Auto-generated method stub
+      saleMapper.insertSale(store_id, saleProductList, amount);
+   }
+>>>>>>> branch 'develop' of https://github.com/SujinJeong/softwaresysmtemdevelop
 
    @Transactional
    public void insertSale(Sale sale) throws DataAccessException {

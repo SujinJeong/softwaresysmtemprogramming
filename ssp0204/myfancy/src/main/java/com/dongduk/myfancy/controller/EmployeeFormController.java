@@ -76,8 +76,6 @@ public class EmployeeFormController {
 			employeeService.insertEmployee(employeeForm.getEmployee());
 		}
 		catch (DataIntegrityViolationException ex) {
-			result.rejectValue("employee.emp_name", "USER_ID_ALREADY_EXISTS",
-					"User ID already exists: choose a different ID.");
 			return formViewName; 
 		}
 		return "redirect:" + successViewName;
