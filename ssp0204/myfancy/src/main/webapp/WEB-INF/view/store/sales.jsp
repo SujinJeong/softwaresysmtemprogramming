@@ -121,7 +121,7 @@ A:hover {
 			<td align="center" width="10%"><aside id="left"> <%@ include
 					file="left.jsp"%> </aside></td>
 			<td align="center" width="90%">
-				<h1>${storeSession.store_name} 매출조회</h1>
+				<h1><font color="GREEN">${storeSession.store_name} 매출조회</font></h1>
 				<form name="calendarFrm" id="calendarFrm" action="" method="post">
 					<DIV id="content" style="width: 712px;">
 
@@ -154,7 +154,7 @@ A:hover {
  	}
  %> &nbsp;&nbsp; <%=year%>년 <%=month+1%>월
 												&nbsp;&nbsp; <%
- 	if (month < 12) {
+ 	if (month+1 < 12) {
  %> <a
 												href="<c:url value='/store/sales' />?year=<%=year%>&amp;month=<%=month+1%>&amp;lastday=<%=endDay%>"
 												target="_self"> <!-- 다음달 -->

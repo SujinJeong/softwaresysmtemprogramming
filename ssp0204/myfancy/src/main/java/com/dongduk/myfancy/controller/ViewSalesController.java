@@ -27,7 +27,6 @@ public class ViewSalesController {
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
 	public String list(@RequestParam(value="year", required=false) String year, 
 			@RequestParam(value="month", required=false) String month,
-			@RequestParam(value="lastday", required=false) String lastday, 
 			Model model, HttpSession session, HttpServletRequest request) throws Exception
 	{
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");

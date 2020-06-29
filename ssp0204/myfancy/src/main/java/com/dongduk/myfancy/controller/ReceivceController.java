@@ -3,6 +3,7 @@ package com.dongduk.myfancy.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 import com.dongduk.myfancy.domain.Order_product;
@@ -26,59 +30,63 @@ import com.dongduk.myfancy.service.ReceiveService;
 @Controller
 @RequestMapping("/store")
 public class ReceivceController {
+
+	@Autowired
+	private ReceiveService receiveService;
+
+	// 발주 list 출력
+	@RequestMapping(value = "/receive")
+	public String getReceive(Model model, HttpServletRequest request) throws Exception {
+		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+		model.addAttribute("receive", receiveService.getOrderList(store.getStore_id()));
+
+		return "store/receive/receive";
+	}
+
 	
-		@Autowired
-		private ReceiveService receiveService;
-		
-		
-		//입고 list 출력
-		@RequestMapping(value = "/receive", method = RequestMethod.GET)
-		public String getReceive(
-				@ModelAttribute("receive") Send send, Model model, 
-				HttpSession session, HttpServletRequest request) throws Exception
-		{	
-			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-			List<Order_product> oProductList = receiveService.getOrderList(store.getStore_id());
-			model.addAttribute("receive", oProductList);
+	  // 입고확인 클릭시
+	  @RequestMapping(value = "/receive/confirm")
+	  @ResponseBody
+	  public String confirmReceive(@RequestParam(value="checkedArr[]") List<String> checkArr, 
+			  HttpServletRequest request) { 
 
-			return "/store/receive";
-		}
-		
-		// 입고확인 클릭시
-		@RequestMapping(value = "/receive", method = RequestMethod.POST)
-		public String postReceive(@RequestParam("storeId") int storeid,
-				@ModelAttribute("receive") Receive_product receive, 
-				Model model, HttpSession session, HttpServletRequest request) throws Exception
-		{	
-			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-			List<Receive_product> rProductList = new ArrayList<Receive_product>();
-			List<Order_product> oProductList = receiveService.getOrderList(store.getStore_id());
-			// 입고수량이 0이상인지 확인(0인 경우 아직 배송중) 0 보다 크면 입고목록에 추가
-			if (receive.getReceive_quantity() > 0) {
-				receiveService.insertReceiveQuantity(store.getStore_id(), rProductList);
-			}
-			if (receive.getLoss_quantity() > 0)
-				receiveService.calLossQuantity(rProductList, oProductList);
-			model.addAttribute("receive", rProductList);
+		  Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
+		  int order_id = 0, product_id = 0;
+		  //arr에서 order_id, product_id 뽑아내기주기 위한 for문
+		  for (int i = 0; i < checkArr.size(); i+=2) { 
+			  for (int j = i; j <= i+1 ; j++) {
+				  if(j % 2 == 0)
+					  order_id = Integer.parseInt(checkArr.get(j));
+				  else
+					  product_id = Integer.parseInt(checkArr.get(j));
+			  	}
+			  Order_product op = receiveService.getOrderProduct(order_id, product_id);
+			  
+			  System.out.println("order_id: " + order_id);
+			  System.out.println("product_id: " + product_id);
+			  System.out.println("quantity: " + op.getQuantity());
+			  System.out.println("store_id: " + store.getStore_id());
+			  
+			  receiveService.updateStock(op.getQuantity(), product_id, store.getStore_id(), order_id);
+			  } 
+		  return "redirect:/store/receive"; 
+	  }
+	 
 
-			return "store/receive/loss";
-		}
-		
-		// 차이수량 조사 후 재발주
-		@RequestMapping(value = "/receive/loss", method = RequestMethod.POST)
-		public String postLoss(@RequestParam("storeId") int storeid,
-				@ModelAttribute("loss") Receive_product receive, 
-				Model model, HttpSession session, HttpServletRequest request) throws Exception
-		{	
-			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-			List<Receive_product> rProductList = new ArrayList<Receive_product>();
-			// 차이수량이 나는 제품인 경우만 출력
-			if (receive.getReceive_quantity() > 0 && receive.getLoss_quantity() > 0) {
-				receiveService.insertReceiveQuantity(store.getStore_id(), rProductList);
-			}
-			model.addAttribute("loss", receiveService.getReceiveList(store.getStore_id()));
+	// 차이수량 조사 후 차이수량이 0이상인 물품들은 재발주
+	@RequestMapping(value = "/receive/loss/reorder")
+	public String postLoss(@ModelAttribute("loss") Receive_product receive, Model model, HttpServletRequest request)
+			throws Exception {
+		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+		List<Receive_product> rProductList = new ArrayList<Receive_product>();
 
-			// 재발주 된 뒤 입고관리 페이지로 다시 복귀
-			return "store/receive";
+		// 차이수량이 나는 제품인 경우만 출력
+		if (receive.getReceive_quantity() > 0 && receive.getLoss_quantity() > 0) {
+			receiveService.insertReceiveQuantity(store.getStore_id(), rProductList);
 		}
+		model.addAttribute("loss", receiveService.getReceiveList(store.getStore_id()));
+
+		// 재발주 된 뒤 입고관리 페이지로 다시 복귀
+		return "redirect:/store/receive/receive";
+	}
 }

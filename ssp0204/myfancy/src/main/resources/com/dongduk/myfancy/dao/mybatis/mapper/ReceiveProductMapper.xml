@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.ReceiveProductMapper">
+<cache/>
+
+<resultMap id="resultMap1" type="com.dongduk.myfancy.domain.Order_product">
+	<result property="product_id" column="PRODUCT_ID" />
+	<result property="product_name" column="PRODUCT_NAME" />
+	<result property="quantity" column="QUANTITY" />
+	<result property="order_id" column="ORDER_ID" />
+	<result property="order_date" column="ORDER_DATE" />
+	<result property="amount" column="AMOUNT" />
+</resultMap>
+
+<resultMap id="resultMap2" type="com.dongduk.myfancy.domain.Receive_product">
+	<result property="receive_date" column="RECEIVE_DATE" />
+	<result property="store_id" column="STORE_ID" />
+	<result property="product_id" column="PRODUCT_ID" />
+	<result property="product_name" column="PRODUCT_NAME" />
+	<result property="receive_quantity" column="RECEIVE_QUANTITY" />
+	<result property="loss_quantity" column="LOSS_QUANTITY" />
+</resultMap>
+
+  <update id="addLossQuantity" parameterType="com.dongduk.myfancy.domain.Receive_product">
+  	UPDATE RECEIVE_PRODUCT SET
+  	 LOSS_QUANTITY = #{loss_quantity}
+  	WHERE PRODUCT_ID = #{product_id}
+  </update>
+  
+  <update id="insertReceiveQuantity">
+  	UPDATE RECEIVE_PRODUCT SET
+  	 RECEIVE_QUANTITY = #{receive_quantity}
+  	WHERE PRODUCT_ID = #{product_id}
+  </update>
+   
+  <select id="getOrderList" resultMap="resultMap1">
+  	SELECT 
+  		ORDER_PRODUCT.PRODUCT_ID AS PRODUCT_ID, 
+  		PRODUCT.PRODUCT_NAME AS PRODUCT_NAME, 
+  		ORDER_PRODUCT.QUANTITY AS QUANTITY, 
+  		ORDERS.ORDER_ID AS ORDER_ID, 
+  		ORDERS.ORDER_DATE AS ORDER_DATE, 
+  		ORDERS.AMOUNT AS AMOUNT 
+  	FROM ORDER_PRODUCT, ORDERS, PRODUCT
+  	WHERE ORDERS.STORE_ID = #{param1} AND PRODUCT.PRODUCT_ID = ORDER_PRODUCT.PRODUCT_ID AND ORDER_PRODUCT.ORDER_ID = ORDERS.ORDER_ID
+  </select>
+  
+  <select id="getOrderProduct" resultType="com.dongduk.myfancy.domain.Order_product">
+  	SELECT PRODUCT_ID, ORDER_ID, QUANTITY
+  	FROM ORDER_PRODUCT
+  	WHERE ORDER_ID = #{param1} AND PRODUCT_ID = #{param2}
+  </select>
+ 
+  <select id="getReceiveList" resultMap="resultMap2">
+  	SELECT 
+  		RECEIVE.RECEIVE_DATE AS RECEIVE_DATE, 
+  		RECEIVE.STORE_ID AS STORE_ID, 
+  		RECEIVE_PRODUCT.PRODUCT_ID AS PRODUCT_ID, 
+  		PRODUCT.PRODUCT_NAME AS PRODUCT_NAME,
+  		RECEIVE_PRODUCT.RECEIVE_QUANTITY AS RECEIVE_QUANTITY, 
+  		RECEIVE_PRODUCT.LOSS_QUANTITY AS LOSS_QUANTITY
+  	FROM RECEIVE_PRODUCT, RECEIVE, PRODUCT
+  	WHERE RECEIVE.STORE_ID = #{param1} AND PRODUCT.PRODUCT_ID = RECEIVE_PRODUCT.PRODUCT_ID
+  </select>
+  
+	<update id="updateStock">
+	UPDATE STOCK SET
+	QUANTITY = QUANTITY + #{param1}
+	WHERE PRODUCT_ID = #{param2} AND STORE_ID = #{param3}
+	</update>
+  
+  <delete id="removeOrderProduct">
+  	DELETE FROM ORDER_PRODUCT 
+  	WHERE ORDER_ID = #{param1} AND PRODUCT_ID = #{param2}
+  </delete>
+</mapper>

@@ -21,7 +21,7 @@
 				</aside>
 			</td>
 			<td align="center" width="90%">
-				<h1>${storeSession.store_name}재고현황</h1>
+				<h4><font color="GREEN">${storeSession.store_name} 재고현황</font></h4>
 				<table border="1">
 					<tr>
 						<td>상품번호</td>

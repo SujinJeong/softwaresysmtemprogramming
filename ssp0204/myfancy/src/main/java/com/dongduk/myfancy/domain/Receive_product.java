@@ -1,13 +1,35 @@
 package com.dongduk.myfancy.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Receive_product implements Serializable {
 	
 	private int send_id;
+	private Date receive_date;
 	private int product_id;
+	private String product_name;
 	private int sale_id;
 	private int receive_quantity;
+	private int order_quantity;
+	public Date getReceive_date() {
+		return receive_date;
+	}
+	public void setReceive_date(Date receive_date) {
+		this.receive_date = receive_date;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public int getOrder_quantity() {
+		return order_quantity;
+	}
+	public void setOrder_quantity(int order_quantity) {
+		this.order_quantity = order_quantity;
+	}
 	private int loss_quantity;
 	
 	
