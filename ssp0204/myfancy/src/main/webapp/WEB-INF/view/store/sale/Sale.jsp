@@ -14,10 +14,14 @@
 <aside id = "header">
 <%@ include file="../header.jsp" %>
 </aside>
-<aside id = "left">
+<table width="100%">
+<tr align="center">
+<td align="center" width="10%">
+	<aside id = "left">
 <%@ include file="../left.jsp" %>
-</aside>
- 
+	</aside>
+	</td>
+	<td align="center" width="50%">
  <!-- 상품판매  (중앙부분)-->
 <table style="width:70%">
    <tr><th>상품명</th><th>가격</th></tr>
@@ -48,6 +52,9 @@
 <input type="button" value="취소"/>
 <input type="submit" value="결제완료"/>
 </form:form>
+</td>
+</tr>
+</table>
 
 세션카트 존재 여부 : <%=session.getAttribute("sessionSaleCart") != null?"존재":"없음" %>
 </body>

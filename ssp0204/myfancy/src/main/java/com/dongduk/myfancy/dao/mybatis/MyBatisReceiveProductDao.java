@@ -21,24 +21,6 @@ public class MyBatisReceiveProductDao implements ReceiveProductDao {
 	
 	@Autowired
 	protected StockMapper stockMapper;
-	
-	@Override
-	public void addLossQuantity(List<Receive_product> rProductList) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void calLossQuantity(List<Receive_product> rProductList, List<Order_product> oProductList)
-			throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insertReceiveQuantity(int store_id, Receive_product receiveProduct) throws DataAccessException {
-		// TODO Auto-generated method stub
-	}
 
 	@Override
 	public List<Order_product> getOrderList(int store_id) throws DataAccessException {

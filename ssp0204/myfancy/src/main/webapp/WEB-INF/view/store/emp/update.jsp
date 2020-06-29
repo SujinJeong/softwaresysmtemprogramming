@@ -15,7 +15,7 @@
 			<%@ include file="../left.jsp" %>
 			</aside>
 		</td>
-		<td align="center" width="90%">
+		<td align="center" width="50%">
 			<br/>
 	         <aside id = "emp_top">
 			<%@ include file="emp_top.jsp" %>

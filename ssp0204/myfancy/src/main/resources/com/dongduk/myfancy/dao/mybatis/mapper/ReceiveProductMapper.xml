@@ -21,18 +21,6 @@
 	<result property="receive_quantity" column="RECEIVE_QUANTITY" />
 	<result property="loss_quantity" column="LOSS_QUANTITY" />
 </resultMap>
-
-  <update id="addLossQuantity" parameterType="com.dongduk.myfancy.domain.Receive_product">
-  	UPDATE RECEIVE_PRODUCT SET
-  	 LOSS_QUANTITY = #{loss_quantity}
-  	WHERE PRODUCT_ID = #{product_id}
-  </update>
-  
-  <update id="insertReceiveQuantity">
-  	UPDATE RECEIVE_PRODUCT SET
-  	 RECEIVE_QUANTITY = #{receive_quantity}
-  	WHERE PRODUCT_ID = #{product_id}
-  </update>
    
   <select id="getOrderList" resultMap="resultMap1">
   	SELECT 
