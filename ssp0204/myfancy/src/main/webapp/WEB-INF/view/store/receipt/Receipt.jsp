@@ -9,7 +9,7 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
-<!DOCTYPE html>
+<!DOCTYPE html html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
@@ -89,31 +89,34 @@
 				</aside>
 			</td>
 			<td>
-				<section>
-					<form action="/store/receipt/check">
-						판매번호 : <input type="text" name="receipt_id" id="receipt_id" />
-						판매날짜 : <input type="text" value="${receipt.sale_time}" />
+					<form action="${pageContext.request.contextPath}/store/receipt/check">
+						판매번호 : <input type="text" name="sale_id" id="sale_id" />
+						판매날짜 : <input type="text" name="sale_time" id="sale_time"/> <%-- value="${receipt.sale_time}"  --%>
 						<input type="submit" value="조회" />
 					</form>
-				</section>
+					<table border="1" width="100%">
+						<tr>
+							<th>판매번호</th>
+							<th>판매시간</th>
+							<th>총금액</th>
+						</tr>
+						
+						<c:forEach var="receipt" items="${receipts}" >
+							<tr>
+								<td>${receipt.sale_id}</td>
+								<td>${receipt.sale_time}</td>
+								<td>${receipt.totalamount}</td>
+							</tr>
+						</c:forEach>
+					</table>
 			</td>
 			<td align="center" width="45%">
-			영수증
+			<font size="5px">영수증</font>
 			<br>
-		<tr>
-			<th>상품명</th>
-			<th>수량</th>
-			<th>금액</th>
-		</tr>
-		<c:forEach items="${receipts}" var="receipts">
-			<tr>
-				<td>${receipts.product_name}</td>
-				<td>${receipts.quantity}</td>
-				<td>${receipts.order_price}* ${receipts.quantity}</td>
-			</tr>
-		</c:forEach>
-		총 금액 : ${order.getAmount()}원
-		<br> 결제수단 : ${order.getOrder_date()}
+			상품명: ${searchproduct.product_name}<br>
+			1개당 가격: ${searchproduct.list_price}<br>
+			수량: ${searchproduct.quantity}<br>
+			총급액: ${searchproduct.list_price} * ${searchproduct.quantity}<br>
 		<br>
 	</table>
 </body>

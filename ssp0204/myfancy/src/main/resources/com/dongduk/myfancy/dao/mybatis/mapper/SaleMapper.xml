@@ -3,24 +3,33 @@
 
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.SaleMapper">
 
-  <cache />
+<!--  <insert id="insertSale" useGeneratedKeys="true" keyColumn="sale_id" keyProperty="sale_id">
+  	<selectKey keyProperty="sale_id" resultType="int" order="BEFORE">
+  		SELECT sale_seq.nextval AS SALE_ID FROM DUAL 아래 insert문보다 먼저 실행됨 
+  	</selectKey>
+   INSERT INTO SALE(SALE_ID, STORE_ID, SALE_TIME, TOTALAMOUNT)
+  	VALUES(CONCAT(TO_CHAR(SYSDATE, 'yyMMdd'), sale_seq.nextval), #{param1}, SYSDATE, #{param2})
+  </insert> -->
   
-  <select id="insertSale">
-    <!--  SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
-     FROM PRODUCT,STORE
-     WHERE STORE_ID = #{param1} -->
-  </select>
+   <insert id="insertSale" parameterType="com.dongduk.myfancy.domain.Sale" 
+   useGeneratedKeys="true" keyColumn="sale_id" keyProperty="sale_id">
+<!--   	<selectKey keyProperty="sale_id" resultType="int" order="BEFORE">
+  		SELECT sale_seq.nextval AS SALE_ID FROM DUAL 아래 insert문보다 먼저 실행됨 
+  	</selectKey> -->
+   INSERT INTO SALE(SALE_ID, STORE_ID, SALE_TIME, TOTALAMOUNT)
+  	VALUES(CONCAT(TO_CHAR(SYSDATE, 'yyMMdd'), sale_seq.nextval), #{store_id}, SYSDATE, #{totalamount})
+  </insert>
   
    <select id="getSale" resultType="com.dongduk.myfancy.domain.Sale">
-   <!--    SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
-      FROM PRODUCT,CATEGORY
-      WHERE CATEGORY_ID = #{param1} -->
+   SELECT SALE_ID, STORE_ID, SALE_TIME, TOTALAMOUNT
+   FROM SALE
+   WHERE SALE_ID = #{SALE_ID} AND STORE_ID = #{STORE_ID}
   </select>
   
    <select id="getSaleList" resultType="com.dongduk.myfancy.domain.Sale">
       SELECT SALE_ID, SALE_TIME, TOTALAMOUNT
       FROM SALE
-      WHERE STORE_ID = #{param1} AND TO_CHAR(SALE_TIME,'YYYY-MM-DD')= TO_CHAR(#{param2}, 'YYYY-MM-DD')
+      WHERE STORE_ID = #{param1} AND TO_CHAR(SALE_TIME, 'YYYY-MM-DD')= TO_CHAR(#{param2}, 'YYYY-MM-DD')
   </select>
 
 </mapper>

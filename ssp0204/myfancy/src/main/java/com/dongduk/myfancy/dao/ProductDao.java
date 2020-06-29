@@ -12,5 +12,5 @@ public interface ProductDao {
 	Product getProduct(int product_id) throws DataAccessException;
 	// 상품 정보
 	List<Product> getProductList (int store_id) throws DataAccessException;
-	// 지점 내 모든 상품 리스트 
+	// 지점 내 모든 상품 리스트  
 }

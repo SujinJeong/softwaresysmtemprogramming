@@ -11,6 +11,14 @@
         <title>로그인</title>
     </head>
     <body>
+    	<c:if test="${!empty message}">
+  		<b><font color="red"><c:url value="${message}" /></font></b>
+		</c:if>
+
+    	<c:if test="${!empty signonForwardAction}">
+      		<input type="hidden" name="forwardAction"
+        		value='<c:url value="${signonForwardAction}"/>' />
+    	</c:if>
 	    <div align="center">
 	    	<h1>Fancy Shop POS System</h1>
 	    	<form method="post" action="main">

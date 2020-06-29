@@ -115,7 +115,7 @@ th {
 					</tr>
 					<c:forEach var="receive" items="${receive}">
 						<tr>
-						<td><input type="checkbox" id="check_receive" name="check_receive" value="${receive.product_name}"></input></td>
+						<td><input type="checkbox" id="check_receive" name="check_receive"></input></td>
 							<td><c:out value="${receive.order_id}" /></td>
 							<td><c:out value="${receive.product_id}" /></td>
 							<td><c:out value="${receive.order_date}" /></td>

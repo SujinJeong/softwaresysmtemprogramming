@@ -52,15 +52,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void insertSalary(int emp_id) {
+	public void insertSalary(Employee employee) {
 		// TODO Auto-generated method stub
-		salaryDao.insertSalary(emp_id);
+		salaryDao.insertSalary(employee);
 	}
 
 	@Override
-	public List<Salary> getSalary(int store_id) {
+	public List<Salary> getSalaryListByMonth(int store_id, String date) {
 		// TODO Auto-generated method stub
-		return salaryDao.getSalary(store_id);
+		return salaryDao.getSalaryListByMonth(store_id, date);
 	}
 
 	@Override
