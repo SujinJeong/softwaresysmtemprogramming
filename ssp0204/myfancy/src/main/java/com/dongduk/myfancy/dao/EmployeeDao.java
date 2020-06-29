@@ -18,5 +18,6 @@ public interface EmployeeDao {
 	// 직원 정보수정
 	void removeEmployee(int emp_id, int store_id) throws DataAccessException; 
 	// 직원 삭제
+	void updateWorkTime(int emp_id, double time) throws DataAccessException; 
 
 }

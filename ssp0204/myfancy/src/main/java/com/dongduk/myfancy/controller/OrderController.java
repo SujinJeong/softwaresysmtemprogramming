@@ -52,6 +52,13 @@ public class OrderController {
 	    	  cart = new Cart();
 	      return cart;
 	   }
+	  
+	@ModelAttribute("supplierList")
+	public List<Supplier> supplierList(){
+		List<Supplier> supplierList = supplierService.getSupplierList();// 거래처 리스트
+		return supplierList;
+	}
+	   
 	   
 	@RequestMapping("/store/order") //main.jsp에서 Order.jsp로 이동
 	public String orderProduct(HttpServletRequest request, Model model, RedirectAttributes redirect) {

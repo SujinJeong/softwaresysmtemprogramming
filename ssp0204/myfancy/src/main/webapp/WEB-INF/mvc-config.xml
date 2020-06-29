@@ -31,12 +31,15 @@
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean> 
-	<bean id="LoginInterceptor"
+	<bean id="loginInterceptor"
 		class="com.dongduk.myfancy.controller.LoginInterceptor"></bean>
+	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/myfancy/store/*" />
-			<ref bean="LoginInterceptor"/>
+			<mvc:mapping path="/store/*" />
+			<mvc:mapping path="/store/*/*" />
+			<mvc:mapping path="/store/*/*/*" />
+			<ref bean="loginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 

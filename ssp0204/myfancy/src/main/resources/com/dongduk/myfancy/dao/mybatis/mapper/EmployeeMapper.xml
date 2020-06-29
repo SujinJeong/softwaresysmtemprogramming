@@ -40,10 +40,10 @@
   		(emp_seq.nextval, #{store_id}, #{emp_name}, #{address}, #{phonenum}, #{email}, #{worktime}, #{bankaccount}, #{salary})
   </insert>
   
-  <update id="addWorkTime">
+  <update id="updateWorkTime">
   	UPDATE EMPLOYEE SET
-  		WORKTIME += #{time}
-  	WHERE EMP_ID = #{emp_id}
+  		WORKTIME += #{param2}
+  	WHERE EMP_ID = #{param1}
   </update>
   
   <update id="updateEmployee" parameterType="com.dongduk.myfancy.domain.Employee">

@@ -4,14 +4,12 @@
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.SalaryMapper">
 
   
-  
-  <insert id="insertSalary">
+  <insert id="insertSalary" parameterType="com.dongduk.myfancy.domain.Employee">
   	INSERT INTO SALARY
   		(SALARY_ID, EMP_ID, SALARY_DATE, AMOUNT, STORE_ID, WORKTIME, BANKACCOUNT, SALARY)
   	VALUES
   		(CONCAT(TO_CHAR(SYSDATE, 'yyyyMM'), CONCAT('_', emp_seq.currval)), emp_seq.currval, TO_CHAR(SYSDATE, 'yyyyMM'), 0, #{store_id}, #{worktime}, #{bankaccount}, #{salary})
   </insert>
-  
 
   <select id="getSalaryListByMonth" resultType="com.dongduk.myfancy.domain.Salary">
   	SELECT SALARY.SALARY_ID,
@@ -26,5 +24,11 @@
   	WHERE EMPLOYEE.EMP_ID = SALARY.EMP_ID AND EMPLOYEE.STORE_ID = #{param1} AND TO_CHAR(SALARY.SALARY_DATE, 'yyyyMM') = #{param2}
   	ORDER BY EMPLOYEE.EMP_ID
   </select>
+  
+  <update id="updateWorkTimeForSalary">
+  	UPDATE SALARY SET
+  		WORKTIME = WORKTIME + #{param2}
+  	WHERE EMP_ID = #{param1} AND COMMUTE_ID = CONCAT(TO_CHAR(SYSDATE, 'yyyyMM'), CONCAT('_', TO_CHAR(#{param1})))
+  </update>
 
 </mapper> 

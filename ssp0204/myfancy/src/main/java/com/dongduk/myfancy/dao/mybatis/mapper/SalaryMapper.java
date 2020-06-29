@@ -2,6 +2,8 @@ package com.dongduk.myfancy.dao.mybatis.mapper;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import com.dongduk.myfancy.domain.Employee;
 import com.dongduk.myfancy.domain.Salary;
 
@@ -13,6 +15,7 @@ public interface SalaryMapper {
 	// 월별 급여 조회 리스트
 	void resetSalary(); 
 	// 모든 직원의 근무시간 초기화 (매월 1일마다 자동적으로 수행)
+	void updateWorkTimeForSalary(int emp_id, double time) throws DataAccessException; 
 
 
 }

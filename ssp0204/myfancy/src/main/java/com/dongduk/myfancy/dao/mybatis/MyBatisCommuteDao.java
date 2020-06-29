@@ -1,5 +1,7 @@
 package com.dongduk.myfancy.dao.mybatis;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.dongduk.myfancy.dao.CommuteDao;
 import com.dongduk.myfancy.dao.mybatis.mapper.CommuteMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.EmployeeMapper;
+import com.dongduk.myfancy.domain.Commute;
+import com.dongduk.myfancy.domain.Employee;
 
 @Repository
 public class MyBatisCommuteDao implements CommuteDao {
@@ -30,12 +34,6 @@ public class MyBatisCommuteDao implements CommuteDao {
 	}
 
 	@Override
-	public void addWorkTime(int emp_id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int getStartTime(int emp_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return commuteMapper.getStartTime(emp_id);
@@ -45,6 +43,18 @@ public class MyBatisCommuteDao implements CommuteDao {
 	public int getFinishTime(int emp_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return commuteMapper.getFinishTime(emp_id);
+	}
+
+	@Override
+	public List<Commute> getCommuteList(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteMapper.getCommuteList(emp_id);
+	}
+
+	@Override
+	public Commute getCommuteOfToday(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteMapper.getCommuteOfToday(emp_id);
 	}
 
 

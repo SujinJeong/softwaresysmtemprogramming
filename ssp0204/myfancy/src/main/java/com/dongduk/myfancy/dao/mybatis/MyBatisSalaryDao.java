@@ -32,7 +32,13 @@ public class MyBatisSalaryDao implements SalaryDao {
 	@Override
 	public void resetSalary() throws DataAccessException {
 		// TODO Auto-generated method stub
-		
+		salaryMapper.resetSalary();
+	}
+	
+	@Override
+	public void updateWorkTimeForSalary(int emp_id, double time) throws DataAccessException {
+		// TODO Auto-generated method stub
+		salaryMapper.updateWorkTimeForSalary(emp_id, time);
 	}
 
 

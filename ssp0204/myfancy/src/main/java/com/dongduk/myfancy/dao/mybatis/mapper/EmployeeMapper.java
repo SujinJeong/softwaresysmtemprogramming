@@ -2,6 +2,8 @@ package com.dongduk.myfancy.dao.mybatis.mapper;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import com.dongduk.myfancy.domain.Employee;
 
 public interface EmployeeMapper {
@@ -16,5 +18,6 @@ public interface EmployeeMapper {
 	// 직원 정보수정
 	void removeEmployee(int emp_id, int store_id); 
 	// 직원 삭제
+	void updateWorkTime(int emp_id, double time); 
 
 }

@@ -18,15 +18,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		Store store = 
 			(Store) WebUtils.getSessionAttribute(request, "storeSession");
 		if (store == null) {
-			String url = request.getRequestURL().toString(); 
-			String query = request.getQueryString();
-			ModelAndView modelAndView = new ModelAndView("index");
-			if (query != null) {
-				modelAndView.addObject("signonForwardAction", url+"?"+query);
-			}
-			else {
-				modelAndView.addObject("signonForwardAction", url);
-			}
+			ModelAndView modelAndView = new ModelAndView("store/error", "message", 
+					"Login is required.");
 			throw new ModelAndViewDefiningException(modelAndView);
 		}
 		else {

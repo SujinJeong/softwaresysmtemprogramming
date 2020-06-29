@@ -3,7 +3,31 @@
 
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.CommuteMapper">
 
-  <cache />
+	<insert id="insertStartTime" parameterType="int">
+  	INSERT INTO COMMUTE
+  		(COMMUTE_ID, EMP_ID, START_TIME, FINISH_TIME)
+  	VALUES
+  		(CONCAT(TO_CHAR(SYSDATE, 'yyyyMMdd'), CONCAT('_', TO_CHAR(#{param1}))), #{param1, jdbcType=NUMBER}, SYSDATE, SYSDATE)
+  	</insert>
+  	
+  	<update id="insertFinishTime">
+  	UPDATE COMMUTE SET
+  	 FINISH_TIME = SYSDATE
+  	WHERE EMP_ID = #{param1} AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd')
+  	</update>
+  	
+  	<select id="getCommuteList" resultType="com.dongduk.myfancy.domain.Commute">
+  	SELECT COMMUTE_ID, EMP_ID, START_TIME, FINISH_TIME, TRUNC(MOD((FINISH_TIME - START_TIME), 1)*24, 1) AS "worktimeOfDay"
+  	FROM COMMUTE
+  	WHERE EMP_ID = #{param1}
+  	ORDER BY COMMUTE_ID
+  	</select>
+  	
+  	<select id="getCommuteOfToday" resultType="com.dongduk.myfancy.domain.Commute">
+  	SELECT COMMUTE_ID, EMP_ID, START_TIME, FINISH_TIME, TRUNC(MOD((FINISH_TIME - START_TIME), 1)*24, 1) AS "Commute.worktimeOfDay"
+  	FROM COMMUTE
+  	WHERE EMP_ID = #{param1} AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd)
+  	</select>
 
 
 </mapper>

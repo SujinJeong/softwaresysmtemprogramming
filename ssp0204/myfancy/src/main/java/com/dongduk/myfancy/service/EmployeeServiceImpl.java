@@ -1,14 +1,16 @@
 package com.dongduk.myfancy.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dongduk.myfancy.dao.CommuteDao;
 import com.dongduk.myfancy.dao.EmployeeDao;
 import com.dongduk.myfancy.dao.SalaryDao;
+import com.dongduk.myfancy.domain.Commute;
 import com.dongduk.myfancy.domain.Employee;
 import com.dongduk.myfancy.domain.Salary;
 
@@ -20,6 +22,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeDao employeeDao;
 	@Autowired
 	private SalaryDao salaryDao;
+	@Autowired
+	private CommuteDao commuteDao;
 	
 	@Override
 	public List<Employee> getEmployeeList(int store_id) {
@@ -67,6 +71,54 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void resetSalary() {
 		// TODO Auto-generated method stub
 		salaryDao.resetSalary();
+	}
+
+	@Override
+	public void insertStartTime(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		commuteDao.insertStartTime(emp_id);
+	}
+
+	@Override
+	public void insertFinishTime(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		commuteDao.insertFinishTime(emp_id);
+	}
+
+	@Override
+	public int getStartTime(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteDao.getStartTime(emp_id);
+	}
+
+	@Override
+	public int getFinishTime(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteDao.getFinishTime(emp_id);
+	}
+
+	@Override
+	public List<Commute> getCommuteList(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteDao.getCommuteList(emp_id);
+	}
+
+	@Override
+	public void updateWorkTime(int emp_id, double time) throws DataAccessException {
+		// TODO Auto-generated method stub
+		employeeDao.updateWorkTime(emp_id, time);
+	}
+
+	@Override
+	public void updateWorkTimeForSalary(int emp_id, double time) throws DataAccessException {
+		// TODO Auto-generated method stub
+		salaryDao.updateWorkTimeForSalary(emp_id, time);
+	}
+
+	@Override
+	public Commute getCommuteOfToday(int emp_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteDao.getCommuteOfToday(emp_id);
 	}
 
 }

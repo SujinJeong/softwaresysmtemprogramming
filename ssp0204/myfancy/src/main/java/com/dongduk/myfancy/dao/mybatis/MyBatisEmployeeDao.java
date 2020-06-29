@@ -51,5 +51,12 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 		employeeMapper.removeEmployee(emp_id, store_id);
 	}
 
+	@Transactional
+	public void updateWorkTime(int emp_id, double time) throws DataAccessException {
+		// TODO Auto-generated method stub
+		employeeMapper.updateWorkTime(emp_id, time);
+		salaryMapper.updateWorkTimeForSalary(emp_id, time);
+	}
+
 
 }
