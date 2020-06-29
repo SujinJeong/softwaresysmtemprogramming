@@ -10,6 +10,11 @@ public class Sale implements Serializable {
 	private Date sale_time;
 	private int totalamount;
 	
+//	public Sale(int sale_id, int store_id) {
+//		super();
+//		this.sale_id = sale_id;
+//		this.store_id = store_id;
+//	}
 	
 	public int getSale_id() {
 		return sale_id;

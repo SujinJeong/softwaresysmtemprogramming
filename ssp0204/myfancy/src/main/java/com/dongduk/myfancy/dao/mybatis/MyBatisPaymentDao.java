@@ -14,6 +14,4 @@ public class MyBatisPaymentDao implements PaymentDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 }
