@@ -129,12 +129,12 @@
 				<form>
 				<table border="1">
 					<tr>
-						<td>입고여부</td>
-						<td>발주번호</td>
-						<td>상품번호</td>
-						<td>발주날짜</td>
-						<td>물품명</td>
-						<td>발주수량</td>
+						<td><strong>입고여부</strong></td>
+						<td><strong>발주번호</strong></td>
+						<td><strong>상품번호</strong></td>
+						<td><strong>발주날짜</strong></td>
+						<td><strong>물품명</strong></td>
+						<td><strong>발주수량</strong></td>
 					</tr>
 					<c:forEach var="receive" items="${receive}">
 						<tr>

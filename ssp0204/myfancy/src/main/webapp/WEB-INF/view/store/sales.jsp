@@ -252,7 +252,7 @@ A:hover {
 									out.println("<H3>" + index + "</H3>");
 									// 매출 출력
 									if (index <= list.size())
-  										out.println(list.get(index-1));
+  										out.println(list.get(index-1) + "원");
 									%>
 									
 									<%

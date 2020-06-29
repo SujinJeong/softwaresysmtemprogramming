@@ -24,17 +24,27 @@
 				<h4><font color="GREEN">${storeSession.store_name} 재고현황</font></h4>
 				<table border="1">
 					<tr>
-						<td>상품번호</td>
-						<td>상품명</td>
-						<td>수량</td>
+						<td><strong>상품번호</strong></td>
+						<td><strong>상품명</strong></td>
+						<td><strong>수량</strong></td>
 					</tr>
 					<c:forEach var="stock" items="${stock}">
 						<tr>
 							<td><c:out value="${stock.product_id}" /></td>
 							<td><c:out value="${stock.product_name}" /></td>
-							<td><c:if test="${stock.quantity lt 30}">
-									<font color="red"></font>
-								</c:if> <c:out value="${stock.quantity}" /></td>
+							<td>
+								<c:choose>
+									<c:when test="${stock.quantity eq 0}">
+									<font color="RED"><c:out value="${stock.quantity}" />(판매불가)</font>
+									</c:when>
+									<c:when test="${stock.quantity lt 5 && stock.quantity gt 0}">
+									<font color="BLUE"><c:out value="${stock.quantity}" />(발주필요)</font>
+									</c:when>
+									<c:otherwise>
+									<c:out value="${stock.quantity}" />
+									</c:otherwise>
+								</c:choose>
+								</td>
 						</tr>
 					</c:forEach>
 				</table>
