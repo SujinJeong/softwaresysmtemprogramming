@@ -70,7 +70,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("logout")
-	public String logout(@ModelAttribute("storeSession") Store store, SessionStatus status, Model model) {
+	public String logout(HttpServletRequest request, @ModelAttribute("storeSession") Store store, SessionStatus status, Model model) {
 		status.setComplete();
 		return "index";
 	}

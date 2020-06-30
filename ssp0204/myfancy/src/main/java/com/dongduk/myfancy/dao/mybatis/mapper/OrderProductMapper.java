@@ -9,7 +9,7 @@ public interface OrderProductMapper {
 
 	List<Order_product> getOrderProductList(int store_id, int order_id);
 	// 발주 상품 리스트
-	void insertOrderProduct(Cart cart);
+	void insertOrderProduct(Order_product order_product);
 	// 발주 상품 저장
 
 }

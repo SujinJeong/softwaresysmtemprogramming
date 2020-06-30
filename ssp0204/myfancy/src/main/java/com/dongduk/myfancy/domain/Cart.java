@@ -64,15 +64,16 @@ public class Cart implements Serializable {
 		}
 	}
 
-	 public int getSubOrderTotal(Product product) { // 카트에 담긴 총 금액
-	      int total = 0;
-	      Map<Product, Integer> cartList = getCartList(); // cart에 담긴 물품들
-	      for(Map.Entry<Product, Integer> elem : cartList.entrySet()) { // cart에 담긴 물품들 발주
-	         int order_product_quantity = elem.getValue();
-	         int order_price = product.getOrder_price();
-	         total += order_price * order_product_quantity;
-	      }
-	      return total;
+	 public int getSubOrderTotal() { // 카트에 담긴 총 금액
+		 int subTotal = 0;
+			cartList = getCartList();
+			Set<Entry<Product, Integer>> set = cartList.entrySet();
+			Iterator<Entry<Product,Integer>> itr = set.iterator();
+			while (itr.hasNext()) {
+				Map.Entry<Product, Integer> e = (Map.Entry<Product, Integer>)itr.next();
+				subTotal += e.getKey().getOrder_price() * e.getValue();
+			}
+			return subTotal;
 	   }
 
 	

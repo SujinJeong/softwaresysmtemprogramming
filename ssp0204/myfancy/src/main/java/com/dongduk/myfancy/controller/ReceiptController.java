@@ -39,6 +39,7 @@ public class ReceiptController {
 		
 		String date = sdf.format(dd);
 		java.sql.Date d = java.sql.Date.valueOf(date); // default : 오늘 날짜(2020-06-18),,영수증 조회는 버튼 눌렀을때 
+		
 		Sale receiptForm = new Sale(); //saleRegist 역할
 		String id = Integer.toString(receiptForm.getSale_id());
 		String dated = dd.toString();
@@ -48,7 +49,8 @@ public class ReceiptController {
 		//receiptForm.setSale_id(dated+id);
 		receiptForm.setSale_time(d);
 		//System.out.println(d); 2020-06-17
-		model.addAttribute("receipt", receiptForm);
+		//List<Sale> getSaleList(int store_id, Date date);
+		model.addAttribute("receipt", receiptForm); // default인 오늘 날짜에 해당하는 리스트 보내줘
 		//redirect.addAttribute("receiptForm", receiptForm);
 		return "/store/receipt/Receipt"; // 영수증 form 보내줌
 	}

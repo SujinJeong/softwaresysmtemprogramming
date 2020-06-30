@@ -6,7 +6,7 @@
   <cache />
   
   <select id="getProductList" resultType="com.dongduk.myfancy.domain.Product">
-	  SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+	  SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE,SUPPLIER_ID,ORDER_PRICE
 	  FROM PRODUCT,STORE
 	  WHERE STORE_ID = #{param1}
   </select>
@@ -18,7 +18,7 @@
   </select>
   
    <select id="getProduct" resultType="com.dongduk.myfancy.domain.Product">
- 	   SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE
+ 	   SELECT PRODUCT_ID,PRODUCT_NAME,LIST_PRICE,ORDER_PRICE
 	   FROM PRODUCT
 	   WHERE PRODUCT_ID = #{param1}
   </select>
