@@ -116,22 +116,9 @@ th {
 							</div>
 						</td>
 					</tr>
-	</table>
-<<<<<<< HEAD
-	</form:form>
-	</div>
+				</table>
+			</form:form>
+		</div>
 		</td>
-		</tr>
+	</tr>	
 </table>
-</div>
-=======
-	</form:form>
-<<<<<<< HEAD
-	</td>
-</tr>
-=======
-		</td>
-	</tr>
->>>>>>> refs/remotes/origin/develop
-</table>
->>>>>>> refs/remotes/origin/develop

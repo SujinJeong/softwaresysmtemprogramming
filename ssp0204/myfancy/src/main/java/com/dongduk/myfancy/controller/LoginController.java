@@ -74,25 +74,13 @@ public class LoginController {
 	}
 
 	@RequestMapping("logout")
-<<<<<<< HEAD
 	public String logout(SessionStatus status, 
 			HttpServletRequest request, Model model) {
 		if ((Store)WebUtils.getSessionAttribute(request, "storeSession") != null)
 			status.setComplete();
-=======
-	public String logout(HttpServletRequest request, @ModelAttribute("storeSession") Store store, SessionStatus status, Model model) {
-		status.setComplete();
-<<<<<<< HEAD
-=======
->>>>>>> refs/remotes/origin/develop
 		Cart cart = (Cart)WebUtils.getSessionAttribute(request, "sessionSaleCart");
 		if (cart != null)
-<<<<<<< HEAD
 			cart.removeSale();	//cart내 물품 삭제
-=======
-		cart.removeSale();	//cart내 물품 삭제
->>>>>>> branch 'develop' of https://github.com/SujinJeong/softwaresysmtemdevelop
->>>>>>> refs/remotes/origin/develop
 		return "index";
 	}
 	

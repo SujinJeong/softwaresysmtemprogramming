@@ -49,12 +49,9 @@ public class SaleController {
 	
 	// 판매관리 누르면 물품들 보여주는 메소드
 	@RequestMapping("/view")
-<<<<<<< HEAD
-	public ModelAndView viewProduct(HttpServletRequest request, HttpSession session) {
+	public ModelAndView viewProduct(HttpServletRequest request, HttpSession session, @ModelAttribute("sessionSaleCart") Cart cart, Model model) {
 		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
-=======
-	public ModelAndView viewProduct(HttpServletRequest request, @ModelAttribute("sessionSaleCart") Cart cart, Model model) {
->>>>>>> refs/remotes/origin/develop
+
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		List<Product> productList = productService.getProductList(store.getStore_id());
 		List<Product> stockList = stockService.getProductStock(store.getStore_id());
