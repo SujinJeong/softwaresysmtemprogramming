@@ -84,6 +84,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("store/emp/employer/salary")
+<<<<<<< HEAD
 	public ModelAndView viewSalary(HttpServletRequest request, HttpSession session, @RequestParam int move, @RequestParam String year, @RequestParam String month) {
 		if (session.getAttribute("employerCheck") == null) return new ModelAndView("store/emp/emp");
 		else {
@@ -118,6 +119,14 @@ public class EmployeeController {
 			}
 		}
 		
+=======
+	public ModelAndView viewSalary(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("store/emp/salary");
+		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
+		int store_id = store.getStore_id();
+		//mav.addObject("employeeSalaryList", employeeService.getSalary(store_id));
+		return mav;
+>>>>>>> refs/remotes/origin/develop
 	}
 
 	@RequestMapping("store/emp/employer/remove/{emp_id}")

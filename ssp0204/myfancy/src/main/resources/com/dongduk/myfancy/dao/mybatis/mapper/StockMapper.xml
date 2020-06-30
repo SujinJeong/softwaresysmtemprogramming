@@ -2,9 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.StockMapper">
-<cache/>
 
 <select id="getProductStock" resultType="com.dongduk.myfancy.domain.Product">
+<<<<<<< HEAD
+  	SELECT PRODUCT.PRODUCT_ID, STOCK.STORE_ID, STOCK.QUANTITY, PRODUCT.PRODUCT_NAME
+  	FROM STOCK,PRODUCT
+  	WHERE STOCK.STORE_ID = #{param1} AND STOCK.PRODUCT_ID=PRODUCT.PRODUCT_ID
+</select>
+
+<select id="getOneProductStock" resultType="com.dongduk.myfancy.domain.Product">
+	SELECT PRODUCT.PRODUCT_ID, STOCK.STORE_ID, STOCK.QUANTITY, PRODUCT.PRODUCT_NAME
+	FROM PRODUCT, STOCK
+	WHERE STOCK.STORE_ID = #{param1} AND PRODUCT.PRODUCT_ID = #{param2} AND STOCK.PRODUCT_ID = PRODUCT.PRODUCT_ID
+</select>
+
+<update id="updateStock" >
+UPDATE STOCK SET
+QUANTITY = QUANTITY + #{param1}
+WHERE PRODUCT_ID = #{param2} AND STORE_ID = #{param3}
+</update>
+</mapper>
+
+=======
   	SELECT STOCK.PRODUCT_ID, STORE_ID, QUANTITY, PRODUCT.PRODUCT_NAME
   	FROM STOCK, PRODUCT
   	WHERE STORE_ID = #{param1} AND STOCK.PRODUCT_ID = PRODUCT.PRODUCT_ID
@@ -16,3 +35,4 @@
 	WHERE PRODUCT_ID = #{param2} AND STORE_ID = #{param3}
 	</update>
 </mapper>
+>>>>>>> refs/remotes/origin/develop

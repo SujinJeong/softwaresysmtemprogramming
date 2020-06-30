@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/develop
+>>>>>>> refs/remotes/origin/develop
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -110,9 +117,21 @@ th {
 						</td>
 					</tr>
 	</table>
+<<<<<<< HEAD
 	</form:form>
 	</div>
 		</td>
 		</tr>
 </table>
 </div>
+=======
+	</form:form>
+<<<<<<< HEAD
+	</td>
+</tr>
+=======
+		</td>
+	</tr>
+>>>>>>> refs/remotes/origin/develop
+</table>
+>>>>>>> refs/remotes/origin/develop

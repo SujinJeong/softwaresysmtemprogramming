@@ -89,6 +89,7 @@ th {
 
 </head>
 <body>
+<<<<<<< HEAD
    <aside id="header">
       <%@ include file="../header.jsp"%>
    </aside>
@@ -143,5 +144,97 @@ th {
       <br>
    </table>
    </div>
+=======
+
+<<<<<<< HEAD
+<aside id = "header">
+<%@ include file="../header.jsp" %>
+</aside>
+<table border="0" width="100%">
+<tr align = "center">
+<td align = "center" width = "10%">
+<aside id = "left">
+<%@ include file="../left.jsp" %>
+</aside>
+</td>
+<td align = "center" width = "45%">
+<section>
+<form action = "/store/receipt/check">
+	<input type = "text" name = "date" id = "date1" /> 
+	<input type = "text" name = "date" id = "date2" /> 
+	판매번호 : <input type="text" value = "${receipt.sale_time}"/>
+	<input type="submit" value="조회"/>
+</form>
+</section>
+</td>
+<td align = "center" width = "45%">
+<aside id = "right">
+<p align = "center">영수증</p><br>
+<tr><th>상품명</th><th>수량</th><th>금액</th></tr>
+<c:forEach var="receipts" items="${receipts} ">
+	<tr>
+		<td>${receipts.product_name}</td>
+		<td>${receipts.quantity}</td>
+		<td>${receipts.order_price} * ${receipts.quantity}</td>
+	</tr>
+</c:forEach>
+총 금액 : ${order.getAmount()}원<br>
+결제수단 : ${order.getOrder_date()}<br>
+</aside>
+</td>
+</tr>
+</table>
+=======
+	<aside id="header">
+		<%@ include file="../header.jsp"%>
+	</aside>
+	<table border="0" width="100%">
+		<tr align="center">
+			<td align="center" width="15%">
+				<aside id="left">
+					<%@ include file="../left.jsp"%>
+				</aside>
+			</td>
+			<td>
+					<form onsubmit="return msg()" action="${pageContext.request.contextPath}/store/receipt/check">
+						판매날짜(YYYY-MM-DD) : <input type="text" name="sale_time" id="sale_time" value="${receipt.sale_time}" />
+						<input type="submit" value="조회" />
+					</form>
+					<table border="1" width="100%">
+						<tr>
+							<th>판매번호</th>
+							<th>판매시간</th>
+							<th>총금액</th>
+						</tr>
+						
+						<c:forEach var="receipt" items="${receipts}" >
+							<tr>
+								<td>
+								<a href="<c:url value='viewReceipt?sale_id=${receipt.sale_id}&sale_time=${receipt.sale_time}'/>">${receipt.sale_id}</a>
+								</td>
+								<td>${receipt.sale_time}</td>
+								<td>${receipt.totalamount}</td>
+							</tr>
+						</c:forEach>
+					</table>
+			</td>
+			<td align="center" width="30%">
+			<p><font size="5px" style="background-color:lightgray">상세조회</font></p>
+			
+			♥결제내역♥<br>
+			-----------------------------------------<br>
+			<c:forEach var="searchproduct" items="${searchproduct}" >
+				<strong>판매번호:</strong> ${sale_id}<br>
+				<strong>상품명:</strong> ${searchproduct.product_name}<br>
+				<strong>가격:</strong> ${searchproduct.list_price}<br>
+				<strong>수량:</strong> ${searchproduct.quantity}<br>
+				<strong>합계:</strong> ${searchproduct.list_price * searchproduct.quantity }
+				<br>
+				-----------------------------------------<br>
+			</c:forEach>
+		<br>
+	</table>
+>>>>>>> refs/remotes/origin/develop
+>>>>>>> refs/remotes/origin/develop
 </body>
 </html>

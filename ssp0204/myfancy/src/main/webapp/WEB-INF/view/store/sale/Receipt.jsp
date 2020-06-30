@@ -72,7 +72,7 @@ th {
 					<tr>
 						<td align="center" width="45%">${sp.product_name}</td>
 						<td align="center" width="45%">${sp.quantity}</td>
-						<td align="center" width="45%">${sp.list_price}</td>
+						<td align="center" width="45%">${sp.quantity * sp.list_price}</td>
 					</tr>
 					</c:forEach>
 					

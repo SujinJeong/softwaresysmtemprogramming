@@ -15,7 +15,22 @@ public class Product implements Serializable {
 	private int quantity;
 	private boolean in_stock;
 	
-	
+	public Product(int product_id, int category_id, int supplier_id, String product_name, int list_price,
+			int order_price, int quantity, boolean in_stock) {
+		super();
+		this.product_id = product_id;
+		this.category_id = category_id;
+		this.supplier_id = supplier_id;
+		this.product_name = product_name;
+		this.list_price = list_price;
+		this.order_price = order_price;
+		this.quantity = quantity;
+		this.in_stock = in_stock;
+	}
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getProduct_id() {
 		return product_id;
 	}
@@ -66,7 +81,5 @@ public class Product implements Serializable {
 		}
 		return in_stock;
 	}
-	
-	
-	
+		
 }

@@ -30,9 +30,9 @@ public class MyBatisOrderDao implements OrderDao {
 	}
 
 	@Override
-	public void insertOrder(List<Order_product> orderProductList, int store_id, int amount) throws DataAccessException {
+	public void insertOrder(Order order) throws DataAccessException {
 		// TODO Auto-generated method stub
-		orderMapper.insertOrder(orderProductList, store_id, amount);
+		orderMapper.insertOrder(order);
 	}
 
 

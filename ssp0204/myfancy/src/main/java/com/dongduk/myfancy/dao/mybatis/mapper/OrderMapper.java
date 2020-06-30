@@ -11,7 +11,7 @@ public interface OrderMapper {
 	// 지점에서 발주 신청한 목록 리스트
 	Order getOrder(int order_id, int store_id); 
 	// 발주 조회 ex. 발주 번호 3 : 펜1 지우개 2
-	void insertOrder(List<Order_product> orderProductList, int store_id, int amount); 
+	void insertOrder(Order order); 
 	// 발주 등록
 
 }

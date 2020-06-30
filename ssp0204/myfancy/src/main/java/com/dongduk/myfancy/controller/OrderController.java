@@ -1,12 +1,19 @@
 package com.dongduk.myfancy.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +21,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.dongduk.myfancy.domain.Cart;
 import com.dongduk.myfancy.domain.Order;
+import com.dongduk.myfancy.domain.OrderCart;
 import com.dongduk.myfancy.domain.Order_product;
 import com.dongduk.myfancy.domain.Product;
 import com.dongduk.myfancy.domain.Store;
@@ -31,9 +42,8 @@ import com.dongduk.myfancy.service.OrderService;
 import com.dongduk.myfancy.service.ProductService;
 import com.dongduk.myfancy.service.SupplierService;
 
-@SessionAttributes("{storeSession, orderProducts, sessionOrderCart}") // order 내부의 session 별도로 또 사용(입력한 값 받아오도록)
 @Controller
-public class OrderController {
+public class OrderController { 
 	
 	@Autowired
 	OrderService orderService;
@@ -43,7 +53,14 @@ public class OrderController {
 	
 	@Autowired
 	ProductService productService;
+
+	@ModelAttribute("orderProducts")
+	public List<OrderCart> orderProductList(HttpServletRequest request, Model model){
+		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+		List<Product> plist = productService. getProductList(store.getStore_id());
+		List<OrderCart> cart = new ArrayList<OrderCart>();	
 	
+<<<<<<< HEAD
 	  //카트 객체 생성 및 세션으로 관리 -> 모든 request에 대해 handler method보다 먼저 호출됨
 	   @ModelAttribute("sessionOrderCart")
 	   public Cart createCart(HttpSession session) {
@@ -60,133 +77,189 @@ public class OrderController {
 	}
 	   
 	   
+=======
+		 for(int i = 0; i < plist.size(); i++) { 
+			OrderCart oc = new OrderCart();
+			  oc.setProductName(plist.get(i).getProduct_name());
+			  oc.setProductId(plist.get(i).getProduct_id());
+			  oc.setSupplierId(plist.get(i).getSupplier_id()); //oc.setSupplierName("");
+			  oc.setOrderPrice(plist.get(i).getOrder_price()); //int q = 0;
+			  //oc.setQuantity(q); // 잡아봐 
+			  cart.add(i, oc); 
+		 }
+		 System.out.println("물품리스트들"); 
+		return cart;
+	}
+	
+	@ModelAttribute("supplierList") 
+	public List<Supplier> supplier(Model model){
+		System.out.println("거래처 리스트 생성 완료"); 
+		List<Supplier> sList = supplierService.getSupplierList();
+		model.addAttribute("supplierList", sList);
+		return sList; // 발주 관리 화면
+	}
+
+>>>>>>> refs/remotes/origin/develop
 	@RequestMapping("/store/order") //main.jsp에서 Order.jsp로 이동
+<<<<<<< HEAD
 	public String orderProduct(HttpServletRequest request, HttpSession session, Model model, RedirectAttributes redirect) {
 		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
+=======
+	public ModelAndView orderProduct(HttpServletRequest request, 
+			RedirectAttributes redirect) {
+		//발주관리창으로 들어오는 첫번째,,,-> 카트 처음 만든다는 의미,,모든게 처음임
+		ModelAndView mav = new ModelAndView("/store/order/Order");
+>>>>>>> refs/remotes/origin/develop
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		int store_id = store.getStore_id();
-		//Cart cart = new Cart();
+		List<OrderCart> cart = new ArrayList<OrderCart>(); // 오른쪽에 쌓일 카트,,
+		WebUtils.setSessionAttribute(request, "cart", cart); // 1,1:화면 맨 처음 들어올때 세션 카트 만들어줌!
 		Order order = new Order();
 		List<Order> orderlist = orderService.getOrderListByStore(store_id);
 		order.setOrder_id(orderlist.size() + 1);
 		order.setStore_id(store_id);
-		List<Supplier> supplierList = supplierService.getSupplierList();// 거래처 리스트
-		model.addAttribute("supplierList", supplierList);
-		model.addAttribute("order", order);
-		redirect.addAttribute("store_id", store_id);
-		//redirect.addAttribute("cart", cart); // error
-		return "/store/order/Order"; // 발주 관리 화면
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sdf.format(new java.util.Date());
+		java.sql.Date ddate = java.sql.Date.valueOf(date);
+		order.setOrder_date(ddate); //어차피 맨 마지막에 덮어씌울거야,오른쪽 화면의 날짜를 위한 값임
+		WebUtils.setSessionAttribute(request, "order", order); // 마지막까지 발주값 지녀
+		mav.addObject("order", order);
+		System.out.println("화면으로 이동");
+		return mav; // 발주 관리 화면
 	}
-	
 
-//	@RequestMapping(method = RequestMethod.POST) // 거래처 선택했을때 controller에 들어와서 해당하는 물품들 다시 뷰에 출력해줌
-//	public String orderProductList(HttpServletRequest request, Model model, RedirectAttributes redirect) {
-//		String selectedSupplier = request.getParameter("supplierList");
-//		List<Supplier> supplierList = supplierService.getSupplierList();
-//		int supplier_id = 0;
-//		for(int i = 0; i < supplierList.size(); i++) {
-//			if(supplierList.get(i).getSupplier_name().equals(selectedSupplier)) {
-//				supplier_id = supplierList.get(i).getSupplier_id();
-//				break;
-//			}
-//		}
-//		List<Product> productList = supplierService.getProductListBySupplier(supplier_id);	
-//		//redirect.addAttribute(attributeName, attributeValue)
-//		model.addAttribute("productList", productList);
-//		//product 리스트를 객체 리스트로 보내서 그 값을 다시 가져와
-//		return "/store/order/Order";
-//	}
-	
-	//@ModelAttribute("orderProducts") // 거래처 선택했을때 url?action확실하게해주기..
-	@RequestMapping("/store/order/selected/{supplier_name}")
-	// 거래처 선택했을때 controller에 들어와서 해당하는 물품들 다시 뷰에 출력해줌
-	public String productList(HttpServletRequest request, Model model,
-			@PathVariable("supplier_name") String selectedSupplier, RedirectAttributes redirect){ //,  @RequestParam("supplier") String selectedSupplier
-		//String selectedSupplier = request.getParameter("supplierList");
-		//선택된 거래처값 고정되어야함
-		List<Supplier> supplierList = supplierService.getSupplierList();
-		int supplier_id = 0;
-		for(int i = 0; i < supplierList.size(); i++) {
-			if(supplierList.get(i).getSupplier_name().equals(selectedSupplier)) { // 선택한 거래처
-				supplier_id = supplierList.get(i).getSupplier_id();
-				break;
-			}
-		}
-		//System.out.println(supplier_id); // 1
-		List<Product> orderProducts = supplierService.getProductListBySupplier(supplier_id);	
-		// 거래처의 해당 발주 물품들을 가져오는데 폼으로 활용하기 위해서 일단 수량을 0으로 초기화해서 보냄
-		for(int i = 0; i < orderProducts.size(); i++) { 
-			orderProducts.get(i).setQuantity(0);// 수량 0으로 초기화해서 보내
-		}
-		//redirect.addAttribute("supplier_id",supplier_id);
-		model.addAttribute("orderProducts", orderProducts);
-		return "store/order/Order";
-		//product 리스트를 객체 리스트로 보내서 그 값을 다시 가져와
+	//거래처 선택할때마다 여기로 들어오는데 리스트 화면에서 사라짐
+	@RequestMapping(value = "/store/order/selected/{supplier_id}", method = RequestMethod.GET)
+	public String selectedSupplier(HttpServletRequest request, @PathVariable("supplier_id") int supplier_id,
+			 @ModelAttribute("orderProducts") List<OrderCart> list,
+			Model model) {
+		List<OrderCart> cartList = (List<OrderCart>) WebUtils.getSessionAttribute(request, "cart");
+		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+		List<Product> plist = productService. getProductList(store.getStore_id()); // all products..
+		model.addAttribute("id", supplier_id);
+		model.addAttribute("orderProducts", list); // 물품리스트들
+		System.out.println("카트에 담긴 물품 수 : " + cartList.size());
+		if(cartList.size() > 0)  // 하나라도 담겨있으면 거래처 눌러도 오른쪽에 또 뜨도록,,
+			model.addAttribute("cartList", cartList);
+		return "/store/order/Order"; // 해당 거래처에 해당하는 물품리스트들로 갱신해서 다시 보내주고 수량 배열,,,인덱스 맞춰서,,,?
 	}
+
 	
-	//error발생
-	@RequestMapping("/store/order/addOrderProducts") // 발주 물품 담기 (cart에 담기)누르는 순간 발주 생성됨
-	public String addOrderProducts(HttpServletRequest request, 
-			@ModelAttribute("orderProducts") List<Product> productList, 
-			@ModelAttribute("sessionOrderCart") Cart cart, Model model, RedirectAttributes redirect) {
+	
+	
+	
+	
+	
+	//수량에 0 미만의 값 입력,,에러 검증
+	@RequestMapping(value = "/store/order/addOrderProducts", method = RequestMethod.POST) // 발주 물품 담기 (cart에 담기)누르는 순간 발주 생성됨
+	public String addOrderProducts(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("orderProducts") List<OrderCart> productList, // form에서 건너온 물품리스트들
+			@RequestParam("supplierId") int supplier_id,
+			Model model) {
 		//현재 화면에 해당하는 거래처, 물품 리스트
-//		for(int i = 0; i < productList.size(); i++) { 
-//			System.out.println(productList.get(i).getProduct_name());// 출력안됨
-//		}
-		String selectedSupplier = request.getParameter("supplierList");
-		List<Product> cartList = new ArrayList<Product>();
-		for(int i = 0; i < productList.size(); i++) { // 거래처의 발주 물품들
-			int order_product_quantity = productList.get(i).getQuantity();//form에서의 수량
-			if(order_product_quantity > 0) {
-				int product_id = productList.get(i).getProduct_id();
-				Product product = productService.getProduct(product_id);
-				cart.addProductForOrder(product, order_product_quantity);
-				cartList.add(product);//왜하는거...? -> 카트에 담은 상품의 거래처, 상품명, 수량, 가격을 위하여,,
+		List<OrderCart> cartList = (List<OrderCart>) WebUtils.getSessionAttribute(request, "cart");
+		
+		Supplier s = supplierService.getSupplier(supplier_id);
+		int total=0;//order에 넣을 가격을 위하여,,총가격
+		boolean same=false;
+		for(int i = 0; i < productList.size(); i++) { // 거래처의 발주 물품들,,총 물품수량 출력됨,,물품리스트들
+			String input = request.getParameter(Integer.toString(i)); // 입력한 수량
+			//동일한 상품 카트에 이미 존재하면 수량만 증가시켜줘야함
+			if(input!=null) { // 수량 입력된 것들 중에
+				int quantity = Integer.parseInt(input);
+				if(quantity > 0) { // 0 초과인 것만,,오른쪽에 들어갈 것들만,,
+					int product_id = productList.get(i).getProductId();
+					
+					for(int j = 0; j < cartList.size(); j++) { // 카트 안에 이미 존재하면
+						if(cartList.get(j).getProductId() == product_id) {
+							cartList.get(j).setQuantity(cartList.get(j).getQuantity() + quantity);
+							total += quantity*cartList.get(j).getOrderPrice();
+							same=true;
+							break;
+						}
+					}
+					if(same==true)
+						break;
+					OrderCart oc = new OrderCart();
+					oc.setSupplierName(s.getSupplier_name()); 
+					oc.setSupplierId(supplier_id);
+					oc.setProductName(productList.get(i).getProductName());
+					oc.setProductId(product_id);
+					int price =productList.get(i).getOrderPrice();
+					int q = quantity;
+					oc.setOrderPrice(price);
+					oc.setQuantity(q); // 입력한 수량
+					total += price*q; // 방금 누른것의실질적 금액
+					cartList.add(oc);
+				}
+				if(quantity < 0) {//마이너스 값 입력시,,에러,,
+					//해당 물품 이름 지정해주고 수량 음수는 안된다고 alert 발생
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out;
+					try {
+						out = response.getWriter();
+						out.println("<script>alert('수량은 0 미만의 수를 입력할 수 없습니다.');</script>");
+						out.flush();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//return "redirect:/store/order/selected/" + supplier_id; // 다시 돌아가는데 아무 말 없이 돌아감
+					
+				}
 			}
-		}
-		model.addAttribute("cartList", cartList); // 왜험..?
-		model.addAttribute("supplierName", selectedSupplier);
-		//model.addAttribute("cart", cart);
-		redirect.addAttribute("cart", cart); 
-		return "store/order/Order";
+			//만약 카트에 동일 물품 존재한다면 수량 증가
+			
+		}//수량 0 초과인 물품들만 넣어주기
+		
+
+		Order order = (Order)WebUtils.getSessionAttribute(request, "order");
+		int cartTotalPrice = 0;
+		cartTotalPrice = total + order.getAmount(); // 지금까지의 발주금액 + 방금 담기 누른 것들의 금액
+		
+		
+		order.setAmount(cartTotalPrice); // cart가 세션에 존재한다는 증거임,,
+		model.addAttribute("order", order);
+		model.addAttribute("cartList", cartList); // 갱신(생성/축적)
+		WebUtils.setSessionAttribute(request, "order", order); // 갱신
+		WebUtils.setSessionAttribute(request, "cart", cartList); // 갱신
+		return "/store/order/Order";
 	}							
 	
 	@RequestMapping("/store/order/requestOrder") // 발주 등록
-	public String requestOrder(@ModelAttribute("sessionOrderCart") Cart cart, @RequestParam("store_id") int store_id, @RequestParam("order") Order order, Model model){
-		int total = 0;Product product = null;
+	public ModelAndView requestOrder(HttpServletRequest request, 
+			Model model){
+		ModelAndView mav = new ModelAndView("/store/order/confirmOrder");
+		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
+		Order order = (Order) WebUtils.getSessionAttribute(request, "order");
+		List<OrderCart> cartList = (List<OrderCart>) WebUtils.getSessionAttribute(request, "cart");
+
+		int store_id = store.getStore_id();
+		int total = 0;
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(new java.util.Date());
 		java.sql.Date d = java.sql.Date.valueOf(date);
-		order.setOrder_date(d); // 현재 시각
-		List<Order_product> orderProductList = new ArrayList<Order_product>();//발주 상품 리스트
-		Map<Product, Integer> cartList = cart.getCartList(); // cart에 담긴 물품들
-		List<String[]> ol = new ArrayList<String[]>();
-		for(Map.Entry<Product, Integer> elem : cartList.entrySet()) { // cart에 담긴 물품들 발주
-			int product_id = elem.getKey().getProduct_id();
-			int order_product_quantity = elem.getValue();
-			product = productService.getProduct(product_id);
-			Order_product orderproduct = new Order_product();
-			orderproduct.setOrder_id(order.getOrder_id());
-			orderproduct.setProduct_id(product_id);
-			orderproduct.setQuantity(order_product_quantity);
-			orderProductList.add(orderproduct);
-			int supplier_id = elem.getKey().getSupplier_id();
-			Supplier s = supplierService.getSupplier(supplier_id);
-			String[] confirmed = new String[4];
-			confirmed[0] = s.getSupplier_name();
-			confirmed[1] = product.getProduct_name();
-			confirmed[2] = Integer.toString(order_product_quantity);
-			int result = order_product_quantity * product.getOrder_price();
-			confirmed[3] = Integer.toString(result);
-			ol.add(confirmed);
+		order.setOrder_date(d); // 발주 등록버튼 누른 순간 현재 시각이 발주시간으로 들어감
+			
+		orderService.insertOrder(order);
+		//order_id넣어줘,,이미order의amount계산되어있음
+	
+		for(int i = 0; i < cartList.size(); i++) { // order에 쌓인 orderProduct들,,
+			//Order_product o = orderProductList.get(i);
+			//System.out.println(cartList.get(i).getSupplierName());
+			Order_product op = new Order_product();
+			op.setProduct_id(cartList.get(i).getProductId());
+			op.setOrder_id(order.getOrder_id());
+			op.setQuantity(cartList.get(i).getQuantity());
+			orderService.insertOrderProduct(op);
 		}
-		total = cart.getSubOrderTotal(product); // 카트에 담긴 총 금액
-		order.setAmount(total); // 발주 총 금액
-		orderService.insertOrder(orderProductList, store_id, order.getAmount());
-		orderService.insertOrderProduct(cart); // 굳이 필요한가,,?
-		model.addAttribute("order", order);
-		model.addAttribute("orderProductList", ol);
-		return "/store/order/confirmOrder";
+		
+		mav.addObject("order", order);
+		//model.addattribute("cart", cartList);
+		mav.addObject("orderProductList", cartList); // 찐 발주 목록
+		return mav;
 		//return "order/confirmOrder";
 	}
 	

@@ -11,7 +11,7 @@ public interface OrderProductDao {
 
 	List<Order_product> getOrderProductList(int store_id, int order_id) throws DataAccessException;
 	// 발주 상품 리스트
-	void insertOrderProduct(Cart cart) throws DataAccessException;
+	void insertOrderProduct(Order_product order_product) throws DataAccessException;
 	// 발주 상품 저장
 
 }

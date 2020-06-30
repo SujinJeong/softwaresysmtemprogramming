@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.dongduk.myfancy.domain.Sale;
-import com.dongduk.myfancy.domain.Sale_product;
 
 public interface SaleDao {
 	//기존 method
