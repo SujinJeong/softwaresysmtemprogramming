@@ -150,9 +150,10 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("store/emp/commute")
-	public ModelAndView empCommuteView(HttpServletRequest request, HttpServletResponse response, @RequestParam int emp_id) {
+	public ModelAndView empCommuteView(HttpServletRequest request, HttpServletResponse response, @RequestParam("emp_id") int emp_id) {
 		ModelAndView mav = new ModelAndView("store/emp/commute");
 		int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
+//		int emp_id = 
 		Employee emp = employeeService.getEmployee(emp_id, store_id);
 		if (emp == null) {
 			response.setContentType("text/html;charset=UTF-8");

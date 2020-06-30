@@ -6,8 +6,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>발주 화면</title>
+<title>발주관리</title>
+<style TYPE="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+td {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #595959;
+	text-align: center;
+	height: 80px;
+}
 
+tr {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #000000;
+	text-align: center;
+	height: 80px;
+}
+th {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20pt;
+	color: #000000;
+	text-align: center;
+	background-color: #f29886;
+	height: 80px;
+}
+</style>
  <script>
 
 //  function selected(){
@@ -34,7 +59,10 @@
 				<%@ include file="../left.jsp" %>
 			</aside>
 		</td>
-		<td align="center" width="45%">
+		
+		<td>
+		<font color="GREEN" size="8px">${storeSession.store_name} 발주관리</font>
+		<br><br><br>
 		<table>
 			<tr>
 				<td>

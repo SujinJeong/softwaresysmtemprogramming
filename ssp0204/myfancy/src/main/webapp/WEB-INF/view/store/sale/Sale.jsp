@@ -19,7 +19,34 @@ function enterkey() {
 </script>
 <meta charset="UTF-8">
 <title>상품판매</title>
+<style TYPE="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+td {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #595959;
+	text-align: center;
+	height: 80px;
+}
+
+tr {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #000000;
+	text-align: center;
+	height: 80px;
+}
+th {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20pt;
+	color: #000000;
+	text-align: center;
+	background-color: #f29886;
+	height: 80px;
+}
+</style>
 </head>
+
 <body>
 <aside id = "header">
 <%@ include file="../header.jsp" %>
@@ -31,7 +58,9 @@ function enterkey() {
 			<%@ include file="../left.jsp" %>
 			</aside>
 		</td>
-		<td align="center" width="45%">
+		<td width="45%">
+		<font color="GREEN" size="8px">${storeSession.store_name} 상품 판매</font>
+		<br><br><br>
 			<table style="width:70%">
 			   <tr align="center" width="45%"><th>상품명</th><th >가격</th></tr>
 			   <c:forEach var="product" items="${productList}">

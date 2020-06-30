@@ -15,7 +15,33 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh:mm:ss");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영수증</title>
+<title>판매 영수증</title>
+<style TYPE="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+td {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #595959;
+	text-align: center;
+	height: 80px;
+}
+
+tr {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #000000;
+	text-align: center;
+	height: 80px;
+}
+th {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20pt;
+	color: #000000;
+	text-align: center;
+	background-color: #f29886;
+	height: 80px;
+}
+</style>
 </head>
 <body>
 <aside id = "header">
@@ -30,6 +56,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh:mm:ss");
 		</td>
 		<!--여기까지 왼쪽 메뉴 --> 		
 		<td align="center" width="100%">
+		<font color="GREEN" size="8px">${storeSession.store_name} 판매 간이 영수증</font>
+		<br><br><br>
 			<table style="width:70%">
 				<tr>
 					<td>${storeSession.store_name}</td>
