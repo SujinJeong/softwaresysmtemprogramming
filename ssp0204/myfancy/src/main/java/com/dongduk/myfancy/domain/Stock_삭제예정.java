@@ -9,7 +9,6 @@ public class Stock_삭제예정 implements Serializable {
 	private int sale_id;
 	private int quantity;
 	
-	
 	public int getProduct_id() {
 		return product_id;
 	}

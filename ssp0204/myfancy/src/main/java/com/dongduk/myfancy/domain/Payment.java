@@ -2,6 +2,7 @@ package com.dongduk.myfancy.domain;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Payment implements Serializable {
 
 	private int sale_id;

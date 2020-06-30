@@ -143,44 +143,44 @@ public class OrderController {
 		return "store/order/Order";
 	}							
 	
-	@RequestMapping("/store/order/requestOrder") // 발주 등록
-	public String requestOrder(@ModelAttribute("sessionOrderCart") Cart cart, @RequestParam("store_id") int store_id, @RequestParam("order") Order order, Model model){
-		int total = 0;Product product = null;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String date = sdf.format(new java.util.Date());
-		java.sql.Date d = java.sql.Date.valueOf(date);
-		order.setOrder_date(d); // 현재 시각
-		List<Order_product> orderProductList = new ArrayList<Order_product>();//발주 상품 리스트
-		Map<Product, Integer> cartList = cart.getCartList(); // cart에 담긴 물품들
-		List<String[]> ol = new ArrayList<String[]>();
-		for(Map.Entry<Product, Integer> elem : cartList.entrySet()) { // cart에 담긴 물품들 발주
-			int product_id = elem.getKey().getProduct_id();
-			int order_product_quantity = elem.getValue();
-			product = productService.getProduct(product_id);
-			Order_product orderproduct = new Order_product();
-			orderproduct.setOrder_id(order.getOrder_id());
-			orderproduct.setProduct_id(product_id);
-			orderproduct.setQuantity(order_product_quantity);
-			orderProductList.add(orderproduct);
-			int supplier_id = elem.getKey().getSupplier_id();
-			Supplier s = supplierService.getSupplier(supplier_id);
-			String[] confirmed = new String[4];
-			confirmed[0] = s.getSupplier_name();
-			confirmed[1] = product.getProduct_name();
-			confirmed[2] = Integer.toString(order_product_quantity);
-			int result = order_product_quantity * product.getOrder_price();
-			confirmed[3] = Integer.toString(result);
-			ol.add(confirmed);
-		}
-		total = cart.getSubOrderTotal(product); // 카트에 담긴 총 금액
-		order.setAmount(total); // 발주 총 금액
-		orderService.insertOrder(orderProductList, store_id, order.getAmount());
-		orderService.insertOrderProduct(cart); // 굳이 필요한가,,?
-		model.addAttribute("order", order);
-		model.addAttribute("orderProductList", ol);
-		return "/store/order/confirmOrder";
-		//return "order/confirmOrder";
-	}
+//	@RequestMapping("/store/order/requestOrder") // 발주 등록
+//	public String requestOrder(@ModelAttribute("sessionOrderCart") Cart cart, @RequestParam("store_id") int store_id, @RequestParam("order") Order order, Model model){
+//		int total = 0;Product product = null;
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		String date = sdf.format(new java.util.Date());
+//		java.sql.Date d = java.sql.Date.valueOf(date);
+//		order.setOrder_date(d); // 현재 시각
+//		List<Order_product> orderProductList = new ArrayList<Order_product>();//발주 상품 리스트
+//		Map<Product, Integer> cartList = cart.getCartList(); // cart에 담긴 물품들
+//		List<String[]> ol = new ArrayList<String[]>();
+//		for(Map.Entry<Product, Integer> elem : cartList.entrySet()) { // cart에 담긴 물품들 발주
+//			int product_id = elem.getKey().getProduct_id();
+//			int order_product_quantity = elem.getValue();
+//			product = productService.getProduct(product_id);
+//			Order_product orderproduct = new Order_product();
+//			orderproduct.setOrder_id(order.getOrder_id());
+//			orderproduct.setProduct_id(product_id);
+//			orderproduct.setQuantity(order_product_quantity);
+//			orderProductList.add(orderproduct);
+//			int supplier_id = elem.getKey().getSupplier_id();
+//			Supplier s = supplierService.getSupplier(supplier_id);
+//			String[] confirmed = new String[4];
+//			confirmed[0] = s.getSupplier_name();
+//			confirmed[1] = product.getProduct_name();
+//			confirmed[2] = Integer.toString(order_product_quantity);
+//			int result = order_product_quantity * product.getOrder_price();
+//			confirmed[3] = Integer.toString(result);
+//			ol.add(confirmed);
+//		}
+//		total = cart.getSubOrderTotal(product); // 카트에 담긴 총 금액
+//		order.setAmount(total); // 발주 총 금액
+//		orderService.insertOrder(orderProductList, store_id, order.getAmount());
+//		orderService.insertOrderProduct(cart); // 굳이 필요한가,,?
+//		model.addAttribute("order", order);
+//		model.addAttribute("orderProductList", ol);
+//		return "/store/order/confirmOrder";
+//		//return "order/confirmOrder";
+//	}
 	
 	// V
 	@RequestMapping(value = {"/store/order/requestCancel" , "/store/order/confirmedComplete"}) // 발주 등록 취소,,main으로 돌아감

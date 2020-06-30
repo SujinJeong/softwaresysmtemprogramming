@@ -75,6 +75,7 @@ public class LoginController {
 			HttpServletRequest request, Model model) {
 		status.setComplete();
 		Cart cart = (Cart)WebUtils.getSessionAttribute(request, "sessionSaleCart");
+		if (cart != null)
 		cart.removeSale();	//cart내 물품 삭제
 		return "index";
 	}

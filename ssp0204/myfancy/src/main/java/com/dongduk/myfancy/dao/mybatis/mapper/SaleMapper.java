@@ -9,10 +9,6 @@ import com.dongduk.myfancy.domain.Sale_product;
 
 public interface SaleMapper {
 
-	//original method
-//	void insertSale(int store_id, List<Sale_product>saleProductList, int amount);
-	//DB 모든 필드 정의
-//	void insertSale(int sale_id, int store_id, Date sale_time,int totalamount);
 	//DB 시퀀스,DATE타입 빼고 정의
 	void insertSale(int store_id, int subSaleTotal);
    	// 결제가 이루어진 시간 등 정보 저장

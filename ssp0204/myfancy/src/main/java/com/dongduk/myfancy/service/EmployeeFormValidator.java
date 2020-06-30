@@ -7,11 +7,7 @@ import org.springframework.validation.Validator;
 
 import com.dongduk.myfancy.controller.EmployeeForm;
 import com.dongduk.myfancy.domain.Employee;
-/**
- * @author Juergen Hoeller
- * @since 01.12.2003
- * @modified by Changsup Park
- */
+
 @Component
 public class EmployeeFormValidator implements Validator {
 

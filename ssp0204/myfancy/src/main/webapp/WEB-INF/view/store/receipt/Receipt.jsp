@@ -87,7 +87,6 @@
 		<td>${receipts.order_price} * ${receipts.quantity}</td>
 	</tr>
 </c:forEach>
-
 총 금액 : ${order.getAmount()}원<br>
 결제수단 : ${order.getOrder_date()}<br>
 </aside>

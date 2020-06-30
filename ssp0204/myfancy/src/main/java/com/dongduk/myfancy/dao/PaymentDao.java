@@ -2,9 +2,11 @@ package com.dongduk.myfancy.dao;
 
 import org.springframework.dao.DataAccessException;
 
+import com.dongduk.myfancy.domain.Payment;
+
 public interface PaymentDao {
 	
-	int makeSaleByPaymentCode(int paymentCode) throws DataAccessException;
-	// 카드or현금 (수단)으로 실제 결제를 하는 method
-
+	void insertPayment(Payment payment) throws DataAccessException;
+	//간이영수증 출력을 위해 결제수단 저장하는 메소드
+	Payment getPayment() throws DataAccessException;
 }

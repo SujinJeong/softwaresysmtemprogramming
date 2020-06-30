@@ -1,7 +1,9 @@
 package com.dongduk.myfancy.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,7 +12,7 @@ import java.util.Set;
 @SuppressWarnings("serial")
 public class Cart implements Serializable {
 	private Map<Product, Integer> cartList;
-	private int quantity;	//사용자가 타이핑하는 수량 사용하기 위한 필드
+	private int quantity;
 	private int cartTotalQuantity;	//카트 내 물품들 총 수량
 	
 	public Cart() {
@@ -30,8 +32,8 @@ public class Cart implements Serializable {
 		this.cartList = cartList;
 	}
 
-	public Map<Product, Integer> getCartList() {
-		return cartList;
+	public HashMap<Product, Integer> getCartList() {
+		return (HashMap<Product, Integer>) cartList;
 	}
 
 	public void setCartTotalQuantity(int cartTotalQuantity) {
@@ -49,32 +51,25 @@ public class Cart implements Serializable {
 	}
 
 	//카트(오른쪽 분활화면)에 소비자가 선택한 상품들 추가
-	public void addProductForSale(Product product) {
-		System.out.println(product.getProduct_id());
-		cartList.put(product, 1);	//처음 수량은 1로 고정
+	public void addProductForSale(Product product, int quantity) {
+		cartList.put(product, quantity);	
 	}
 	
 	public void addProductForOrder(Product product, int quantity) { // cart에 담기
 		cartList.put(product, quantity);
 	}
 	
-	//카트에서 소비자가 타이핑한 값으로 수량 설정
-	public void setQuantityByProduct(Product product) {
-//		product.setQuantity(quantity);	//소비자가 타이핑한 값으로 설정
-		cartList.put(product, quantity);
-	}
-	
-	public void checkInStock(Map<Product, Integer> cartList) {
+	public Product checkInStock(Product product, Map<Product, Integer> cartList) {	//재고가 부족한 물품 넘겨줌
+		
 		Set<Entry<Product,Integer>> set = cartList.entrySet();
 		Iterator<Entry<Product,Integer>> itr = set.iterator();
 		while(itr.hasNext()) {
 			Map.Entry<Product, Integer> e = (Map.Entry<Product, Integer>)itr.next();
-			Product product = e.getKey();
-			quantity = e.getValue();
-			if (product.getQuantity() < quantity) {
-				
+			if (product.getQuantity() < e.getValue() || product.isInStock() == false) {
+				return product;
 			}
 		}
+		return null;
 	}
 
 	 public int getSubOrderTotal(Product product) { // 카트에 담긴 총 금액
@@ -95,7 +90,7 @@ public class Cart implements Serializable {
 		Iterator<Entry<Product,Integer>> itr = set.iterator();
 		while (itr.hasNext()) {
 			Map.Entry<Product, Integer> e = (Map.Entry<Product, Integer>)itr.next();
-			subTotal += e.getKey().getList_price() * e.getValue();
+			subTotal += (e.getKey().getList_price() * e.getValue());
 		}
 		return subTotal;
 	}
@@ -105,7 +100,17 @@ public class Cart implements Serializable {
 		cartList = getCartList();
 		cartList.clear();
 		boolean isEmpty = cartList.isEmpty();
-		System.out.println("cart내 물품삭제 : " + isEmpty);	
 	}
+	
+	public Product findProduct(HashMap<Product, Integer> list, int pid) { 
+		   Set<Product> set = list.keySet(); 
+		   Iterator<Product> iter = set.iterator(); 
+		   Product p = null; 
+		   while(iter.hasNext()) { 
+		     p = iter.next(); 
+		     if(p.getProduct_id() == pid) break; 
+		  } 
+		  return p; 
+		} 
 
 }

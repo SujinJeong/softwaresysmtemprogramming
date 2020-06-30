@@ -7,13 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.dongduk.myfancy.dao.SaleDao;
 import com.dongduk.myfancy.dao.mybatis.mapper.ProductMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.SaleMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.SalesMapper;
 import com.dongduk.myfancy.domain.Sale;
-import com.dongduk.myfancy.domain.Sale_product;
 
 @Repository
 public class MyBatisSaleDao implements SaleDao {
@@ -39,16 +37,9 @@ public class MyBatisSaleDao implements SaleDao {
    
    //DB에서 시퀀스,date타입 빼고 정의한 것
    @Override
-<<<<<<< HEAD
    public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
 	   saleMapper.insertSale(store_id, subSaleTotal);
    }
-=======
-   public void insertSale(int store_id, List<Sale_product> saleProductList, int amount) throws DataAccessException {
-      // TODO Auto-generated method stub
-      saleMapper.insertSale(store_id, saleProductList, amount);
-   }
->>>>>>> branch 'develop' of https://github.com/SujinJeong/softwaresysmtemdevelop
 
    @Transactional
    public void insertSale(Sale sale) throws DataAccessException {
