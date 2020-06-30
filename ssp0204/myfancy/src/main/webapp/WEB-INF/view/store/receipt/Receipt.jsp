@@ -15,6 +15,11 @@
 <title>영수증 조회</title>
 <style TYPE="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+#body {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	text-align: center;
+}
 td {
    font-family: 'Jeju Gothic', sans-serif;
    font-size: 15pt;
@@ -84,17 +89,18 @@ th {
 
 </head>
 <body>
-
    <aside id="header">
       <%@ include file="../header.jsp"%>
    </aside>
-   <table border="0" width="100%">
+	<div id="body" align="center">
+   <table border="0" width="1200">
       <tr align="center">
-         <td align="center" width="15%">
+         <td align="center" width="250">
             <aside id="left">
                <%@ include file="../left.jsp"%>
             </aside>
          </td>
+         <td width="150"></td>
          <td>
          <font color="GREEN" size="8px">${storeSession.store_name} 영수증 조회</font>
 		<br><br><br>
@@ -102,7 +108,7 @@ th {
                   판매날짜(YYYY-MM-DD) : <input type="text" name="sale_time" id="sale_time" value="${receipt.sale_time}" />
                   <input type="submit" value="조회" />
                </form>
-               <table border="1" width="100%">
+               <table border="1" width="800">
                   <tr>
                      <th>판매번호</th>
                      <th>판매시간</th>
@@ -120,7 +126,7 @@ th {
                   </c:forEach>
                </table>
          </td>
-         <td align="center" width="30%">
+         <td align="center" width="300">
          <p><font size="5px" style="background-color:lightgray">상세조회</font></p>
          
          ♥결제내역♥<br>
@@ -136,5 +142,6 @@ th {
          </c:forEach>
       <br>
    </table>
+   </div>
 </body>
 </html>

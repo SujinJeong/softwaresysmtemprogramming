@@ -54,7 +54,7 @@ th {
 			</form>
 			<br><br>
 			<form method="get" action="${pageContext.request.contextPath}/store/emp/commute">
-				직원 아이디 : <input type="text" name="emp_id" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+				직원 아이디 : <input type="text" name="emp_id" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
 				<input type="submit" value="직원" />
 			</form>
 		</td>

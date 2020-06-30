@@ -142,18 +142,13 @@ public class EmployeeController {
 			else {
 					return "redirect:/store/emp/employer/update/" + empId;
 			}
-		}//		ModelAndView mav = new ModelAndView("redirect:/store/emp/employer/update/" + empId);
-//		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-//		int store_id = store.getStore_id();
-//		Employee emp = employeeService.getEmployee(empId, store_id);
-//		mav.addObject("emp", emp);
+		}
 	}
 	
 	@RequestMapping("store/emp/commute")
 	public ModelAndView empCommuteView(HttpServletRequest request, HttpServletResponse response, @RequestParam("emp_id") int emp_id) {
 		ModelAndView mav = new ModelAndView("store/emp/commute");
 		int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
-//		int emp_id = 
 		Employee emp = employeeService.getEmployee(emp_id, store_id);
 		if (emp == null) {
 			response.setContentType("text/html;charset=UTF-8");
