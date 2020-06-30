@@ -1,6 +1,7 @@
 package com.dongduk.myfancy.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,9 @@ public class LoginController {
 	}
 	
 	@GetMapping("/main")
-	public ModelAndView main(HttpServletRequest request, Model model) { 
+	public ModelAndView main(HttpServletRequest request, 
+			HttpSession session, Model model) { 
+		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 		if (store == null) {
 			return new ModelAndView("store/error", "message", 
@@ -71,11 +74,13 @@ public class LoginController {
 	}
 
 	@RequestMapping("logout")
-	public String logout(@ModelAttribute("storeSession") Store store, SessionStatus status, 
+	public String logout(SessionStatus status, 
 			HttpServletRequest request, Model model) {
-		status.setComplete();
+		if ((Store)WebUtils.getSessionAttribute(request, "storeSession") != null)
+			status.setComplete();
 		Cart cart = (Cart)WebUtils.getSessionAttribute(request, "sessionSaleCart");
-		cart.removeSale();	//cart내 물품 삭제
+		if (cart != null)
+			cart.removeSale();	//cart내 물품 삭제
 		return "index";
 	}
 	

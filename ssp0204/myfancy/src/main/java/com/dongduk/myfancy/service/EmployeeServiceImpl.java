@@ -26,99 +26,129 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private CommuteDao commuteDao;
 	
 	@Override
-	public List<Employee> getEmployeeList(int store_id) {
+	public List<Employee> getEmployeeList(int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return employeeDao.getEmployeeList(store_id);
 	}
 
 	@Override
-	public Employee getEmployee(int emp_id, int store_id) {
+	public Employee getEmployee(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return employeeDao.getEmployee(emp_id, store_id);
 	}
 
 	@Override
-	public void insertEmployee(Employee employee) {
+	public void insertEmployee(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
 		employeeDao.insertEmployee(employee);
 	}
 
 	@Override
-	public void updateEmployee(Employee employee) {
+	public void updateEmployee(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
 		employeeDao.updateEmployee(employee);
 	}
 
 	@Override
-	public void removeEmployee(int emp_id, int store_id) {
+	public void removeEmployee(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		employeeDao.removeEmployee(emp_id, store_id);
 	}
 
 	@Override
-	public void insertSalary(Employee employee) {
+	public void insertSalary(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
-		salaryDao.insertSalary(employee);
+		employeeDao.insertSalary(employee);
 	}
 
 	@Override
-	public List<Salary> getSalaryListByMonth(int store_id, String date) {
+	public List<Salary> getSalaryListByMonth(int store_id, String date) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return salaryDao.getSalaryListByMonth(store_id, date);
 	}
 
 	@Override
-	public void resetSalary() {
+	public void resetSalary() throws DataAccessException {
 		// TODO Auto-generated method stub
 		salaryDao.resetSalary();
 	}
 
 	@Override
-	public void insertStartTime(int emp_id) throws DataAccessException {
+	public void insertStartTime(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		commuteDao.insertStartTime(emp_id);
+		commuteDao.insertStartTime(emp_id, store_id);
 	}
 
 	@Override
-	public void insertFinishTime(int emp_id) throws DataAccessException {
+	public void insertFinishTime(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		commuteDao.insertFinishTime(emp_id);
+		commuteDao.insertFinishTime(emp_id, store_id);
 	}
 
 	@Override
-	public int getStartTime(int emp_id) throws DataAccessException {
+	public String getStartTimeToString(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteDao.getStartTime(emp_id);
+		return commuteDao.getStartTimeToString(emp_id, store_id);
 	}
 
 	@Override
-	public int getFinishTime(int emp_id) throws DataAccessException {
+	public String getFinishTimeToString(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteDao.getFinishTime(emp_id);
+		return commuteDao.getFinishTimeToString(emp_id, store_id);
 	}
 
 	@Override
-	public List<Commute> getCommuteList(int emp_id) throws DataAccessException {
+	public List<Commute> getCommuteList(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteDao.getCommuteList(emp_id);
+		return commuteDao.getCommuteList(emp_id, store_id);
 	}
 
 	@Override
-	public void updateWorkTime(int emp_id, double time) throws DataAccessException {
+	public void updateWorkTime(int emp_id, int store_id, double time) throws DataAccessException {
 		// TODO Auto-generated method stub
-		employeeDao.updateWorkTime(emp_id, time);
+		employeeDao.updateWorkTime(emp_id, store_id, time);
 	}
 
 	@Override
-	public void updateWorkTimeForSalary(int emp_id, double time) throws DataAccessException {
+	public void updateWorkTimeForSalary(int emp_id, int store_id, double time) throws DataAccessException {
 		// TODO Auto-generated method stub
-		salaryDao.updateWorkTimeForSalary(emp_id, time);
+		salaryDao.updateWorkTimeForSalary(emp_id, store_id, time);
 	}
 
 	@Override
-	public Commute getCommuteOfToday(int emp_id) throws DataAccessException {
+	public Commute getCommuteOfToday(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteDao.getCommuteOfToday(emp_id);
+		return commuteDao.getCommuteOfToday(emp_id, store_id);
+	}
+
+	@Override
+	public double getWorkTimeByNow(int emp_id, int store_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteDao.getWorkTimeByNow(emp_id, store_id);
+	}
+
+	@Override
+	public double getWorkTime(int emp_id, int store_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteDao.getWorkTime(emp_id, store_id);
+	}
+
+	@Override
+	public void updateAmount(int emp_id, int store_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		salaryDao.updateAmount(emp_id, store_id);
+	}
+
+	@Override
+	public void updateBankAndSalary(Employee employee) throws DataAccessException {
+		// TODO Auto-generated method stub
+		salaryDao.updateBankAndSalary(employee);
+	}
+
+	@Override
+	public int getEmpSequence() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return employeeDao.getEmpSequence();
 	}
 
 }

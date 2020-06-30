@@ -61,7 +61,8 @@ public class OrderController {
 	   
 	   
 	@RequestMapping("/store/order") //main.jsp에서 Order.jsp로 이동
-	public String orderProduct(HttpServletRequest request, Model model, RedirectAttributes redirect) {
+	public String orderProduct(HttpServletRequest request, HttpSession session, Model model, RedirectAttributes redirect) {
+		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		int store_id = store.getStore_id();
 		//Cart cart = new Cart();

@@ -47,7 +47,8 @@ public class SaleController {
 
 	// 판매관리 누르면 물품들 보여주는 메소드 (동작함)
 	@RequestMapping("/view")
-	public ModelAndView viewProduct(HttpServletRequest request) {
+	public ModelAndView viewProduct(HttpServletRequest request, HttpSession session) {
+		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		List<Product> productList = productService.getProductList(store.getStore_id());
 		System.out.println(store.getStore_name());

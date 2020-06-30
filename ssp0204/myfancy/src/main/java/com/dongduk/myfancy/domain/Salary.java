@@ -11,7 +11,7 @@ public class Salary implements Serializable {
 	private int emp_id;
 	private String emp_name;
 	private String bankaccount;
-	private String worktime;
+	private double worktime;
 	private String salary; //시급
 	private Date salary_date;
 	private int amount; //월급(한달의 급여금액)
@@ -44,10 +44,10 @@ public class Salary implements Serializable {
 	public void setEmp_name(String emp_name) {
 		this.emp_name = emp_name;
 	}
-	public String getWorktime() {
+	public double getWorktime() {
 		return worktime;
 	}
-	public void setWorktime(String worktime) {
+	public void setWorktime(double worktime) {
 		this.worktime = worktime;
 	}
 	public String getSalary() {

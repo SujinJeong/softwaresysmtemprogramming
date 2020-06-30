@@ -3,6 +3,7 @@
 
 <mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.EmployeeMapper">
 
+	
   
   <select id="getEmployee" resultType="com.dongduk.myfancy.domain.Employee">
   	SELECT EMPLOYEE.EMP_ID,
@@ -18,6 +19,10 @@
   	WHERE STORE.STORE_ID = #{param2} AND EMPLOYEE.EMP_ID = #{param1}
   </select>
   
+  <select id="getEmpSequence" resultType="int">
+  	SELECT emp_seq.nextval FROM DUAL
+  </select>
+  
   <select id="getEmployeeList" resultType="com.dongduk.myfancy.domain.Employee">
   	SELECT EMPLOYEE.EMP_ID,
   		STORE.STORE_ID,
@@ -29,7 +34,7 @@
   		EMPLOYEE.BANKACCOUNT,
   		EMPLOYEE.SALARY
   	FROM EMPLOYEE, STORE
-  	WHERE STORE.STORE_ID = #{param1}
+  	WHERE EMPLOYEE.STORE_ID = STORE.STORE_ID AND EMPLOYEE.STORE_ID = #{param1}
   	ORDER BY EMPLOYEE.EMP_ID
   </select>
   
@@ -37,13 +42,20 @@
   	INSERT INTO EMPLOYEE
   		(EMP_ID, STORE_ID, EMP_NAME, ADDRESS, PHONENUM, EMAIL, WORKTIME, BANKACCOUNT, SALARY)
   	VALUES
-  		(emp_seq.nextval, #{store_id}, #{emp_name}, #{address}, #{phonenum}, #{email}, #{worktime}, #{bankaccount}, #{salary})
+  		(#{emp_id}, #{store_id}, #{emp_name}, #{address}, #{phonenum}, #{email}, #{worktime}, #{bankaccount}, #{salary})
+  </insert>
+  
+  <insert id="insertSalary" parameterType="com.dongduk.myfancy.domain.Employee">
+  	INSERT INTO SALARY
+  		(SALARY_ID, EMP_ID, SALARY_DATE, AMOUNT, STORE_ID, BANKACCOUNT, SALARY, WORKTIME)
+  	VALUES
+  		(TO_CHAR(#{store_id}) || '_' || TO_CHAR(SYSDATE, 'yyyyMM') || '_' || TO_CHAR(#{emp_id}), #{emp_id}, SYSDATE, 0, #{store_id}, #{bankaccount}, #{salary}, #{worktime})
   </insert>
   
   <update id="updateWorkTime">
   	UPDATE EMPLOYEE SET
-  		WORKTIME += #{param2}
-  	WHERE EMP_ID = #{param1}
+  		WORKTIME = WORKTIME + #{param3}
+  	WHERE EMP_ID = #{param1} AND STORE_ID = #{param2}
   </update>
   
   <update id="updateEmployee" parameterType="com.dongduk.myfancy.domain.Employee">

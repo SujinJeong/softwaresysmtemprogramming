@@ -37,6 +37,7 @@ public class ReceivceController {
 				@ModelAttribute("receive") Send send, Model model, 
 				HttpSession session, HttpServletRequest request) throws Exception
 		{	
+			if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
 			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 			List<Order_product> oProductList = receiveService.getOrderList(store.getStore_id());
 			model.addAttribute("receive", oProductList);

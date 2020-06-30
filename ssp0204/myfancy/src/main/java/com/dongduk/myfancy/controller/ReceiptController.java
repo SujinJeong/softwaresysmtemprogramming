@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,8 @@ public class ReceiptController {
 
 	//@ModelAttribute("receipt")
 	@RequestMapping("/store/receipt")
-	public String receiptForm(HttpServletRequest request, RedirectAttributes redirect, Model model) {
+	public String receiptForm(HttpServletRequest request, HttpSession session, RedirectAttributes redirect, Model model) {
+		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
 		redirect.addAttribute("store_id", store.getStore_id());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

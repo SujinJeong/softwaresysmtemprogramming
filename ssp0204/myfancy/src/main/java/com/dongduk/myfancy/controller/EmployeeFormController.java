@@ -42,22 +42,34 @@ public class EmployeeFormController {
 	}
 	
 	@RequestMapping(value = "/store/emp/employer/register", method = RequestMethod.GET)
-	public ModelAndView showFormRegister() {
-		formViewName = "store/emp/register";
-		ModelAndView mav = new ModelAndView(formViewName);
-		EmployeeForm employeeForm = new EmployeeForm();
-		mav.addObject("employeeForm", employeeForm);
-		return mav;
+	public ModelAndView showFormRegister(HttpSession session) {
+		if (session.getAttribute("employerCheck") == null) return new ModelAndView("store/emp/emp");
+		else {
+			if (!((boolean)session.getAttribute("employerCheck"))) return new ModelAndView("store/emp/emp");
+			else {
+				formViewName = "store/emp/register";
+				ModelAndView mav = new ModelAndView(formViewName);
+				EmployeeForm employeeForm = new EmployeeForm();
+				mav.addObject("employeeForm", employeeForm);
+				return mav;
+			}
+		}		
 	}
 	
 	@RequestMapping(value = "/store/emp/employer/update/{emp_id}", method = RequestMethod.GET)
-	public ModelAndView showFormUpdate(HttpServletRequest request, @PathVariable int emp_id) {
-		formViewName = "store/emp/update";
-		ModelAndView mav = new ModelAndView(formViewName);
-		Employee emp = employeeService.getEmployee(emp_id, ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id());
-		EmployeeForm employeeForm = new EmployeeForm(emp);
-		mav.addObject("employeeForm", employeeForm);
-		return mav;
+	public ModelAndView showFormUpdate(HttpServletRequest request, HttpSession session, @PathVariable int emp_id) {
+		if (session.getAttribute("employerCheck") == null) return new ModelAndView("store/emp/emp");
+		else {
+			if (!((boolean)session.getAttribute("employerCheck"))) return new ModelAndView("store/emp/emp");
+			else {
+				formViewName = "store/emp/update";
+				ModelAndView mav = new ModelAndView(formViewName);
+				Employee emp = employeeService.getEmployee(emp_id, ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id());
+				EmployeeForm employeeForm = new EmployeeForm(emp);
+				mav.addObject("employeeForm", employeeForm);
+				return mav;
+			}
+		}		
 	}
 	
 	@RequestMapping(value = "/store/emp/employer/register", method = RequestMethod.POST)
@@ -72,6 +84,7 @@ public class EmployeeFormController {
 		
 		if (result.hasErrors()) return formViewName;
 		try {
+			employeeForm.getEmployee().setEmp_id(employeeService.getEmpSequence());
 			employeeForm.getEmployee().setStore_id(store_id);
 			employeeService.insertEmployee(employeeForm.getEmployee());
 		}
@@ -92,6 +105,7 @@ public class EmployeeFormController {
 		
 		if (result.hasErrors()) return formViewName;
 		try {
+			employeeForm.getEmployee().setStore_id(((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id());
 			employeeService.updateEmployee(employeeForm.getEmployee());
 		}
 		catch (DataIntegrityViolationException ex) {

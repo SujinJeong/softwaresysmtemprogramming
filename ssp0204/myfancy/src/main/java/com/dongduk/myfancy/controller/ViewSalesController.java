@@ -30,6 +30,8 @@ public class ViewSalesController {
 			@RequestParam(value="lastday", required=false) String lastday, 
 			Model model, HttpSession session, HttpServletRequest request) throws Exception
 	{
+		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
+
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 		
 		Calendar cal = Calendar.getInstance();

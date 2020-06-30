@@ -2,6 +2,7 @@ package com.dongduk.myfancy.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Commute implements Serializable {
 	
@@ -10,8 +11,23 @@ public class Commute implements Serializable {
 	private Date start_time;
 	private Date finish_time;
 	private double worktimeOfDay;
+	private String startStr;
+	private String finishStr;
+	private int complete;
 	
 	
+	public String getStartStr() {
+		return startStr;
+	}
+	public void setStartStr(String startStr) {
+		this.startStr = startStr;
+	}
+	public String getFinishStr() {
+		return finishStr;
+	}
+	public void setFinishStr(String finishStr) {
+		this.finishStr = finishStr;
+	}
 	public String getCommute_id() {
 		return commute_id;
 	}
@@ -41,6 +57,13 @@ public class Commute implements Serializable {
 	}
 	public void setWorktimeOfDay(double worktimeOfDay) {
 		this.worktimeOfDay = worktimeOfDay;
+	}
+	
+	public int getComplete() {
+		return complete;
+	}
+	public void setComplete(int complete) {
+		this.complete = complete;
 	}
 
 }

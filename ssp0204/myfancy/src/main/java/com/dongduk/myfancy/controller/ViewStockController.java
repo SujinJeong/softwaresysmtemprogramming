@@ -28,6 +28,8 @@ public class ViewStockController {
 		public String list(@ModelAttribute("stock") Stock stock, 
 				Model model, HttpSession session, HttpServletRequest request) throws Exception
 		{
+			if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
+
 			Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 			model.addAttribute("stock", stockService.getProductStock(store.getStore_id()));
 

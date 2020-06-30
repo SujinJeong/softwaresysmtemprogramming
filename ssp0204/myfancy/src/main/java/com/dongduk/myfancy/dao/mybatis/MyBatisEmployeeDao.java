@@ -21,6 +21,12 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 	protected SalaryMapper salaryMapper;
 
 	@Override
+	public void insertSalary(Employee employee) throws DataAccessException {
+		// TODO Auto-generated method stub
+		employeeMapper.insertSalary(employee);
+	}
+	
+	@Override
 	public List<Employee> getEmployeeList(int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return employeeMapper.getEmployeeList(store_id);
@@ -36,13 +42,16 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 	public void insertEmployee(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
 		employeeMapper.insertEmployee(employee);
-		salaryMapper.insertSalary(employee);
+		employeeMapper.insertSalary(employee);
 	}
 
 	@Override
 	public void updateEmployee(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
 		employeeMapper.updateEmployee(employee);
+		salaryMapper.updateBankAndSalary(employee); 
+		salaryMapper.updateWorkTimeForSalary(employee.getEmp_id(), employee.getStore_id(), employee.getWorktime());
+		salaryMapper.updateAmount(employee.getEmp_id(), employee.getStore_id());
 	}
 
 	@Override
@@ -52,10 +61,16 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 	}
 
 	@Transactional
-	public void updateWorkTime(int emp_id, double time) throws DataAccessException {
+	public void updateWorkTime(int emp_id, int store_id, double time) throws DataAccessException {
 		// TODO Auto-generated method stub
-		employeeMapper.updateWorkTime(emp_id, time);
-		salaryMapper.updateWorkTimeForSalary(emp_id, time);
+		employeeMapper.updateWorkTime(emp_id, store_id, time);
+		salaryMapper.updateWorkTimeForSalary(emp_id, store_id, time);
+	}
+
+	@Override
+	public int getEmpSequence() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return employeeMapper.getEmpSequence();
 	}
 
 

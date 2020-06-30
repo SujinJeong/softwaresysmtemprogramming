@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dongduk.myfancy.dao.CommuteDao;
 import com.dongduk.myfancy.dao.mybatis.mapper.CommuteMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.EmployeeMapper;
+import com.dongduk.myfancy.dao.mybatis.mapper.SalaryMapper;
 import com.dongduk.myfancy.domain.Commute;
 import com.dongduk.myfancy.domain.Employee;
 
@@ -21,40 +23,58 @@ public class MyBatisCommuteDao implements CommuteDao {
 	@Autowired
 	protected EmployeeMapper employeeMapper;
 
+	@Autowired
+	protected SalaryMapper salaryMapper;
+
 	@Override
-	public void insertStartTime(int emp_id) throws DataAccessException {
+	public void insertStartTime(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		commuteMapper.insertStartTime(emp_id);
+		commuteMapper.insertStartTime(emp_id, store_id);
+	}
+
+	@Transactional
+	public void insertFinishTime(int emp_id, int store_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		commuteMapper.insertFinishTime(emp_id, store_id);
+		employeeMapper.updateWorkTime(emp_id, store_id, commuteMapper.getWorkTime(emp_id, store_id));
+		salaryMapper.updateWorkTimeForSalary(emp_id, store_id, employeeMapper.getEmployee(emp_id, store_id).getWorktime());
+		salaryMapper.updateAmount(emp_id, store_id);
 	}
 
 	@Override
-	public void insertFinishTime(int emp_id) throws DataAccessException {
+	public String getStartTimeToString(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		commuteMapper.insertFinishTime(emp_id);
+		return commuteMapper.getStartTimeToString(emp_id, store_id);
 	}
 
 	@Override
-	public int getStartTime(int emp_id) throws DataAccessException {
+	public String getFinishTimeToString(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteMapper.getStartTime(emp_id);
+		return commuteMapper.getFinishTimeToString(emp_id, store_id);
 	}
 
 	@Override
-	public int getFinishTime(int emp_id) throws DataAccessException {
+	public List<Commute> getCommuteList(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteMapper.getFinishTime(emp_id);
+		return commuteMapper.getCommuteList(emp_id, store_id);
 	}
 
 	@Override
-	public List<Commute> getCommuteList(int emp_id) throws DataAccessException {
+	public Commute getCommuteOfToday(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteMapper.getCommuteList(emp_id);
+		return commuteMapper.getCommuteOfToday(emp_id, store_id);
 	}
 
 	@Override
-	public Commute getCommuteOfToday(int emp_id) throws DataAccessException {
+	public double getWorkTimeByNow(int emp_id, int store_id) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return commuteMapper.getCommuteOfToday(emp_id);
+		return commuteMapper.getWorkTimeByNow(emp_id, store_id);
+	}
+
+	@Override
+	public double getWorkTime(int emp_id, int store_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return commuteMapper.getWorkTime(emp_id, store_id);
 	}
 
 

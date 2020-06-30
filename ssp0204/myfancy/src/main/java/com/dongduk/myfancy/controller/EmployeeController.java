@@ -1,10 +1,13 @@
 package com.dongduk.myfancy.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,99 +40,159 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("store/emp")
-	public String goEmp() {
+	public String goEmp(HttpSession session) {
+		
 		return "store/emp/emp";
 	}
 	
 	@RequestMapping(value="store/emp/employer", method=RequestMethod.POST)
-	public ModelAndView viewEmployeeList(HttpServletRequest request, @RequestParam String employer) {
+	public ModelAndView viewEmployeeList(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam String employer) {
 		ModelAndView mav = new ModelAndView("store/emp/employer");
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 		int store_id = store.getStore_id();
 		if (employer.equals(store.getPassword())) {
+			session.setAttribute("employerCheck", true);
 			mav.addObject("employeeList", employeeService.getEmployeeList(store_id));
 			return mav;
 		} else {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out;
+            try {
+               out = response.getWriter();
+               out.println("<script>alert('관리자 비밀번호가 맞지 않습니다.');</script>");
+               out.flush();
+            } catch (IOException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
 			mav.setViewName("store/emp/emp");
 			return mav;
 		}
 	}
 	
-	@RequestMapping("store/emp/employer/salary")
-	public ModelAndView viewSalary(HttpServletRequest request, @RequestParam int move, @RequestParam String year, @RequestParam String month) {
-		ModelAndView mav = new ModelAndView("store/emp/salary");
-		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-		int store_id = store.getStore_id();
-		boolean now;
-		if (move < 0 && month.equals("1")) {
-			year = Integer.toString(Integer.parseInt(year) - 1);
-			month = "12";
-		} else if (move > 0 && month.equals("12")) {
-			year = Integer.toString(Integer.parseInt(year) + 1);
-			month = "1";
-		} else {
-			month = Integer.toString(Integer.parseInt(month) + move);
+	@RequestMapping(value="store/emp/employer", method=RequestMethod.GET)
+	public ModelAndView employerPageToGet(HttpServletRequest request, HttpSession session) {
+		if (session.getAttribute("employerCheck") == null) return new ModelAndView("store/emp/emp");
+		else {
+			if (!((boolean)session.getAttribute("employerCheck"))) return new ModelAndView("store/emp/emp");
+			else {
+				ModelAndView mav = new ModelAndView("store/emp/employer");
+				mav.addObject("employeeList", employeeService.getEmployeeList(((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id()));
+				return mav;
+			}
 		}
-		if (Integer.parseInt(month) < 10) month = "0" + month;
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-		if ((year+month).equals(sdf.format(new Date())))
-			now = true;
-		else
-			now = false;
-		System.out.println(now);
-		mav.addObject("employeeSalaryList", employeeService.getSalaryListByMonth(store_id, year+month));
-		mav.addObject("year", year);
-		mav.addObject("month", month);
-		mav.addObject("now", now);
-		return mav;
+	}
+	
+	@RequestMapping("store/emp/employer/salary")
+	public ModelAndView viewSalary(HttpServletRequest request, HttpSession session, @RequestParam int move, @RequestParam String year, @RequestParam String month) {
+		if (session.getAttribute("employerCheck") == null) return new ModelAndView("store/emp/emp");
+		else {
+			if (!((boolean)session.getAttribute("employerCheck"))) return new ModelAndView("store/emp/emp");
+			else {
+				ModelAndView mav = new ModelAndView("store/emp/salary");
+				Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
+				int store_id = store.getStore_id();
+				boolean now;
+				if (move < 0 && Integer.parseInt(month) == 1) {
+					year = Integer.toString(Integer.parseInt(year) - 1);
+					month = "12";
+				} else if (move > 0 && Integer.parseInt(month) == 12) {
+					year = Integer.toString(Integer.parseInt(year) + 1);
+					month = "1";
+				} else {
+					month = Integer.toString(Integer.parseInt(month) + move);
+				}
+				if (Integer.parseInt(month) < 10 && Integer.parseInt(month) > 0) month = "0" + month;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+				if ((year+month).equals(sdf.format(new Date())))
+					now = true;
+				else
+					now = false;
+				System.out.println(now);
+				mav.addObject("employeeSalaryList", employeeService.getSalaryListByMonth(store_id, year+month));
+				mav.addObject("year", year);
+				mav.addObject("month", month);
+				mav.addObject("now", now);
+				return mav;
+
+			}
+		}
+		
 	}
 
 	@RequestMapping("store/emp/employer/remove/{emp_id}")
-	public ModelAndView removeEmp(HttpServletRequest request, @PathVariable int emp_id ) {
-		ModelAndView mav = new ModelAndView("redirect:/store/emp/employer");
-		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
-		int store_id = store.getStore_id();
-		employeeService.removeEmployee(emp_id, store_id);
-		return mav;
+	public String removeEmp(HttpServletRequest request, HttpSession session, @PathVariable int emp_id ) {
+		if (session.getAttribute("employerCheck") == null) return "store/emp/emp";
+		else {
+			if (!((boolean)session.getAttribute("employerCheck"))) return "store/emp/emp";
+			else {
+				Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
+				int store_id = store.getStore_id();
+				employeeService.removeEmployee(emp_id, store_id);
+				return "redirect:/store/emp/employer";
+			}
+		}		
 	}
 
 	@RequestMapping("store/emp/employer/update")
-	public String updateEmp(@RequestParam int empId ) {
-//		ModelAndView mav = new ModelAndView("redirect:/store/emp/employer/update/" + empId);
+	public String updateEmp(@RequestParam int empId, HttpSession session ) {
+		if (session.getAttribute("employerCheck") == null) return "store/emp/emp";
+		else {
+			if (!((boolean)session.getAttribute("employerCheck"))) return "store/emp/emp";
+			else {
+					return "redirect:/store/emp/employer/update/" + empId;
+			}
+		}//		ModelAndView mav = new ModelAndView("redirect:/store/emp/employer/update/" + empId);
 //		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 //		int store_id = store.getStore_id();
 //		Employee emp = employeeService.getEmployee(empId, store_id);
 //		mav.addObject("emp", emp);
-		return "redirect:/store/emp/employer/update/" + empId;
 	}
 	
 	@RequestMapping("store/emp/commute")
-	public ModelAndView empCommuteView(HttpServletRequest request, @RequestParam int emp_id ) {
+	public ModelAndView empCommuteView(HttpServletRequest request, HttpServletResponse response, @RequestParam int emp_id) {
 		ModelAndView mav = new ModelAndView("store/emp/commute");
-		mav.addObject("commuteList", employeeService.getCommuteList(emp_id));
+		int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
+		Employee emp = employeeService.getEmployee(emp_id, store_id);
+		if (emp == null) {
+			response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out;
+            try {
+               out = response.getWriter();
+               out.println("<script>alert('직원 id " + emp_id + "은(는) 존재하지 않습니다.');</script>");
+               out.flush();
+            } catch (IOException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+            }
+			return new ModelAndView("store/emp/emp");
+		}
+		mav.addObject("commuteList", employeeService.getCommuteList(emp_id, store_id));
 		mav.addObject("emp_id", emp_id);
+		mav.addObject("emp_name", emp.getEmp_name());
 		return mav;
 	}
 	
-	@RequestMapping("store/emp/employee/start")
-	public String empStartTime(HttpServletRequest request, @RequestParam int emp_id ) {
-//		Commute commute = new Commute();
-//		commute.setEmp_id(emp_id);
-//		System.out.println("emp id : " + commute.getEmp_id());
-//		System.out.println("emp finish time : " + commute.getFinish_time()); // null
-		employeeService.insertStartTime(emp_id);
-		return "redirect:store/emp/commute?emp_id=" + emp_id;
+	@RequestMapping("store/emp/employee/commuteClick")
+	@ResponseBody
+	public Commute empCommuteClick(HttpServletRequest request, @RequestParam int emp_id ) throws Exception{
+		int store_id = ((Store)WebUtils.getSessionAttribute(request, "storeSession")).getStore_id();
+		Commute commute = employeeService.getCommuteOfToday(emp_id, store_id);
+		if (commute == null) {
+			employeeService.insertStartTime(emp_id, store_id);
+			commute = employeeService.getCommuteOfToday(emp_id, store_id);
+			commute.setStartStr(employeeService.getStartTimeToString(emp_id, store_id));
+		} else if (commute.getComplete() == 0) {
+			if (employeeService.getWorkTimeByNow(emp_id, store_id) < 0.5) throw new Exception();
+			employeeService.insertFinishTime(emp_id, store_id);
+			commute.setStartStr(employeeService.getStartTimeToString(emp_id, store_id));
+			commute.setFinishStr(employeeService.getFinishTimeToString(emp_id, store_id));
+		} else {
+			return null;
+		}
+		
+		return commute;
 	}
 	
-	@RequestMapping("store/emp/employee/finish")
-	public String empFinishTime(HttpServletRequest request, @RequestParam int emp_id ) {
-		employeeService.insertFinishTime(emp_id);
-		employeeService.updateWorkTime(emp_id, employeeService.getCommuteOfToday(emp_id).getWorktimeOfDay());
-		return "redirect:store/emp/commute?emp_id=" + emp_id;
-	}
-	
-//	@RequestMapping("/store/emp/commute")
-//	public void 
-
 	
 }
