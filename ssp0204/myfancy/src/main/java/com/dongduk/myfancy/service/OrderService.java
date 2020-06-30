@@ -33,8 +33,8 @@ public class OrderService { //  dao를 호출하여 DB CRUD를 처리 후 Contro
 	}
 	
 	// 발주 등록
-	public void insertOrder(List<Order_product> orderProductList, int store_id, int amount) throws DataAccessException{
-		orderDao.insertOrder(orderProductList, store_id, amount);
+	public void insertOrder(Order order) throws DataAccessException{
+		orderDao.insertOrder(order);
 	}
 	
 	// 발주 상품 리스트
@@ -43,8 +43,8 @@ public class OrderService { //  dao를 호출하여 DB CRUD를 처리 후 Contro
 	}
 	
 	// 발주 상품 저장
-	public void insertOrderProduct(Cart cart) throws DataAccessException{
-		orderproductDao.insertOrderProduct(cart);
+	public void insertOrderProduct(Order_product order_product) throws DataAccessException{
+		orderproductDao.insertOrderProduct(order_product);
 	}
 	
 	

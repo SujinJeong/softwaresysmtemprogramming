@@ -21,9 +21,9 @@
 		WHERE STORE.STORE_ID = #{param1}
 	</select>
 	
-<!-- 	<insert id="insertOrder" parameterType="com.dongduk.myfancy.domain.Order"> -->
-<!-- 		INSERT INTO ORDERS (ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT) -->
-<!-- 		VALUES (#{order_id}, #{store_id}, #{order_date}, #{amount}) -->
-<!-- 	</insert> -->
+	<insert id="insertOrder" parameterType="com.dongduk.myfancy.domain.Order"> -->
+		INSERT INTO ORDERS (ORDER_ID, STORE_ID, ORDER_DATE, AMOUNT)
+		VALUES (#{order_id}, #{store_id}, #{order_date}, #{amount})
+	</insert> 
 
 </mapper>

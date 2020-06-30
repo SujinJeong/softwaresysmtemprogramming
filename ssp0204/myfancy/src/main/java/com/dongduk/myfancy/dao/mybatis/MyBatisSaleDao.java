@@ -12,6 +12,7 @@ import com.dongduk.myfancy.dao.mybatis.mapper.ProductMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.SaleMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.SalesMapper;
 import com.dongduk.myfancy.domain.Sale;
+import com.dongduk.myfancy.domain.Sale_product;
 
 @Repository
 public class MyBatisSaleDao implements SaleDao {
@@ -40,6 +41,7 @@ public class MyBatisSaleDao implements SaleDao {
    public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
 	   saleMapper.insertSale(store_id, subSaleTotal);
    }
+
 
    @Transactional
    public void insertSale(Sale sale) throws DataAccessException {

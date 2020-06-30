@@ -41,12 +41,8 @@ int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
 <HEAD>
 <TITLE>매출현황</TITLE>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-
-<script type="text/javaScript" language="javascript">
-	
-</script>
 <style TYPE="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 body {
 	scrollbar-face-color: #F6F6F6;
 	scrollbar-highlight-color: #bbbbbb;
@@ -62,20 +58,20 @@ body {
 }
 
 td {
-	font-family: "돋움";
+	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 9pt;
 	color: #595959;
 }
 
 th {
-	font-family: "돋움";
-	font-size: 9pt;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
 	color: #000000;
 }
 
 select {
-	font-family: "돋움";
-	font-size: 9pt;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
 	color: #595959;
 }
 
@@ -85,49 +81,55 @@ select {
 }
 
 A:link {
-	font-size: 9pt;
-	font-family: "돋움";
+	font-size: 15pt;
+	font-family: 'Jeju Gothic', sans-serif;
 	color: #000000;
 	text-decoration: none;
 }
 
 A:visited {
-	font-size: 9pt;
-	font-family: "돋움";
+	font-size: 15pt;
+	font-family: 'Jeju Gothic', sans-serif;
 	color: #000000;
 	text-decoration: none;
 }
 
 A:active {
-	font-size: 9pt;
-	font-family: "돋움";
+	font-size: 15pt;
+	font-family: 'Jeju Gothic', sans-serif;
 	color: red;
 	text-decoration: none;
 }
 
 A:hover {
-	font-size: 9pt;
-	font-family: "돋움";
+	font-size: 15pt;
+	font-family: 'Jeju Gothic', sans-serif;
 	color: red;
 	text-decoration: none;
 }
 </style>
 </HEAD>
 <BODY>
-	<aside id="header"> <%@ include file="header.jsp"%>
-	</aside>
-	<table border="0" width="100%">
+<aside id="header"> 
+	<%@ include file="header.jsp"%>
+</aside>
+<table border="0" width="100%" align="center">
 		<tr align="center">
-			<td align="center" width="10%"><aside id="left"> <%@ include
-					file="left.jsp"%> </aside></td>
-			<td align="center" width="90%">
-				<h1>${storeSession.store_name} 매출조회</h1>
+			<td align="center" width="10%">
+			<aside id="left"> 
+				<%@ include file="left.jsp"%> 
+			</aside>
+			</td>
+			<td align="center" width="50%">
+				<br><br>
+				<font color="GREEN" size="8px">${storeSession.store_name} 매출조회</font>
+				<br><br><br>
 				<form name="calendarFrm" id="calendarFrm" action="" method="post">
 					<DIV id="content" style="width: 712px;">
 
 						<!--날짜 네비게이션  -->
 						<table width="100%" border="0" cellspacing="1" cellpadding="1"
-							id="KOO" bgcolor="#F3F9D7" style="border: 1px solid #CED99C">
+							id="KOO" bgcolor="#f29886" style="border: 1px solid ##f29886">
 
 							<tr>
 								<td height="60">
@@ -152,9 +154,9 @@ A:hover {
  	} else {
  %> <b>&lt;</b> <%
  	}
- %> &nbsp;&nbsp; <%=year%>년 <%=month+1%>월
+ %> &nbsp;&nbsp;<font color="black" size="3px"> <%=year%>년 <%=month+1%>월</font>
 												&nbsp;&nbsp; <%
- 	if (month < 12) {
+ 	if (month+1 < 12) {
  %> <a
 												href="<c:url value='/store/sales' />?year=<%=year%>&amp;month=<%=month+1%>&amp;lastday=<%=endDay%>"
 												target="_self"> <!-- 다음달 -->
@@ -177,38 +179,38 @@ A:hover {
 						<br>
 
 						<table border="0" cellspacing="1" cellpadding="1"
-							bgcolor="#FFFFFF">
-							<THEAD>
-								<TR bgcolor="#CECECE">
+							bgcolor="#FFFFFF" align="center">
+							<THEAD >
+								<TR bgcolor="#CECECE" height="50px">
 									<TD width='100px'>
 										<DIV align="center">
-											<font color="red">일</font>
+											<font color="red" size="3px">일</font>
 										</DIV>
 									</TD>
 									<TD width='100px'>
-										<DIV align="center">월</DIV>
+										<DIV align="center"><font size="3px">월</font></DIV>
 									</TD>
 									<TD width='100px'>
-										<DIV align="center">화</DIV>
+										<DIV align="center"><font size="3px">화</font></DIV>
 									</TD>
 									<TD width='100px'>
-										<DIV align="center">수</DIV>
+										<DIV align="center"><font size="3px">수</font></DIV>
 									</TD>
 									<TD width='100px'>
-										<DIV align="center">목</DIV>
+										<DIV align="center"><font size="3px">목</font></DIV>
 									</TD>
 									<TD width='100px'>
-										<DIV align="center">금</DIV>
+										<DIV align="center"><font size="3px">금</font></DIV>
 									</TD>
 									<TD width='100px'>
 										<DIV align="center">
-											<font color="#529dbc">토</font>
+											<font color="#529dbc" size="3px">토</font>
 										</DIV>
 									</TD>
 								</TR>
 							</THEAD>
 							<TBODY>
-								<TR>
+								<TR align="center">
 									<%
 										//처음 빈공란 표시
 									for (int index = 1; index < start; index++) {
@@ -244,7 +246,7 @@ A:hover {
 										if (iUseDate == intToday) {
 											backColor = "#c9c9c9";
 										}
-										out.println("<TD valign='top' align='left' height='92px' bgcolor='" + backColor + "' nowrap>");
+										out.println("<TD valign='top' align='center' height='92px' size='4px' bgcolor='" + backColor + "' nowrap>");
 									%>
 
 									<%
@@ -252,7 +254,7 @@ A:hover {
 									out.println("<H3>" + index + "</H3>");
 									// 매출 출력
 									if (index <= list.size())
-  										out.println(list.get(index-1));
+  										out.println(list.get(index-1) + "원");
 									%>
 									
 									<%

@@ -21,7 +21,7 @@
 	<select id="getProductListBySupplier" parameterType="int"  resultType="com.dongduk.myfancy.domain.Product">
 		SELECT PRODUCT_ID, CATEGORY_ID, PRODUCT.SUPPLIER_ID, PRODUCT_NAME, LIST_PRICE, ORDER_PRICE
 		FROM PRODUCT, SUPPLIER
-		WHERE SUPPLIER.SUPPLIER_ID = #{param1} 
+		WHERE SUPPLIER.SUPPLIER_ID = #{param1} AND PRODUCT.SUPPLIER_ID = SUPPLIER.SUPPLIER_ID
 	</select>
 	
 

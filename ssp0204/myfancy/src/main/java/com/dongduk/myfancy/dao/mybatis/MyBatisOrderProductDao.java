@@ -25,9 +25,9 @@ public class MyBatisOrderProductDao implements OrderProductDao {
 	}
 
 	@Override
-	public void insertOrderProduct(Cart cart) throws DataAccessException {
+	public void insertOrderProduct(Order_product order_product) throws DataAccessException {
 		// TODO Auto-generated method stub
-		orderproductMapper.insertOrderProduct(cart);
+		orderproductMapper.insertOrderProduct(order_product);
 	}
 
 

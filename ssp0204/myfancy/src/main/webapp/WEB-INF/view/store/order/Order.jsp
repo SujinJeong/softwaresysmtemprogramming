@@ -7,20 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>발주 화면</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
 
- <script>
+	
 
-//  function selected(){
-// 	 System.out.println($("#supplierList option:selected").val());
-// 	 request.setAttribute("supplierList",$("#supplierList option:selected").val()); 
-// 	 response.sendRedirect(${pageContext.request.contextPath}/store/order/selected);
-// 	 }
-// 	$(function(){
-// 		$("#supplierList").change(function(){
-// 			request.setAttribute("supplierList",$("#supplierList option:selected").val()); 
-// 			response.sendRedirect(${pageContext.request.contextPath}/store/order/selected);
-// 			});
-// 		});
 </script> 
 </head>
 <body>
@@ -36,55 +28,58 @@
 		</td>
 		<td align="center" width="45%">
 		<table>
-			<tr>
-				<td>
-	거래처 : <select name="supplier"><br>
-
+		<tr>
+		<td>
+		거래처 : <select name="supplier"><br><br>
+	  	<option value ="">거래처 선택</option>
 		<c:forEach var="supplierList" items="${supplierList}">
-		<option value="${supplierList.supplier_name}" onclick = "location.href='${pageContext.request.contextPath}/store/order/selected/${supplierList.supplier_name}'">${supplierList.supplier_name}</option> 
-
- <!-- <option value="${supplierList.supplier_name}" onchange="selected()">${supplierList.supplier_name}</option> -->
+		  <option value="${supplierList.supplier_name}" <c:if test="${supplierList.supplier_id eq id}">selected</c:if> onclick = "location.href='${pageContext.request.contextPath}/store/order/selected/${supplierList.supplier_id}'" >${supplierList.supplier_name}</option> 
 		</c:forEach>
 		</select>
 		
-			<form:form modelAttribute="orderProducts" action = "${pageContext.request.contextPath}/store/order/addOrderProducts">
-			<table border="0">
+		<form id="orderProducts"  method="post" action="${pageContext.request.contextPath}/store/order/addOrderProducts?supplierId=${id}">
+			<table id = "productsTable" border="0" class="table">
 				<tr><th>상품명</th><th>발주단가</th><th>수량</th></tr>
-				<c:forEach var="orderProducts" items="${orderProducts}">
-				<tr>
-					<td>${orderProducts.product_name}</td>
-					<td>${orderProducts.order_price}</td>
-					<td><input type="text" value="${orderProducts.quantity}" style="width:30px"/></td>
-				</tr>
+				<c:forEach var="orderProduct" items="${orderProducts}" varStatus="i">
+					<c:if test="${orderProduct.supplierId eq id}">
+						<tr>
+							<td >${orderProduct.productName}</td>
+							<td>${orderProduct.orderPrice}</td>
+							<td><input name="${i.index}" value="${orderProduct.quantity}" style="width:30px"/></td> 
+						</tr>
+				</c:if>
 				</c:forEach>
 			</table>
-			<input type="submit" value="담기"/>
-			</form:form>
+			<input type = "submit" value="담기"/>			
+		</form>
+		
 		</td>
+		
 		<td align="center" width = "45%">
 		<aside id = "right">
 		발주 번호 : ${order.getOrder_id()} <br>
-		<table border="0">
+		<table border="0" class="hidden">
 			<tr><th>거래처명</th><th>상품명</th><th>수량</th><th>금액</th></tr>
 			<c:forEach var="cartList" items="${cartList}">
 			<tr>
-				<td>${supplierName}</td>
-				<td>${cartList.product_name}</td>
+				<td>${cartList.supplierName}</td>
+				<td>${cartList.productName}</td>
 				<td>${cartList.quantity}</td>
-				<td>${cartList.order_price} * ${cartList.quantity}</td>
+				<td>${cartList.quantity*cartList.orderPrice}</td>
 			</tr>
 			</c:forEach>
 		</table>
-총 발주금액 : ${order.getAmount()}원<br>
-발주 날짜 : ${order.getOrder_date()}<br>
-<form:form action = "store/order/requestOrder">
-	<input type="submit" value="발주 등록" />
-</form:form>
-	<button type = "button" onclick = "location.href='Main.jsp'">취소</button>
+	총 발주금액 : ${order.getAmount()}원<br>
+	발주 날짜 : ${order.getOrder_date()}<br>
+	<input type="button" value = "발주 등록" onclick = "location.href='${pageContext.request.contextPath}/store/order/requestOrder'"/>
+	<input type="button" value = "취소" onclick = "location.href='/myfancy/main'"/>
 </aside>
-</td></tr></table>
 </td>
 </tr>
 </table>
+</td>
+</tr>
+</table>
+
 </body>
 </html>
