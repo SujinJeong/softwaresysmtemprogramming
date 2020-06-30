@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.dongduk.myfancy.dao.SaleDao;
 import com.dongduk.myfancy.dao.mybatis.mapper.ProductMapper;
 import com.dongduk.myfancy.dao.mybatis.mapper.SaleMapper;
@@ -36,6 +35,13 @@ public class MyBatisSaleDao implements SaleDao {
 //   public void insertSale(int sale_id, int store_id, Date sale_time,int totalamount) throws DataAccessException {
 //	   saleMapper.insertSale(sale_id, store_id, sale_time, totalamount);
 //   }
+   
+   //DB에서 시퀀스,date타입 빼고 정의한 것
+   @Override
+   public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
+	   saleMapper.insertSale(store_id, subSaleTotal);
+   }
+
 
    @Transactional
    public void insertSale(Sale sale) throws DataAccessException {
@@ -54,10 +60,4 @@ public class MyBatisSaleDao implements SaleDao {
       // TODO Auto-generated method stub
       return saleMapper.getSaleList(store_id, date);
    }
-@Override
-public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
-	// TODO Auto-generated method stub
-	
-}
-
 }

@@ -21,6 +21,18 @@ public class MyBatisStockDao implements StockDao {
 		// TODO Auto-generated method stub
 		return stockMapper.getProductStock(store_id);
 	}
+<<<<<<< HEAD
+	@Override
+	public void updateStock(int quantity, int product_id, int store_id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		stockMapper.updateStock(quantity, product_id, store_id);
+	}
+	@Override
+	public Product getOneProductStock(int store_id, int product_id) {
+		// TODO Auto-generated method stub
+		return stockMapper.getOneProductStock(store_id, product_id);
+	}
+=======
 
 	@Override
 	public void updateStock(int quantity, int product_id, int store_id) {
@@ -28,4 +40,5 @@ public class MyBatisStockDao implements StockDao {
 		stockMapper.updateStock(quantity, product_id, store_id);
 	}
 
+>>>>>>> refs/remotes/origin/develop
 }

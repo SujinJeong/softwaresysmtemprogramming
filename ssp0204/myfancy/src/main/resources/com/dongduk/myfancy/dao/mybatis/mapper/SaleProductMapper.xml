@@ -5,7 +5,7 @@
 
 <!--receipt에서 sale물품들 정보 보여주기 위한 sql문  -->
 	<select id="getSaleProductList" parameterType="int" resultType="com.dongduk.myfancy.domain.Product">
-		SELECT S.SALE_ID,SP.QUANTITY,P.PRODUCT_NAME,P.LIST_PRICE
+		SELECT S.SALE_ID,SP.QUANTITY,P.PRODUCT_NAME,P.LIST_PRICE,P.PRODUCT_ID
 		FROM PRODUCT P,SALE_PRODUCT SP,SALE S,STORE ST
 		WHERE S.SALE_ID=SP.SALE_ID AND P.PRODUCT_ID=SP.PRODUCT_ID 
 			AND ST.STORE_ID=#{param1} AND SP.SALE_ID=#{param2}

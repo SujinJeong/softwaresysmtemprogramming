@@ -85,6 +85,45 @@ th {
 </head>
 <body>
 
+<<<<<<< HEAD
+<aside id = "header">
+<%@ include file="../header.jsp" %>
+</aside>
+<table border="0" width="100%">
+<tr align = "center">
+<td align = "center" width = "10%">
+<aside id = "left">
+<%@ include file="../left.jsp" %>
+</aside>
+</td>
+<td align = "center" width = "45%">
+<section>
+<form action = "/store/receipt/check">
+	<input type = "text" name = "date" id = "date1" /> 
+	<input type = "text" name = "date" id = "date2" /> 
+	판매번호 : <input type="text" value = "${receipt.sale_time}"/>
+	<input type="submit" value="조회"/>
+</form>
+</section>
+</td>
+<td align = "center" width = "45%">
+<aside id = "right">
+<p align = "center">영수증</p><br>
+<tr><th>상품명</th><th>수량</th><th>금액</th></tr>
+<c:forEach var="receipts" items="${receipts} ">
+	<tr>
+		<td>${receipts.product_name}</td>
+		<td>${receipts.quantity}</td>
+		<td>${receipts.order_price} * ${receipts.quantity}</td>
+	</tr>
+</c:forEach>
+총 금액 : ${order.getAmount()}원<br>
+결제수단 : ${order.getOrder_date()}<br>
+</aside>
+</td>
+</tr>
+</table>
+=======
 	<aside id="header">
 		<%@ include file="../header.jsp"%>
 	</aside>
@@ -134,5 +173,6 @@ th {
 			</c:forEach>
 		<br>
 	</table>
+>>>>>>> refs/remotes/origin/develop
 </body>
 </html>
