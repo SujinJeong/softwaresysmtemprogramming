@@ -6,8 +6,13 @@
 
 <select id="getProductStock" resultType="com.dongduk.myfancy.domain.Product">
   	SELECT STOCK.PRODUCT_ID, STORE_ID, QUANTITY, PRODUCT.PRODUCT_NAME
-  	FROM STOCK,PRODUCT
-  	WHERE STORE_ID = #{param1}
+  	FROM STOCK, PRODUCT
+  	WHERE STORE_ID = #{param1} AND STOCK.PRODUCT_ID = PRODUCT.PRODUCT_ID
   </select>
+  
+	<update id="updateStock" >
+	UPDATE STOCK SET
+	QUANTITY = QUANTITY + #{param1}
+	WHERE PRODUCT_ID = #{param2} AND STORE_ID = #{param3}
+	</update>
 </mapper>
-

@@ -46,7 +46,7 @@ public class EmployeeController {
 		ModelAndView mav = new ModelAndView("store/emp/salary");
 		Store store = (Store)WebUtils.getSessionAttribute(request, "storeSession");
 		int store_id = store.getStore_id();
-		mav.addObject("employeeSalaryList", employeeService.getSalary(store_id));
+		//mav.addObject("employeeSalaryList", employeeService.getSalary(store_id));
 		return mav;
 	}
 

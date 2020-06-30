@@ -54,7 +54,6 @@ public class OrderController {
 	@Autowired
 	ProductService productService;
 
-
 	@ModelAttribute("orderProducts")
 	public List<OrderCart> orderProductList(HttpServletRequest request, Model model){
 		Store store = (Store) WebUtils.getSessionAttribute(request, "storeSession");
@@ -63,12 +62,12 @@ public class OrderController {
 	
 		 for(int i = 0; i < plist.size(); i++) { 
 			OrderCart oc = new OrderCart();
-		  oc.setProductName(plist.get(i).getProduct_name());
-		  oc.setProductId(plist.get(i).getProduct_id());
-		  oc.setSupplierId(plist.get(i).getSupplier_id()); //oc.setSupplierName("");
-		  oc.setOrderPrice(plist.get(i).getOrder_price()); //int q = 0;
-		  //oc.setQuantity(q); // 잡아봐 
-		  cart.add(i, oc); 
+			  oc.setProductName(plist.get(i).getProduct_name());
+			  oc.setProductId(plist.get(i).getProduct_id());
+			  oc.setSupplierId(plist.get(i).getSupplier_id()); //oc.setSupplierName("");
+			  oc.setOrderPrice(plist.get(i).getOrder_price()); //int q = 0;
+			  //oc.setQuantity(q); // 잡아봐 
+			  cart.add(i, oc); 
 		 }
 		 System.out.println("물품리스트들"); 
 		return cart;

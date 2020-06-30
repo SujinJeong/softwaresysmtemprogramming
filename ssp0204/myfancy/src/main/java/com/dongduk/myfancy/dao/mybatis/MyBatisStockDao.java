@@ -22,4 +22,10 @@ public class MyBatisStockDao implements StockDao {
 		return stockMapper.getProductStock(store_id);
 	}
 
+	@Override
+	public void updateStock(int quantity, int product_id, int store_id) {
+		// TODO Auto-generated method stub
+		stockMapper.updateStock(quantity, product_id, store_id);
+	}
+
 }

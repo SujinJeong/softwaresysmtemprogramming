@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,6 +17,11 @@
 			</aside>
 		</td>
 		<td align="center" width="90%">
+			<br/>
+	         <aside id = "emp_top">
+			<%@ include file="emp_top.jsp" %>
+			</aside>
+			<br/>
 			<h3>직원 등록</h3>
 			<form:form modelAttribute="employeeForm" method="post" action="${pageContext.request.contextPath}/store/emp/employer/register">
 				<table border="1" width="500">
@@ -41,6 +47,10 @@
 							<label for="bankaccount">계좌번호</label>: 
 							<form:input path="employee.bankaccount" />
 							<form:errors path="employee.bankaccount" />
+							<br/><br/>
+							<label for="salary">시급</label>: 
+							<form:input path="employee.salary" value="9000"/>
+							<form:errors path="employee.salary" />
 							<br/><br/>
 							<input type="submit" value="등록"  />
 							<br/>

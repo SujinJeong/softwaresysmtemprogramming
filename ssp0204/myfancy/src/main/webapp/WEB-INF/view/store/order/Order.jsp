@@ -31,36 +31,34 @@
 		<tr>
 		<td>
 		거래처 : <select name="supplier"><br><br>
-		<!-- 거래처 선택되면 바뀌기 전까지 값 고정 -->
 	  	<option value ="">거래처 선택</option>
 		<c:forEach var="supplierList" items="${supplierList}">
 		  <option value="${supplierList.supplier_name}" <c:if test="${supplierList.supplier_id eq id}">selected</c:if> onclick = "location.href='${pageContext.request.contextPath}/store/order/selected/${supplierList.supplier_id}'" >${supplierList.supplier_name}</option> 
 		</c:forEach>
 		</select>
-		<%-- <form:form modelAttribute="orderProducts" method="post" action="${pageContext.request.contextPath}/store/order/addOrderProducts"> --%>
+		
 		<form id="orderProducts"  method="post" action="${pageContext.request.contextPath}/store/order/addOrderProducts?supplierId=${id}">
-			<table id = "productsTable" border="0" >
+			<table id = "productsTable" border="0" class="table">
 				<tr><th>상품명</th><th>발주단가</th><th>수량</th></tr>
 				<c:forEach var="orderProduct" items="${orderProducts}" varStatus="i">
-					<!--<c:if test="${orderProduct.supplierId eq id}">-->
+					<c:if test="${orderProduct.supplierId eq id}">
 						<tr>
 							<td >${orderProduct.productName}</td>
 							<td>${orderProduct.orderPrice}</td>
 							<td><input name="${i.index}" value="${orderProduct.quantity}" style="width:30px"/></td> 
 						</tr>
-				<!--	</c:if>  -->
+				</c:if>
 				</c:forEach>
 			</table>
 			<input type = "submit" value="담기"/>			
-			<!-- 담기 누르면 세션 갱신되도록 재설정 -->
 		</form>
-		<!--</form>-->
+		
 		</td>
 		
 		<td align="center" width = "45%">
 		<aside id = "right">
-		발주 번호 : ${order.getOrder_id()} <br> <!-- 고정시켜야함 -->
-		<table border="0">
+		발주 번호 : ${order.getOrder_id()} <br>
+		<table border="0" class="hidden">
 			<tr><th>거래처명</th><th>상품명</th><th>수량</th><th>금액</th></tr>
 			<c:forEach var="cartList" items="${cartList}">
 			<tr>

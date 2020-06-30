@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.dongduk.myfancy.domain.Cart;
 import com.dongduk.myfancy.domain.Store;
 import com.dongduk.myfancy.service.StoreServiceImpl;
 

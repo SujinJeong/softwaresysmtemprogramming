@@ -13,10 +13,14 @@ import com.dongduk.myfancy.domain.Receive_product;
 public class ReceiveService {
 	   
 	@Autowired
-	ReceiveProductDao receiveproductDao;
+	private ReceiveProductDao receiveproductDao;
 	
 	public List<Order_product> getOrderList(int store_id) {
 		return receiveproductDao.getOrderList(store_id);
+	}
+	
+	public Order_product getOrderProduct(int order_id, int product_id) {
+		return receiveproductDao.getOrderProduct(order_id, product_id);
 	}
 	
 	public List<Receive_product> getReceiveList(int store_id) {
@@ -36,5 +40,17 @@ public class ReceiveService {
 	public void addLossQuantity(List<Receive_product> rProductList)
 	{
 		
+	}
+	
+	public void removeOrderProduct(int order_id, int product_id)
+	{
+		System.out.println("get in removeOrderProduct");
+		receiveproductDao.removeOrderProduct(order_id, product_id);
+	}
+	
+	public void updateStock(int quantity, int product_id, int store_id, int order_id)
+	{
+		System.out.println("get in updateStock");
+		receiveproductDao.updateStock(quantity, product_id, store_id, order_id);
 	}
 }

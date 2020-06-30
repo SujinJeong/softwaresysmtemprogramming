@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dongduk.myfancy.dao.EmployeeDao;
 import com.dongduk.myfancy.dao.mybatis.mapper.EmployeeMapper;
+import com.dongduk.myfancy.dao.mybatis.mapper.SalaryMapper;
 import com.dongduk.myfancy.domain.Employee;
 
 @Repository
@@ -15,6 +17,8 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 	
 	@Autowired
 	protected EmployeeMapper employeeMapper;
+	@Autowired
+	protected SalaryMapper salaryMapper;
 
 	@Override
 	public List<Employee> getEmployeeList(int store_id) throws DataAccessException {
@@ -28,10 +32,11 @@ public class MyBatisEmployeeDao implements EmployeeDao {
 		return employeeMapper.getEmployee(emp_id, store_id);
 	}
 
-	@Override
+	@Transactional
 	public void insertEmployee(Employee employee) throws DataAccessException {
 		// TODO Auto-generated method stub
 		employeeMapper.insertEmployee(employee);
+		salaryMapper.insertSalary(employee);
 	}
 
 	@Override
