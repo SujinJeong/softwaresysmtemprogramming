@@ -97,7 +97,6 @@ th {
 			</td>
 			<td>
 					<form onsubmit="return msg()" action="${pageContext.request.contextPath}/store/receipt/check">
-						판매번호 : <input type="text" name="sale_id" id="sale_id" />
 						판매날짜(YYYY-MM-DD) : <input type="text" name="sale_time" id="sale_time" value="${receipt.sale_time}" />
 						<input type="submit" value="조회" />
 					</form>
@@ -110,7 +109,9 @@ th {
 						
 						<c:forEach var="receipt" items="${receipts}" >
 							<tr>
-								<td>${receipt.sale_id}</td>
+								<td>
+								<a href="<c:url value='viewReceipt?sale_id=${receipt.sale_id}&sale_time=${receipt.sale_time}'/>">${receipt.sale_id}</a>
+								</td>
 								<td>${receipt.sale_time}</td>
 								<td>${receipt.totalamount}</td>
 							</tr>
@@ -123,6 +124,7 @@ th {
 			♥결제내역♥<br>
 			-----------------------------------------<br>
 			<c:forEach var="searchproduct" items="${searchproduct}" >
+				<strong>판매번호:</strong> ${sale_id}<br>
 				<strong>상품명:</strong> ${searchproduct.product_name}<br>
 				<strong>가격:</strong> ${searchproduct.list_price}<br>
 				<strong>수량:</strong> ${searchproduct.quantity}<br>
