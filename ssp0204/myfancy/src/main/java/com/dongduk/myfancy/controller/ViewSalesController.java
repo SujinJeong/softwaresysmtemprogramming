@@ -27,7 +27,6 @@ public class ViewSalesController {
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
 	public String list(@RequestParam(value="year", required=false) String year, 
 			@RequestParam(value="month", required=false) String month,
-			@RequestParam(value="lastday", required=false) String lastday, 
 			Model model, HttpSession session, HttpServletRequest request) throws Exception
 	{
 		if (session.getAttribute("employerCheck") != null) session.removeAttribute("employerCheck");
@@ -50,20 +49,6 @@ public class ViewSalesController {
 			System.out.println("lastday: " + cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 			System.out.println(cal.getTime().getDate());
 		}
-//		Date date = new Date();
-//		if (year == null && month == null) {
-//			date.setYear(date.getYear());
-//			date.setMonth(date.getMonth());
-//		}
-//		else {
-//		System.out.println("year: " + Integer.parseInt(year));
-//		System.out.println("month: " + Integer.parseInt(month));
-//		System.out.println("lastday: " + Integer.parseInt(lastday));
-//		 date.setYear(Integer.parseInt(year)-1900);
-//		 date.setMonth(Integer.parseInt(month));
-//		 date.setDate(Integer.parseInt(lastday));
-//		 System.out.println("else문 date:" + date);
-//		}
 
 		//일별매출 구하기
 		model.addAttribute("salesbyday", salesService.getSalesByDay(cal.getTime(), store.getStore_id()));

@@ -10,5 +10,6 @@ public interface StockDao {
 
 	List<Product> getProductStock(int store_id) throws DataAccessException; 
 	// 지점 내 모든 상품 재고 리스트
-
+	void updateStock(int quantity, int product_id, int store_id) throws DataAccessException;
+	// 지점 내 재고 업데이트
 }

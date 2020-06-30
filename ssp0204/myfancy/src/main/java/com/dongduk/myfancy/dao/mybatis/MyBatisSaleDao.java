@@ -36,9 +36,7 @@ public class MyBatisSaleDao implements SaleDao {
 //   public void insertSale(int sale_id, int store_id, Date sale_time,int totalamount) throws DataAccessException {
 //	   saleMapper.insertSale(sale_id, store_id, sale_time, totalamount);
 //   }
-   
-   //DB에서 시퀀스,date타입 빼고 정의한 것
-   @Override
+
    @Transactional
    public void insertSale(Sale sale) throws DataAccessException {
 	   saleMapper.insertSale(sale);
@@ -56,10 +54,10 @@ public class MyBatisSaleDao implements SaleDao {
       // TODO Auto-generated method stub
       return saleMapper.getSaleList(store_id, date);
    }
-   
-	@Override
-	public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
-		// TODO Auto-generated method stub
-		saleMapper.insertSale(store_id, subSaleTotal);
-	}
+@Override
+public void insertSale(int store_id, int subSaleTotal) throws DataAccessException {
+	// TODO Auto-generated method stub
+	
+}
+
 }
