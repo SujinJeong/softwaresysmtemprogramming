@@ -90,7 +90,7 @@ th {
 	</aside>
 	<table border="0" width="100%">
 		<tr align="center">
-			<td align="center" width="10%">
+			<td align="center" width="15%">
 				<aside id="left">
 					<%@ include file="../left.jsp"%>
 				</aside>
