@@ -5,14 +5,50 @@
 <aside id = "header">
 <%@ include file="../header.jsp" %>
 </aside>
-<table border="0" width="100%">
+<style TYPE="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+#body {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	text-align: center;
+}
+td {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #595959;
+	text-align: center;
+	height: 80px;
+}
+
+tr {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #000000;
+	text-align: center;
+	height: 80px;
+}
+th {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20pt;
+	color: #000000;
+	text-align: center;
+	background-color: #f29886;
+	height: 80px;
+}
+</style>
+<div id="body" align="center">
+<table border="0" width="1200">
    <tr align="center">
-      <td align="center" width="10%">
+      <td align="center" width="250">
          <aside id = "left">
          <%@ include file="../left.jsp" %>
          </aside>
       </td>
-      <td align="center" width="50%">
+      <td width="150"></td>
+      <td align="center" width="800">
          <br/>
          <aside id = "emp_top">
 		<%@ include file="emp_top.jsp" %>
@@ -25,7 +61,7 @@
 		<input type="submit" value="수정/삭제" />
 		</form>
 		<br>
-		<table border="0">
+		<table border="0" width="800">
 		<c:forEach var="emp" items="${employeeList }">
 			<tr align="center">
 				<td align="center">
@@ -46,3 +82,4 @@
        </td>
    </tr>
 </table>
+</div>

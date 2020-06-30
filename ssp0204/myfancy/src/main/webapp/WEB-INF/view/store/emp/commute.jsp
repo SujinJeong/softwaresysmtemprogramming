@@ -3,7 +3,40 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<style TYPE="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+#body {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	text-align: center;
+}
+td {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #595959;
+	text-align: center;
+	height: 80px;
+}
 
+tr {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 15pt;
+	color: #000000;
+	text-align: center;
+	height: 80px;
+}
+th {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 20pt;
+	color: #000000;
+	text-align: center;
+	background-color: #f29886;
+	height: 80px;
+}
+</style>
 <title>직원 관리</title>
 <script type="text/javascript">
     function commute() {
@@ -32,14 +65,16 @@
 <aside id = "header">
 <%@ include file="../header.jsp" %>
 </aside>
-<table border="0" width="100%">
+<div id="body" align="center">
+<table border="0" width="1200">
    <tr align="center">
-      <td align="center" width="10%">
+      <td align="center" width="250">
          <aside id = "left">
          <%@ include file="../left.jsp" %>
          </aside>
       </td>
-      <td align="center" width="90%">
+      <td width="150"></td>
+      <td align="center" width="800">
          <br/>
 	
 		<h2>${emp_name}님의 출/퇴근 관리</h2>
@@ -90,3 +125,4 @@
        </td>
    </tr>
 </table>
+</div>

@@ -7,6 +7,11 @@
 </aside>
 <style TYPE="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+#body {
+	align: center;
+	font-family: 'Jeju Gothic', sans-serif;
+	text-align: center;
+}
 td {
 	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 15pt;
@@ -31,17 +36,22 @@ th {
 	height: 80px;
 }
 </style>
-<table border="0" width="100%">
+<div id="body" align="center">
+<table border="0" width="1200">
 	<tr align="center">
-		<td align="center" width="10%">
+		<td align="center" width="250">
 			<aside id = "left">
 			<%@ include file="../left.jsp" %>
 			</aside>
 		</td>
-		<td align="center" width="50%">
+		<td width="150"></td>
+		<td align="center" width="800">
 		<font color="GREEN" size="8px">${storeSession.store_name} 직원 관리</font>
 		<br><br><br>
-			관리자 비밀번호 or 직원 아이디 : <input type="text" name="search" />
+			<form method="post" action="${pageContext.request.contextPath}/store/emp/employer">
+			관리자 비밀번호 : <input type="password" name="employer" />
+			<input type="submit" value="관리자" />
+			</form>
 			<br><br>
 			<form method="get" action="${pageContext.request.contextPath}/store/emp/commute">
 				직원 아이디 : <input type="text" name="emp_id" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
@@ -50,3 +60,4 @@ th {
 		</td>
 	</tr>
 </table>
+</div>

@@ -5,7 +5,7 @@
 	font-family: 'Jeju Gothic', sans-serif;
 	}
 </style>
-<div align="right">
+<div id="right" align="right">
 <form action="${pageContext.request.contextPath}/logout">
 	${storeSession.store_name } 환영합니다. &nbsp;
 	<input type="submit" value="로그아웃" />
