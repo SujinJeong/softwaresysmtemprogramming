@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dongduk.myfancy.dao.mybatis.mapper.CommuteMapper">
+
+	<insert id="insertStartTime">
+  	INSERT INTO COMMUTE
+  		(COMMUTE_ID, EMP_ID, START_TIME, FINISH_TIME, COMPLETE, STORE_ID)
+  	VALUES
+  		(TO_CHAR(#{param2}) || '_' || TO_CHAR(SYSDATE, 'yyyyMMdd') || '_' || TO_CHAR(#{param1}), #{param1}, SYSDATE, SYSDATE, 0, #{param2})
+  	</insert>
+  	
+  	<update id="insertFinishTime">
+  	UPDATE COMMUTE SET
+  	 FINISH_TIME = SYSDATE,
+  	 COMPLETE = 1
+  	WHERE EMP_ID = #{param1} AND STORE_ID = #{param2} AND TO_CHAR(START_TIME, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+  	</update>
+  	
+  	<select id="getCommuteList" resultType="com.dongduk.myfancy.domain.Commute">
+  	SELECT COMMUTE_ID, EMP_ID, TO_CHAR(START_TIME, 'yyyy-MM-dd hh24:mi') AS "startStr", TO_CHAR(FINISH_TIME, 'yyyy-MM-dd hh24:mi') AS "finishStr", TRUNC(MOD((FINISH_TIME - START_TIME), 1)*24, 1) AS "worktimeOfDay", COMPLETE
+  	FROM COMMUTE
+  	WHERE EMP_ID = #{param1} AND STORE_ID = #{param2}
+  	ORDER BY COMMUTE_ID
+  	</select>
+  	
+  	<select id="getCommuteOfToday" resultType="com.dongduk.myfancy.domain.Commute">
+  	SELECT COMMUTE_ID, EMP_ID, START_TIME, FINISH_TIME, TRUNC(MOD((FINISH_TIME - START_TIME), 1)*24, 1) AS "Commute.worktimeOfDay", COMPLETE
+  	FROM COMMUTE
+  	WHERE EMP_ID = #{param1} AND STORE_ID = #{param2} AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd')
+  	</select>
+  	
+  	<select id="getStartTimeToString" resultType="String">
+  	SELECT TO_CHAR(START_TIME, 'yyyy-MM-dd hh24:mi') AS "startStr"
+  	FROM COMMUTE
+  	WHERE EMP_ID = #{param1} AND STORE_ID = #{param2} AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd')
+  	</select>
+  	
+  	<select id="getFinishTimeToString" resultType="String">
+  	SELECT TO_CHAR(FINISH_TIME, 'yyyy-MM-dd hh24:mi') AS "finishStr"
+  	FROM COMMUTE
+  	WHERE EMP_ID = #{param1} AND STORE_ID = #{param2} AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd')
+  	</select>
+  	
+  	<select id="getWorkTimeByNow" resultType="double">
+  	SELECT TRUNC(MOD((SYSDATE - START_TIME), 1)*24, 1)
+  	FROM COMMUTE
+  	WHERE COMMUTE_ID = TO_CHAR(#{param2}) || '_' || TO_CHAR(SYSDATE, 'yyyyMMdd') || '_' || TO_CHAR(#{param1}) AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd')
+  	</select>
+  	
+  	<select id="getWorkTime" resultType="double">
+  	SELECT TRUNC(MOD((FINISH_TIME - START_TIME), 1)*24, 1)
+  	FROM COMMUTE
+  	WHERE COMMUTE_ID = TO_CHAR(#{param2}) || '_' || TO_CHAR(SYSDATE, 'yyyyMMdd') || '_' || TO_CHAR(#{param1}) AND TO_CHAR(START_TIME, 'yyyyMMdd') = TO_CHAR(SYSDATE, 'yyyyMMdd')
+  	</select>
+
+
+</mapper>
