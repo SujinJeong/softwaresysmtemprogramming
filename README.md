@@ -1,5 +1,5 @@
 2020-1 System Software Develop
-소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템(소상공인을 위한 ERP)
+<h3>소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템(소상공인을 위한 ERP)<h3>
 
 <div>
 <img src="https://user-images.githubusercontent.com/64065318/99981952-50bd1480-2ded-11eb-96f9-4e97c38859c2.GIF" width="90%"></img>
@@ -22,7 +22,7 @@ SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리(Persistence laye
 2. MyBatis<br/>
 3. RestAPI<br/>
 4. Interceptor<br/>
-- 로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사<br/>
+로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사<br/>
 5. Validator<br/>
 
 자세한 DEMO나 구현 내용 Google 공유 드라이브에 첨부<br/>
