@@ -1,20 +1,23 @@
 2020-1 System Software Develop
 소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템(소상공인을 위한 ERP)
 
-- 개발환경
-개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4
-Tomcat - Apache Tomcat 9.0
-Oracle - Oracle SQL Develop
+- 개발환경<br/>
+개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4<br/>
+Tomcat - Apache Tomcat 9.0<br/>
+Oracle - Oracle SQL Develop<br/>
 
-- 사용기술
-1. Model-View-Controller구조
-Model – JavaBean DI 및 어노테이션 활용(Business layer)
-View – JSP, HTML, Ajax 등을 이용함(Presentation layer)
- Controller –client로부터 HTTP Request수신 / Rest를 사용해 view와 controller사이에서의 데이터를 처리함 / SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리(Persistence layer)
-2. MyBatis
-3. RestAPI
-4. Interceptor
-5. Validator
+- 사용기술<br/>
+1. Model-View-Controller구조<br/>
+Model – JavaBean DI 및 어노테이션 활용(Business layer)<br/>
+View – JSP, HTML, Ajax 등을 이용함(Presentation layer)<br/>
+Controller –client로부터 HTTP Request수신<br/>
+RESTful API를 사용해 view와 controller사이에서의 데이터를 처리함 <br/>
+SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리(Persistence layer)<br/>
+2. MyBatis<br/>
+3. RestAPI<br/>
+4. Interceptor<br/>
+- 로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사<br/>
+5. Validator<br/>
 
-자세한 DEMO나 구현 내용 Google 공유 드라이브에 첨부
+자세한 DEMO나 구현 내용 Google 공유 드라이브에 첨부<br/>
 https://drive.google.com/drive/folders/1p_mnWSnahLpD0WB9pcjpoYCqi1PGvphS
