@@ -1,6 +1,12 @@
 2020-1 System Software Develop
 소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템(소상공인을 위한 ERP)
 
+<div>
+<img src="https://user-images.githubusercontent.com/64065318/99981952-50bd1480-2ded-11eb-96f9-4e97c38859c2.GIF" width="90%"></img>
+<img src="https://user-images.githubusercontent.com/64065318/99981959-5286d800-2ded-11eb-8f70-543169dcbe36.GIF" width="90%"></img>
+<img src="https://user-images.githubusercontent.com/64065318/99981960-531f6e80-2ded-11eb-9fe0-b924d7d3dd9b.GIF" width="90%"></img>
+<div>
+
 - 개발환경<br/>
 개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4<br/>
 Tomcat - Apache Tomcat 9.0<br/>
