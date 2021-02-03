@@ -1,6 +1,6 @@
-# 2020-1 System Software Develop Spring Project
-- **소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템**
-    *소상공인을 위한 ERP)*
+## 2020-1 System Software Develop Spring Project
+- **소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템**  
+    *- 소상공인을 위한 ERP -*
 
 <div>
 <img src="https://user-images.githubusercontent.com/64065318/99981952-50bd1480-2ded-11eb-96f9-4e97c38859c2.GIF" width="90%"></img>
