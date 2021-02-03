@@ -18,34 +18,33 @@
 
 
 # 사용기술
-- **Model-View-Controller구조**
+- **Model-View-Controller구조**  
 <div>
 <img src="./img/SpringMVC.png"></img>
 <img src="./img/html.png"></img>
 </div>
-
+  
 1. *Model – JavaBean DI 및 어노테이션 활용(Business layer)*
 2. *View – JSP, HTML, Ajax 등을 이용(Presentation layer)*
-
 3. *Controller – Client로부터 HTTP Request수신*
 
-- **MyBatis**
+- **MyBatis**  
     *DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리*
 <div>
-<img src="./img/MyBatis.jpg"></img>
+<img src="./img/myBatis.jpg"></img>
 </div>
 
-- **RestAPI & JSON**
+- **RestAPI & JSON**  
     *Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)* 
 <div>
 <img src="./img/restapi.png"></img>
-<img src="./img/json.png"></img>
+<img src="./img/json.jpg"></img>
 </div>
 
-- **Interceptor**
+- **Interceptor**  
     *로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사*
 
-- **Validator**
+- **Validator**  
     *아이디, 비밀번호 등 조건 추가 통해 안정성 향상*
 
 - **Oracle DB**
