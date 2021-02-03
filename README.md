@@ -1,4 +1,4 @@
-## 2020-1 System Software Develop Spring Project
+# 2020-1 System Software Develop Spring Project
 > 소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템(소상공인을 위한 ERP)<h3>
 
 <div>
@@ -7,39 +7,47 @@
 <img src="https://user-images.githubusercontent.com/64065318/99981960-531f6e80-2ded-11eb-9fe0-b924d7d3dd9b.GIF" width="90%"></img>
 <div>
 
-## 개발환경
+
+# 개발환경
 1. 개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4<br/>
 2. Tomcat - Apache Tomcat 9.0<br/>
 3. Oracle - Oracle SQL Develop<br/>
 
-## 사용기술
-> Model-View-Controller구조<br/>
+
+# 사용기술
+- **Model-View-Controller구조**
 <div>
-<img src="./img/springMVC.png"></img>
+<img src="./img/SpringMVC.png"></img>
 </div>
-1. Model – JavaBean DI 및 어노테이션 활용(Business layer)<br/>
-2. View – JSP, HTML, Ajax 등을 이용(Presentation layer)<br/>
+
+1. *Model – JavaBean DI 및 어노테이션 활용(Business layer)*
+2. *View – JSP, HTML, Ajax 등을 이용(Presentation layer)*
 <div>
 <img src="./img/html.png"></img>
 </div>
-3. Controller – Client로부터 HTTP Request수신<br/>  
 
-> MyBatis : DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리 <br/>
+3. *Controller – Client로부터 HTTP Request수신*
+
+- **MyBatis**
+    *DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리*
 <div>
 <img src="./img/MyBatis.jpg"></img>
 </div>
 
-> RestAPI & JSON : Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리함) <br/>
+- **RestAPI & JSON**
+    *Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)* 
 <div>
 <img src="./img/restapi.png"></img>
 <img src="./img/json.png"></img>
 </div>
 
-> Interceptor : 로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사<br/>
+- **Interceptor**
+    *로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사*
 
-> Validator<br/> : 아이디, 비밀번호 등 조건 추가 통해 안정성 향상
+- **Validator**
+    *아이디, 비밀번호 등 조건 추가 통해 안정성 향상*
 
-> Oracle DB
+- **Oracle DB**
 <div>
 <img src="./img/oracle.jpg"></img>
 </div>
