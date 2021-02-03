@@ -20,7 +20,7 @@
 # 사용기술
 - **Model-View-Controller구조 FLOW**  
 <div>
-<img src="./img/SpringMVC.png" width="90%"></img>
+<img src="./img/SpringMVC.png" width="90%" class="center"></img>
 </div>
   
 1. *Model – JavaBean DI 및 어노테이션 활용(Business layer)*
@@ -31,14 +31,14 @@
 - **MyBatis**  
     *DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리*
 <div>
-<img src="./img/mybatis.jpg" width="90%"></img>
+<img src="./img/mybatis.jpg" width="90%" class="center"></img>
 </div>
 
 - **RestAPI & JSON**  
     *Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)* 
 <div>
-<img src="./img/restapi.png" width="80%"></img>
-<img src="./img/json.jpg" width="10%"></img>
+<img src="./img/restapi.png" width="50%"></img>
+<img src="./img/json.jpg" width="40%"></img>
 </div>
 
 - **Interceptor**  
@@ -46,11 +46,6 @@
 
 - **Validator**  
     *아이디, 비밀번호 등 조건 추가 통해 안정성 향상*
-
-- **Oracle DB**
-<div>
-<img src="./img/oracle.jpg"></img>
-</div>
 
 ## 자세한 DEMO나 구현 내용 Google 공유 드라이브에 첨부
 https://drive.google.com/drive/folders/1p_mnWSnahLpD0WB9pcjpoYCqi1PGvphS
