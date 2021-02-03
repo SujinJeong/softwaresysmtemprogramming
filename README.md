@@ -19,10 +19,10 @@
 
 # 사용기술
 - **Model-View-Controller구조 FLOW**  
-<div style="text-align : center;">
+<p align ="center">
 <img src="./img/SpringMVC.png" width="80%" class="center"></img>
 <img src="./img/html.png" width="80%"></img>
-</div>
+</p>
   
 1. *Model – JavaBean DI 및 어노테이션 활용(Business layer)*
 2. *View – JSP, HTML, Ajax 등을 이용(Presentation layer)*
@@ -30,16 +30,16 @@
 
 - **MyBatis**  
     *DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리*
-<div style="text-align : center;">
+<p align ="center">
 <img src="./img/mybatis.jpg" width="90%"></img>
-</div>
+</p>
 
 - **RestAPI & JSON**  
     *Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)* 
-<div style="text-align : center;">
+<p align ="center">
 <img src="./img/restapi.png" width="50%"></img>
 <img src="./img/json.jpg" width="20%"></img>
-</div>
+</p>
 
 - **Interceptor**  
     *로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사*
