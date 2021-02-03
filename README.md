@@ -18,27 +18,27 @@
 
 
 # 사용기술
-- **Model-View-Controller구조**  
+- **Model-View-Controller구조 FLOW**  
 <div>
-<img src="./img/SpringMVC.png"></img>
-<img src="./img/html.png"></img>
+<img src="./img/SpringMVC.png" width="90%"></img>
 </div>
   
 1. *Model – JavaBean DI 및 어노테이션 활용(Business layer)*
 2. *View – JSP, HTML, Ajax 등을 이용(Presentation layer)*
+<img src="./img/html.png" width="50%"></img>
 3. *Controller – Client로부터 HTTP Request수신*
 
 - **MyBatis**  
     *DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리*
 <div>
-<img src="./img/myBatis.jpg"></img>
+<img src="./img/mybatis.jpg" width="90%"></img>
 </div>
 
 - **RestAPI & JSON**  
     *Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)* 
 <div>
-<img src="./img/restapi.png"></img>
-<img src="./img/json.jpg"></img>
+<img src="./img/restapi.png" width="80%"></img>
+<img src="./img/json.jpg" width="10%"></img>
 </div>
 
 - **Interceptor**  
