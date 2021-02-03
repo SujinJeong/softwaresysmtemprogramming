@@ -1,5 +1,6 @@
 # 2020-1 System Software Develop Spring Project
-> 소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템(소상공인을 위한 ERP)<h3>
+- **소규모 디자인/팬시 문구점을 운영하는 개인 사업자를 위한 미니 POS 시스템**
+    *소상공인을 위한 ERP)*
 
 <div>
 <img src="https://user-images.githubusercontent.com/64065318/99981952-50bd1480-2ded-11eb-96f9-4e97c38859c2.GIF" width="90%"></img>
@@ -9,22 +10,22 @@
 
 
 # 개발환경
+```java
 1. 개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4<br/>
 2. Tomcat - Apache Tomcat 9.0<br/>
 3. Oracle - Oracle SQL Develop<br/>
+```
 
 
 # 사용기술
 - **Model-View-Controller구조**
 <div>
 <img src="./img/SpringMVC.png"></img>
+<img src="./img/html.png"></img>
 </div>
 
 1. *Model – JavaBean DI 및 어노테이션 활용(Business layer)*
 2. *View – JSP, HTML, Ajax 등을 이용(Presentation layer)*
-<div>
-<img src="./img/html.png"></img>
-</div>
 
 3. *Controller – Client로부터 HTTP Request수신*
 
@@ -54,3 +55,9 @@
 
 ## 자세한 DEMO나 구현 내용 Google 공유 드라이브에 첨부
 https://drive.google.com/drive/folders/1p_mnWSnahLpD0WB9pcjpoYCqi1PGvphS
+
+
+# Author
+[Sujin](https://github.com/SujinJeong)
+- Blog : https://blog.naver.com/lovesujin051
+- E-mail : lovesujin05173@gmail.com
