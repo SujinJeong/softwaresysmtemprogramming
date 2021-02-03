@@ -29,23 +29,23 @@
 3. *Controller – Client로부터 HTTP Request수신*
 
 - **MyBatis**  
-    *DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리*
+    * DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리
 <p align ="center">
 <img src="./img/mybatis.jpg" width="90%"></img>
 </p>
 
 - **RestAPI & JSON**  
-    *Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)* 
+    * Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리)
 <p align ="center">
 <img src="./img/restapi.png" width="50%"></img>
 <img src="./img/json.jpg" width="20%"></img>
 </p>
 
 - **Interceptor**  
-    *로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사*
+    * 로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사
 
 - **Validator**  
-    *아이디, 비밀번호 등 조건 추가 통해 안정성 향상*
+    * 아이디, 비밀번호 등 조건 추가 통해 안정성 향상
 
 ## 자세한 DEMO나 구현 내용 Google 공유 드라이브에 첨부
 https://drive.google.com/drive/folders/1p_mnWSnahLpD0WB9pcjpoYCqi1PGvphS
