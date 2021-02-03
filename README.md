@@ -8,33 +8,38 @@
 <div>
 
 ## 개발환경
-개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4<br/>
-Tomcat - Apache Tomcat 9.0<br/>
-Oracle - Oracle SQL Develop<br/>
+1. 개발IDE - Eclipse IDE for Java EE Developer , SpringToolSuite4<br/>
+2. Tomcat - Apache Tomcat 9.0<br/>
+3. Oracle - Oracle SQL Develop<br/>
 
 ## 사용기술
-> 1. Model-View-Controller구조<br/>
+> Model-View-Controller구조<br/>
 <div>
 <img src="./img/springMVC.png"></img>
 </div>
-Model – JavaBean DI 및 어노테이션 활용(Business layer)<br/>
-View – JSP, HTML, Ajax 등을 이용(Presentation layer)<br/>
+1. Model – JavaBean DI 및 어노테이션 활용(Business layer)<br/>
+2. View – JSP, HTML, Ajax 등을 이용(Presentation layer)<br/>
 <div>
 <img src="./img/html.png"></img>
 </div>
-Controller – Client로부터 HTTP Request수신<br/>
-> 2. MyBatis : DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리 <br/>
+3. Controller – Client로부터 HTTP Request수신<br/>  
+
+> MyBatis : DB CRUD기능 분리, SQL문을 사용, DAO클래스 및 mapper를 이용해 DB관리 <br/>
 <div>
 <img src="./img/MyBatis.jpg"></img>
 </div>
-> 3. RestAPI & JSON : Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리함) <br/>
+
+> RestAPI & JSON : Client와 통신을 통한 양방향 소통 구현(view와 controller사이에서의 데이터를 처리함) <br/>
 <div>
 <img src="./img/restapi.png"></img>
 <img src="./img/json.png"></img>
 </div>
-> 4. Interceptor : 로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사<br/>
-> 5. Validator<br/>
-> 6. Oracle DB
+
+> Interceptor : 로그인이 필요한 부분에서 Interceptor 구현 통해 session 검사<br/>
+
+> Validator<br/> : 아이디, 비밀번호 등 조건 추가 통해 안정성 향상
+
+> Oracle DB
 <div>
 <img src="./img/oracle.jpg"></img>
 </div>
