@@ -58,3 +58,6 @@ https://drive.google.com/drive/folders/1p_mnWSnahLpD0WB9pcjpoYCqi1PGvphS
 
 [Sunhee](https://github.com/Han7sunny)
 - E-mail : xoa1235@gmail.com
+
+[Yegeon](https://github.com/geoni153)
+- E-mail : dldprjs@gmail.com
